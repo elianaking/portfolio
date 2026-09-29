@@ -163,15 +163,10 @@ const PROJECTS = [
   },
 ];
 
-/* Fabrication page: things you built. Each "stage" is one step of the build.
+/* Fabrication page: standalone builds that show your making skills (featured projects
+   live in PROJECTS instead). Each "stage" is one step of the build. "note" is optional.
    Images: images/fabrication/<slug>-1.jpg, -2.jpg … one per stage. */
 const FABRICATION = [
-  { title: 'UFP whale showpiece', materials: 'TPU film, open-cell foam, TPU tubing, valves', slug: 'ufp',
-    note: 'Die cut, sealed, stuffed, and assembled by hand during my internship at UFP Technologies.',
-    stages: ['Dies', 'Sealing', 'Stuffing', 'Finished'] },
-  { title: 'Boot prototypes', materials: 'TPU, translucent PLA, glass', slug: 'boot',
-    note: 'Three rounds of prints to get the fit right. The final boot holds the glass snugly and still lets go when you pull.',
-    stages: ['Iterations', 'Final fit', 'Cowboy boot'] },
   { title: 'Walnut side table', materials: 'Black walnut, brass inlay', slug: 'table',
     note: 'My first piece with hand-cut dovetails. Three test joints came before this one.',
     stages: ['Rough stock', 'Milled', 'Joinery', 'Finished'] },
@@ -1072,7 +1067,7 @@ if (page === 'fabrication') {
       <div class="fab-text">
         <h3>${esc(f.title)}</h3>
         <p class="fab-mat">${esc(f.materials)}</p>
-        <p>${esc(f.note)}</p>
+        ${f.note ? `<p>${esc(f.note)}</p>` : ''}
       </div>
     </li>`).join('');
 
