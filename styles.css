@@ -340,7 +340,28 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .case-sec > div { grid-column: 5 / span 8; }
 .case-sec p { font-size: var(--fs-lead); line-height: 1.55; max-width: 58ch; margin: 0; }
 .case-block { margin-bottom: var(--block-gap); }
+/* Market comparison table (optional per project) */
+.market { width: 100%; border-collapse: collapse; font-size: 0.95rem; line-height: 1.5; }
+.market th, .market td { text-align: left; vertical-align: top; padding: 14px 20px 14px 0; border-bottom: 1px solid var(--line); }
+.market thead th { padding-top: 0; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; color: var(--ink-soft); }
+.market tbody th { font-weight: 600; }
+.market td { color: var(--ink-soft); }
+.market .market-price { color: var(--ink); white-space: nowrap; }
+.case-sec .market-takeaway { margin-top: 28px; padding: 20px 24px; max-width: none; background: var(--surface); border-radius: var(--radius-m); font-size: 1.05rem; }
+.market-takeaway b { font-weight: 600; }
+@media (max-width: 760px) {
+  /* Phones: each product becomes a small card */
+  .market, .market tbody, .market tr, .market th, .market td { display: block; }
+  .market thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .market tr { padding: 16px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: var(--radius-m); }
+  .market th, .market td { padding: 0; border: 0; }
+  .market tbody th { font-size: 1.05rem; margin-bottom: 10px; }
+  .market td { margin-top: 8px; }
+  .market td::before { content: attr(data-label); display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+  .market .market-price { white-space: normal; }
+}
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap); row-gap: clamp(40px, 5vw, 64px); }
+.step:last-child:nth-child(odd) { grid-column: 1 / -1; }   /* an odd last step gets the full width */
 .step h4 { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; margin: 20px 0 8px; }
 .step-n { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--tape); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0; }
 .step p { color: var(--ink-soft); margin: 0; max-width: 46ch; }
@@ -366,7 +387,7 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .about-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 40px; align-items: start; }
 .about-photo { grid-column: 1 / span 5; max-width: 440px; transform: rotate(-2.5deg); }
 .about-photo:hover { transform: rotate(0deg); }
-.about-copy { grid-column: 7 / span 6; }
+.about-copy { grid-column: 1 / span 8; }
 .about-copy p { font-size: var(--fs-lead); line-height: 1.55; max-width: 52ch; }
 .about-copy p:first-child { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem); line-height: 1.2; letter-spacing: -0.02em; }
 .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px var(--gap); margin: 40px 0 0; padding-top: 28px; border-top: 1px solid var(--line); }

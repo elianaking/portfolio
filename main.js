@@ -20,8 +20,7 @@ const SITE = {
   instagram: 'https://www.instagram.com/eyk.art/',
   instagramHandle: '@eyk.art',
   resume: 'resume.pdf',          // put resume.pdf next to the HTML pages
-  heroPhoto: { src: 'images/eliana.jpg', alt: 'Eliana King in the design studio', label: 'Your photo', ar: [4, 5] },
-  aboutPhoto: { src: 'images/eliana-shop.jpg', alt: 'Eliana working in the wood shop', label: 'You at work', ar: [4, 5] },
+  heroPhoto: { src: 'images/eliana.jpg', alt: 'Eliana King smiling on the beach at sunset, leaning on a lifeguard stand', label: 'Your photo', ar: [4, 5] },
 };
 
 /* PLACEHOLDER PROJECTS: swap in your real ones.
@@ -41,12 +40,21 @@ const PROJECTS = [
     context: 'Semiotics class',
     role: 'Research, concepting, CAD, 3D printing, rendering', timeline: '', team: 'Solo',
     cover: 'images/boot/cover.jpg', coverAlt: 'A glass standing in a purple silicone boot, with red, brown, gray, and tan boots floating around it',
-    problem: 'Coasters get forgotten or misplaced, and condensation leaves wet tables, slippery cups, and water rings behind. I wanted surface protection to feel intuitive and built into the act of drinking, instead of one more thing to remember.',
+    problem: 'Condensation seems minor, but it causes real everyday frustration: wet tables, slippery cups, and water rings. Boot builds the coaster into the cup itself. Its snug, reusable silicone base catches condensation and adds grip and protection, while the playful boot form lets you tell your drink apart by color and style.',
+    // Optional on any project: a comparison table shown between Problem and Process
+    market: {
+      rows: [
+        { product: 'Corkcicle Classic Coffee Mug', base: 'Silicone “stay put” bottom', price: '$34.95', note: 'Keeps an insulated mug from sliding. Rated 4.9 across 1,396 reviews.' },
+        { product: 'Bacardi Cork Base Mug', base: 'Built-in cork coaster', price: '$16', note: 'Protects surfaces, but the cork is fused to an opaque ceramic mug.' },
+        { product: 'Circo Labs Rolocoasters', base: 'Merino wool felt sleeve', price: '$60 for a set of 4', note: 'Catches condensation, but the sleeve is a separate piece that sells with the glasses.' },
+      ],
+      takeaway: 'Existing options either fuse the base to an opaque mug or sell it as a separate accessory. Boot keeps the glass clear and makes the base a removable, expressive part of the cup, with a personality none of them have.',
+    },
+    // "ar" is each process image's shape (width, height), so nothing gets cropped
     process: [
-      { title: 'Explore', text: 'Sketched base profiles and ways to integrate a coaster, testing circular, square, and wavy rims to find a clean connection between cup and base.' },
-      { title: 'Concept', text: 'Developed three directions: a spiral ring, a structured ring, and a boot form. The boot won because it merges protection and personality into one familiar shape.' },
-      { title: 'Prototype', text: "Printed three rounds of models. The first was too big and clunky, the second's toe box was too flat, and by the third the boot became its own part, printed in flexible TPU." },
-      { title: 'Refine', text: 'Tuned the tolerances until the glass slides in and out snugly, then printed final boots in yellow and brown TPU, including a cowboy boot fitted to a real glass.' },
+      { title: 'Initial exploration', ar: [2000, 1299], text: 'Explored base profiles and ways to build a coaster into the cup, keeping a clean visual connection between glass and base. The goal was to merge protection and personality in one seamless gesture.' },
+      { title: 'Boot form concepts', ar: [2000, 1378], text: "Sketched variations that pair a coaster's function with the iconic silhouette of a boot. The form bridges practicality and expression, and each variation brings its own personality, turning the cup into a conversation piece." },
+      { title: '3D printing', ar: [2000, 1305], text: 'Early prints refined fit and proportion: reshaping the toe box, slimming the glass, and separating the boot into its own flexible TPU piece. The final round dialed in the tolerance so the glass slides in and out snugly, printed in yellow TPU with translucent PLA. A cowboy version in brown TPU was printed to fit a real drinking glass.' },
     ],
     outcome: "A glass paired with a snug bio-silicone boot that catches condensation, adds grip, and protects the table. Each boot has its own color and style, so it also tells you whose drink is whose and turns a practical feature into a conversation piece.",
     tools: ['CAD', '3D printing (TPU, PLA)', 'Rendering', 'Material research'],
@@ -507,7 +515,6 @@ let requestCloseCase = () => {};
 if (isHome) {
   /* ---- G1. Content ---- */
   $('#hero-photo').innerHTML = media({ ...SITE.heroPhoto, lazy: false });
-  $('#about-photo').innerHTML = media(SITE.aboutPhoto);
 
   const featured = PROJECTS.filter((p) => p.featured);
   $('#work-count').textContent = `(${featured.length})`;
@@ -803,11 +810,27 @@ if (isHome) {
         <section class="case-block case-fade" aria-labelledby="h-problem">
           <div class="case-sec"><h3 id="h-problem">Problem</h3><div><p>${esc(p.problem)}</p></div></div>
         </section>
+        ${p.market ? `<section class="case-block case-fade" aria-labelledby="h-market">
+          <div class="case-sec"><h3 id="h-market">Market</h3><div>
+            <table class="market">
+              <thead><tr><th scope="col">Product</th><th scope="col">Base</th><th scope="col">Price</th><th scope="col">What it does</th></tr></thead>
+              <tbody>${p.market.rows.map((r) => `
+                <tr>
+                  <th scope="row">${esc(r.product)}</th>
+                  <td data-label="Base">${esc(r.base)}</td>
+                  <td data-label="Price" class="market-price">${esc(r.price)}</td>
+                  <td data-label="What it does">${esc(r.note)}</td>
+                </tr>`).join('')}
+              </tbody>
+            </table>
+            ${p.market.takeaway ? `<p class="market-takeaway"><b>Where ${esc(p.title.split(' ')[0])} fits:</b> ${esc(p.market.takeaway)}</p>` : ''}
+          </div></div>
+        </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-process">
           <div class="case-sec"><h3 id="h-process">Process</h3><div></div></div>
           <ol class="steps">${p.process.map((s, i) => `
             <li class="step">
-              ${img(`process-${i + 1}`, `${p.title} process: ${s.title}`, `${p.title}, process ${i + 1}`)}
+              ${img(`process-${i + 1}`, `${p.title} process: ${s.title}`, `${p.title}, process ${i + 1}`, s.ar)}
               <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
               <p>${esc(s.text)}</p>
             </li>`).join('')}
