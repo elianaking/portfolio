@@ -16,10 +16,10 @@
    ===================================================================== */
 const SITE = {
   email: 'elianakingdesign@outlook.com',
-  linkedin: 'https://www.linkedin.com/in/eliana-king-142a6525b',
+  linkedin: 'https://www.linkedin.com/in/eliana-kingid',
   instagram: 'https://www.instagram.com/eyk.art/',
   instagramHandle: '@eyk.art',
-  resume: 'resume.pdf',          // put resume.pdf next to the HTML pages
+  resume: 'Eliana_King_Resume.pdf',   // your resume PDF, next to the HTML pages
   heroPhoto: { src: 'images/eliana.jpg', alt: 'Eliana King smiling on the beach at sunset, leaning on a lifeguard stand', label: 'Your photo', ar: [4, 5] },
 };
 
@@ -76,13 +76,47 @@ const PROJECTS = [
       'Learn design for manufacturability and how choices made in CAD affect real production.',
       'Build real connections with my mentor and team by asking good questions and seeking feedback often.',
     ],
+    // Steps with "groups" show a labeled gallery; click any image to enlarge it.
+    // img: [file name in images/ufp, caption]
     process: [
-      { title: 'Ideas and concept', ar: [880, 701], text: 'Explored four directions, including a fidget, a turtle squishy, a wobbly creature, and a tic-tac-toe bag, then narrowed in on a whale. Renders and CAD settled its proportions and how the blowhole, tube, and body come together.' },
-      { title: 'Tooling design', ar: [1936, 1340], text: 'Modeled the tooling in SolidWorks: vacuum forming molds for the body, and magnesium dies for sealing the blowhole and tail and for die cutting the foam tails.' },
-      { title: 'The pivot', ar: [2000, 744], text: 'Compression molding the body in closed-cell foam gave inconsistent parts, since the foam heated unevenly and the tube channel would not form cleanly. I switched to vacuum forming the whale halves, designed magnesium dies to perimeter-seal them together, and 3D printed new forming molds.' },
-      { title: 'Fabrication', ar: [1816, 1816], text: 'Built the whale by hand: panel cutting and die cutting the film and foam, hot stamping the tail, vacuum forming, and sealing the tube, blowhole, tail, and body before stuffing the halves and joining them.' },
+      { title: 'Initial ideas', text: 'We started with four directions, each pairing a playful form with processes UFP already runs: a layered fidget, a turtle squishy, a wobbly creature, and Uic-Fac-Poe, a tic-tac-toe set with its own bag. All four were rendered in Vizcom.',
+        groups: [{ images: [['idea-fidget', 'UFP fidget'], ['idea-turtle', 'Turtle squishy'], ['idea-wobbly', 'Wobbly creature'], ['idea-uicfacpoe', 'Uic-Fac-Poe']] }] },
+      { title: 'Concept reevaluation', text: 'We chose the whale: a foam tail that works as a pump, pushing air through tubing and a check valve to inflate the blowhole. Quick AI renders tested the idea, then I worked out the proportions in CAD and sketched how the parts would come together.',
+        groups: [
+          { title: 'Quick AI renders', images: [['concept-cutaway', 'Cutaway of the pump system'], ['concept-render', 'First look at the form']] },
+          { title: 'Finding proportions in CAD', images: [['concept-cad', 'Body profile in SolidWorks'], ['concept-whiteboard', 'Whiteboard build plan'], ['concept-cad-whale', 'Whale model'], ['concept-section', 'Section study']] },
+        ] },
+      { title: 'Tooling design', text: 'I designed the tooling in SolidWorks, with a set of tools for every process the whale needed: forming, sealing, stamping, and cutting.',
+        groups: [
+          { title: 'Vacuum forming molds', images: [['tool-body-mold', 'Whale body mold'], ['tool-body-mold-mirror', 'Whale body mold, mirror'], ['tool-tube-mold', 'Tube channel mold'], ['tool-tube-mold-mirror', 'Tube channel mold, mirror']] },
+          { title: 'Sealing dies', images: [['tool-blowhole-seal', 'Blowhole perimeter seal'], ['tool-blowhole-seal-top', 'Blowhole perimeter seal, top'], ['tool-tail-seal', 'Tail and check valve perimeter seal'], ['tool-tail-seal-top', 'Tail and check valve perimeter seal, top']] },
+          { title: 'Magnesium dies', images: [['tool-body-mag-die', 'Body sealing die'], ['tool-tail-text-mag-die', 'Tail text die face']] },
+          { title: 'Die cuts', images: [['tool-foam-die-cut', 'Tail foam die cut'], ['tool-final-die-cut', 'Final die cut']] },
+          { title: 'Panel cuts', images: [['tool-tail-panel-cut', 'Tail panel cut'], ['tool-blowhole-panel-cut', 'Blowhole panel cut']] },
+        ] },
+      { title: 'The pivot', text: 'We first trialed compression molding the body in closed-cell foam in Chicopee, but the parts came out inconsistent: the foam heated unevenly and the tubing channel would not form cleanly. So we switched to vacuum forming the whale halves, I designed magnesium dies to perimeter-seal each half together, keeping the original foam look, and we 3D printed new molds for forming.',
+        groups: [{ images: [['pivot-compression', 'Compression molding trial'], ['pivot-foam', 'Compression-molded foam half'], ['pivot-mold', 'New 3D-printed forming mold']] }] },
+      { title: 'Fabrication', text: 'Each whale took more than a dozen steps, from cutting and stamping the film to forming, sealing, stuffing, and gluing it together.',
+        groups: [
+          { title: 'Material prep', images: [['fab-panel-blowhole', 'Panel cutting, blowhole'], ['fab-die-cut-foam', 'Die cutting the foam'], ['fab-panel-tail', 'Panel cutting, tail']] },
+          { title: 'Hot stamping', images: [['fab-hot-stamp-foil', 'Hot stamping setup'], ['fab-hot-stamp', 'Stamped tail text']] },
+          { title: 'Vacuum forming', images: [['fab-vac-body', 'Forming the body'], ['fab-vac-tube', 'Forming the tube channels'], ['fab-vac-tail', 'Formed tail film'], ['fab-vac-half', 'Formed body half']] },
+          { title: 'Sealing', images: [['fab-seal-release', 'Release valve seal'], ['fab-seal-blowhole', 'Perimeter seal, blowhole'], ['fab-seal-body', 'Perimeter seal, body'], ['fab-seal-tube', 'Tube seal, blowhole and tail'], ['fab-seal-tail', 'Perimeter seal, tail'], ['fab-seal-bar', 'Bar seal']] },
+          { title: 'Final cut and stuffing', images: [['fab-final-cut', 'Final cut die'], ['fab-stuffing', 'Stuffing the halves'], ['fab-stuffed', 'Stuffed body shell']] },
+        ] },
     ],
-    outcome: "A palm-sized whale made from clear and blue TPU film, with a foam-filled body, heat-sealed seams, and the UFP logo formed into its side. Inside, a tubing assembly links the tail to the blowhole: squeezing the tail pushes air through a check valve to inflate the blowhole, and a release valve lets the stored air back out. It met all four requirements.",
+    // Optional on any project: an order-of-operations strip and a materials list
+    timeline: [
+      ['Panel cutting', 'Tail and blowhole'], ['Hot stamp', 'Tail'], ['Vacuum form', 'Tail'], ['Release valve seal', 'Blowhole'],
+      ['Tube seal', 'Blowhole and tail'], ['Perimeter cut', 'Blowhole'], ['Perimeter seal', 'Foam into tail'], ['Perimeter cut', 'Tail'],
+      ['Pivot', 'Compression molding to vacuum forming', true], ['Vacuum form', 'Whale bodies'], ['Perimeter seal', 'Bodies'],
+      ['Stuff body shells', ''], ['Glue halves together', 'With the tube seal subassembly'],
+    ],
+    materials: {
+      'Tube assembly': ['Blue TPU film', 'TPU tubing', 'Open-cell foam', 'Black hot stamping foil', 'Release valves', 'Check valves'],
+      'Whale body': ['20 mil clear TPU film', '19 mil clear TPU film', 'Memory foam filler', 'Glue (Loctite 770 and 4011)'],
+    },
+    outcome: "A palm-sized whale with a clear TPU body filled with memory foam and a blue TPU tube assembly running from its foam tail to the blowhole. Squeezing the tail pushes air through a check valve to inflate the blowhole, and a release valve lets the stored air back out. The UFP logo is formed into the body, and the tail is hot-stamped with UFP's contact details. It met all four requirements.",
     nextTime: {
       Design: ['Vacuum form the blowhole so it can inflate more', 'Find a faster alternative to vacuum forming each body half', 'Shorten the tail to tuck the check valve inside the body'],
       Process: ['Align the tube seal more accurately, since it affects every step after it', 'Find a better way to stuff foam into the body, or a different filler'],
@@ -466,9 +500,9 @@ sheetLinks.forEach((a) => a.addEventListener('click', (e) => {
 /* =====================================================================
    F. LIGHTBOX (renderings + sketches pages): arrows, swipe, Esc
    ===================================================================== */
-const GALLERIES = { renderings: RENDERINGS, sketches: SKETCHES };
+const GALLERIES = { renderings: RENDERINGS, sketches: SKETCHES, case: [] };   // "case" fills in when a case study opens
 let lb = null, lbFrame = null, lbGallery = null, lbIndex = 0, lbReturn = null;
-if (GALLERIES[page]) {
+if (page === 'renderings' || page === 'sketches' || isHome) {
   document.body.insertAdjacentHTML('beforeend', `
     <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
       <div class="lb-bg"></div>
@@ -818,6 +852,7 @@ if (isHome) {
   let hiddenCard = null, caseReturnFocus = null;
 
   const caseHTML = (p) => {
+    GALLERIES.case = [];
     const next = PROJECTS[(PROJECTS.indexOf(p) + 1) % PROJECTS.length];
     const img = (name, alt, label, ar = [4, 3]) => media({ src: `images/${p.slug}/${name}.jpg`, alt, label, ar });
     return `
@@ -866,7 +901,16 @@ if (isHome) {
         </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-process">
           <div class="case-sec"><h3 id="h-process">Process</h3><div></div></div>
-          <ol class="steps">${p.process.map((s, i) => `
+          <ol class="steps">${p.process.map((s, i) => s.groups ? `
+            <li class="step step-wide">
+              <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
+              <p>${esc(s.text)}</p>
+              ${s.groups.map((g) => `<div class="step-group">${g.title ? `<h5>${esc(g.title)}</h5>` : ''}
+                <div class="gallery">${g.images.map(([file, cap]) => {
+                  const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar: [4, 3] }) - 1;
+                  return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar: [4, 3] })}</button><figcaption>${esc(cap)}</figcaption></figure>`;
+                }).join('')}</div></div>`).join('')}
+            </li>` : `
             <li class="step">
               ${img(`process-${i + 1}`, `${p.title} process: ${s.title}`, `${p.title}, process ${i + 1}`, s.ar)}
               <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
@@ -874,6 +918,15 @@ if (isHome) {
             </li>`).join('')}
           </ol>
         </section>
+        ${p.timeline ? `<section class="case-block case-fade" aria-labelledby="h-ops">
+          <div class="case-sec"><h3 id="h-ops">Order of operations</h3><div></div></div>
+          <ol class="timeline">${p.timeline.map(([t, d, pivot]) => `<li${pivot ? ' class="is-pivot"' : ''}><b>${esc(t)}</b>${d ? `<span>${esc(d)}</span>` : ''}</li>`).join('')}</ol>
+        </section>` : ''}
+        ${p.materials ? `<section class="case-block case-fade" aria-labelledby="h-mat">
+          <div class="case-sec"><h3 id="h-mat">Materials</h3><div class="next-cols">
+            ${Object.entries(p.materials).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
+          </div></div>
+        </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-outcome">
           <div class="case-sec"><h3 id="h-outcome">Outcome</h3><div><p>${esc(p.outcome)}</p></div></div>
           <div class="outcome-grid">
@@ -994,6 +1047,8 @@ if (isHome) {
   caseEl.addEventListener('click', (e) => {
     const nb = e.target.closest('.next-btn');
     if (nb) swapCase(nb.dataset.next);
+    const g = e.target.closest('.gfig-btn');
+    if (g) openLightbox('case', +g.dataset.lb, g);
   });
   window.addEventListener('popstate', () => {
     const m = location.hash.match(/^#case\/([\w-]+)/);
