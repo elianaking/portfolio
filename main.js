@@ -60,6 +60,36 @@ const PROJECTS = [
     tools: ['CAD', '3D printing (TPU, PLA)', 'Rendering', 'Material research'],
   },
   {
+    // REAL PROJECT
+    slug: 'ufp', featured: true,
+    title: 'UFP Tradeshow Showpiece',
+    summary: "A squeezable whale that shows off UFP's manufacturing processes in the palm of your hand.",
+    tags: ['CAD', 'Tooling', 'Manufacturing'],
+    context: 'CAD Internship, UFP Technologies',
+    role: 'CAD Intern', timeline: 'May to August', team: 'Intern team',
+    cover: 'images/ufp/cover.jpg', coverAlt: 'A clear blue whale filled with foam, resting in an open hand, with an inflated blowhole and a hot-stamped tail',
+    overview: "UFP Technologies wanted a small, eye-catching showpiece for an upcoming tradeshow, something functional that shows off what its plants can do. As a CAD intern, I worked with the intern team to research UFP's core capabilities and bring them together in a playful whale that fits in your hand. Squeeze its tail, and the blowhole inflates.",
+    // Optional on any project: a checklist, a goals list, and a "next time" section
+    requirements: ['Showcase at least two core competencies', 'Use at least three materials', 'Keep the footprint under 4" × 4"', 'Embed the UFP logo'],
+    goals: [
+      'Get more proficient in SolidWorks and practice clear, manufacturable 2D drawings, including dimensioning, section views, and BOMs.',
+      'Learn design for manufacturability and how choices made in CAD affect real production.',
+      'Build real connections with my mentor and team by asking good questions and seeking feedback often.',
+    ],
+    process: [
+      { title: 'Ideas and concept', ar: [880, 701], text: 'Explored four directions, including a fidget, a turtle squishy, a wobbly creature, and a tic-tac-toe bag, then narrowed in on a whale. Renders and CAD settled its proportions and how the blowhole, tube, and body come together.' },
+      { title: 'Tooling design', ar: [1936, 1340], text: 'Modeled the tooling in SolidWorks: vacuum forming molds for the body, and magnesium dies for sealing the blowhole and tail and for die cutting the foam tails.' },
+      { title: 'The pivot', ar: [2000, 744], text: 'Compression molding the body in closed-cell foam gave inconsistent parts, since the foam heated unevenly and the tube channel would not form cleanly. I switched to vacuum forming the whale halves, designed magnesium dies to perimeter-seal them together, and 3D printed new forming molds.' },
+      { title: 'Fabrication', ar: [1816, 1816], text: 'Built the whale by hand: panel cutting and die cutting the film and foam, hot stamping the tail, vacuum forming, and sealing the tube, blowhole, tail, and body before stuffing the halves and joining them.' },
+    ],
+    outcome: "A palm-sized whale made from clear and blue TPU film, with a foam-filled body, heat-sealed seams, and the UFP logo formed into its side. Inside, a tubing assembly links the tail to the blowhole: squeezing the tail pushes air through a check valve to inflate the blowhole, and a release valve lets the stored air back out. It met all four requirements.",
+    nextTime: {
+      Design: ['Vacuum form the blowhole so it can inflate more', 'Find a faster alternative to vacuum forming each body half', 'Shorten the tail to tuck the check valve inside the body'],
+      Process: ['Align the tube seal more accurately, since it affects every step after it', 'Find a better way to stuff foam into the body, or a different filler'],
+    },
+    tools: ['SolidWorks', '3D printing', 'Vacuum forming', 'Heat sealing', 'Hot stamping', 'Die cutting'],
+  },
+  {
     slug: 'pause', featured: true,
     title: 'Pause',
     summary: 'A desk timer you twist instead of tap, so study breaks actually happen.',
@@ -96,7 +126,7 @@ const PROJECTS = [
     tools: ['Rhino', 'KeyShot', 'Foam carving', 'Clay', 'Silicone casting'],
   },
   {
-    slug: 'drift', featured: true,
+    slug: 'drift', featured: false,
     title: 'Drift',
     summary: 'A wayfinding app and kiosk that help first-week students find their way.',
     tags: ['UX', 'Service design', 'Figma'],
@@ -136,6 +166,9 @@ const PROJECTS = [
 /* Fabrication page: things you built. Each "stage" is one step of the build.
    Images: images/fabrication/<slug>-1.jpg, -2.jpg … one per stage. */
 const FABRICATION = [
+  { title: 'UFP whale showpiece', materials: 'TPU film, open-cell foam, TPU tubing, valves', slug: 'ufp',
+    note: 'Die cut, sealed, stuffed, and assembled by hand during my internship at UFP Technologies.',
+    stages: ['Dies', 'Sealing', 'Stuffing', 'Finished'] },
   { title: 'Boot prototypes', materials: 'TPU, translucent PLA, glass', slug: 'boot',
     note: 'Three rounds of prints to get the fit right. The final boot holds the glass snugly and still lets go when you pull.',
     stages: ['Iterations', 'Final fit', 'Cowboy boot'] },
@@ -521,8 +554,7 @@ if (isHome) {
   $('#project-grid').innerHTML = featured.map((p) => `
     <li class="card" data-slug="${p.slug}" data-reveal>
       <a class="card-link" href="#case/${p.slug}" data-cursor="View project">
-        ${media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10] }, 'card-media')
-          .replace('<div class="ph-art"', '<span class="card-badge" aria-hidden="true">View</span><div class="ph-art"')}
+        ${media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10] }, 'card-media')}
         <div class="card-row"><h3 class="card-title">${esc(p.title)}</h3></div>
         <p class="card-summary">${esc(p.summary)}</p>
         <ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
@@ -547,12 +579,13 @@ if (isHome) {
     line.innerHTML = [...line.textContent.trim()].map((c) => `<span class="ch">${c}</span>`).join('');
   });
   const letters = $$('.hero-name .ch');
-  const letterColors = [cssVar('--orange'), cssVar('--blue'), cssVar('--green')];
+  // Colors the letters flash when they bounce. Edit or add hex codes here.
+  const letterColors = ['#450E9E', '#316479', '#429BBD', '#B3CAD6'];
   const inkColor = cssVar('--ink');
   const popLetter = (ch, delay = 0) => {
     if (!motionOK || gsap.isTweening(ch)) return;
     gsap.timeline({ delay })
-      .to(ch, { yPercent: -22, rotation: rand(-14, 14), scale: 1.08, color: letterColors[Math.floor(Math.random() * 3)], duration: 0.22, ease: 'power2.out' })
+      .to(ch, { yPercent: -22, rotation: rand(-14, 14), scale: 1.08, color: letterColors[Math.floor(Math.random() * letterColors.length)], duration: 0.22, ease: 'power2.out' })
       .to(ch, { yPercent: 0, rotation: 0, scale: 1, duration: 1, ease: 'elastic.out(1, 0.35)' })
       .to(ch, { color: inkColor, duration: 0.6 }, '-=0.3');
   };
@@ -807,9 +840,19 @@ if (isHome) {
         ${p.overview ? `<section class="case-block case-fade" aria-labelledby="h-overview">
           <div class="case-sec"><h3 id="h-overview">Overview</h3><div><p>${esc(p.overview)}</p></div></div>
         </section>` : ''}
-        <section class="case-block case-fade" aria-labelledby="h-problem">
+        ${p.problem ? `<section class="case-block case-fade" aria-labelledby="h-problem">
           <div class="case-sec"><h3 id="h-problem">Problem</h3><div><p>${esc(p.problem)}</p></div></div>
-        </section>
+        </section>` : ''}
+        ${p.requirements ? `<section class="case-block case-fade" aria-labelledby="h-req">
+          <div class="case-sec"><h3 id="h-req">Requirements</h3><div>
+            <ul class="checklist">${p.requirements.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+          </div></div>
+        </section>` : ''}
+        ${p.goals ? `<section class="case-block case-fade" aria-labelledby="h-goals">
+          <div class="case-sec"><h3 id="h-goals">My goals</h3><div>
+            <ol class="goal-list">${p.goals.map((g) => `<li>${esc(g)}</li>`).join('')}</ol>
+          </div></div>
+        </section>` : ''}
         ${p.market ? `<section class="case-block case-fade" aria-labelledby="h-market">
           <div class="case-sec"><h3 id="h-market">Market</h3><div>
             <table class="market">
@@ -844,6 +887,11 @@ if (isHome) {
             ${img('outcome-3', `${p.title}, in use`, `${p.title}, outcome 3`)}
           </div>
         </section>
+        ${p.nextTime ? `<section class="case-block case-fade" aria-labelledby="h-next">
+          <div class="case-sec"><h3 id="h-next">What I'd do next time</h3><div class="next-cols">
+            ${Object.entries(p.nextTime).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
+          </div></div>
+        </section>` : ''}
         <nav class="case-next case-fade" aria-label="Next project">
           <button type="button" class="next-btn" data-next="${next.slug}" data-cursor="Next"><span class="next-label">Next project</span><span class="next-title">${esc(next.title)}</span></button>
         </nav>
