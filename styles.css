@@ -547,6 +547,12 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .fab-group + .fab-group { margin-top: 28px; }
 .fab-group-title { margin: 0 0 10px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; color: var(--ink-soft); }
 @media (max-width: 860px) { .fab-copy, .fab-intro .fab { grid-column: 1 / -1; } }
+.fab-cards .card-media { --ar: 4 / 3; }   /* Fabrication cards use 4:3 covers */
+.fab-mini { margin-top: 14px; }
+.fab-mini .fab-media { aspect-ratio: 16 / 9; }
+.fab-mini .fab-progress { margin-top: 10px; }
+.fab-mini .fab-steps button { padding-top: 8px; font-size: 0.72rem; }
+.case-inner.fab-case { max-width: calc(var(--max)); padding-top: 12px; }   /* opened build uses the full page width */
 
 /* =====================================================================
    15. RENDERINGS PAGE (gallery + lightbox)

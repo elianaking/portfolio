@@ -224,11 +224,17 @@ const PROJECTS = [
    groups: process photos, [file, [width, height]]; click any to enlarge. */
 const FAB_PROJECTS = [
   {
+    slug: 'ramen',
     title: 'Ramen Bowl and Chopsticks',
     kicker: 'Kitchen tool project',
+    // Card on the Fabrication page: a 4:3 key photo, with the process graphic under it
+    summary: 'A handmade cherry ramen bowl and chopsticks that invite a slower, more mindful meal.',
+    tags: ['Woodworking', 'Lathe turning', 'Cherry'],
+    key: 'ramen-key',
     text: "Many people overlook the rich, delicate flavors of authentic ramen by reaching for quick options like microwaveable cup noodles, which are often eaten in a rush without appreciating the dish’s complexity and cultural roots. A handmade wooden ramen bowl and custom chopsticks can transform the experience, enhancing the meal’s presentation and encouraging a slower, more mindful way of eating. The natural texture and feel of these tools add depth to enjoying the dish, making it easier to appreciate the care and tradition behind authentic ramen.",
     materials: [['Ramen bowl', 'Cherry'], ['Chopsticks', 'Cherry, black walnut, maple'], ['Chopstick holders', 'Cherry, black walnut, maple']],
-    stages: [['ramen-stage-1', 'Cherry board'], ['ramen-stage-2', 'Segmented rings'], ['ramen-stage-3', 'Glue-up'], ['ramen-stage-4', 'Turning'], ['ramen-stage-5', 'Finished']],
+    // Process stages, [file, label]. Each needs a 4:3 file (opened view) and a 16:9 "-wide" file (card).
+    stages: [['ramen-step-1', 'Research'], ['ramen-step-2', 'Sketch'], ['ramen-step-3', 'Wood'], ['ramen-step-4', 'Mid-process'], ['ramen-step-5', 'Done']],
     interviews: [
       { name: 'Taegan', meta: ['Age 19', 'Student', 'Cooks every day'], notes: [
         ['Favorite tools', ['Microplane for zesting lemons: small and efficient']],
@@ -1264,55 +1270,59 @@ const watchRows = () => {
    H. FABRICATION PAGE: move across a photo to step through the build
    ===================================================================== */
 if (page === 'fabrication') {
-  let k = 0;
-  const tile = ([f, ar], title) => {
-    const i = k++;
-    return `<button class="jitem" type="button" data-index="${i}" data-cursor="Open" style="--arn:${(ar[0] / ar[1]).toFixed(3)}" aria-label="Enlarge: ${esc(title)}">
-      ${media({ src: `images/fabrication/${f}.jpg`, alt: title, label: title, ar })}</button>`;
-  };
-  $('#fab-projects').innerHTML = FAB_PROJECTS.map((p) => `
+  // where each project's photos start in the shared enlarged-view list
+  const starts = []; let acc = 0;
+  FAB_PROJECTS.forEach((p) => { starts.push(acc); p.groups.forEach((g) => { acc += g.images.length; }); });
+
+  const projectHTML = (p, pi) => {
+    let k = starts[pi];
+    const tile = ([f, ar], title) => {
+      const i = k++;
+      return `<button class="jitem" type="button" data-index="${i}" data-cursor="Open" style="--arn:${(ar[0] / ar[1]).toFixed(3)}" aria-label="Enlarge: ${esc(title)}">
+        ${media({ src: `images/fabrication/${f}.jpg`, alt: title, label: title, ar })}</button>`;
+    };
+    return `
     <article class="fab-project">
       <div class="fab-intro">
-        <div class="fab-copy" data-reveal>
+        <div class="fab-copy case-fade">
           ${p.kicker ? `<p class="case-kicker">${esc(p.kicker)}</p>` : ''}
-          <h2 class="fab-title">${esc(p.title)}</h2>
+          <h2 class="fab-title" id="case-title" tabindex="-1">${esc(p.title)}</h2>
           <p class="fab-text">${esc(p.text)}</p>
-          ${p.materials ? `<dl class="fab-materials">${p.materials.map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>` : ''}
+          ${p.materials ? `<dl class="fab-materials">${p.materials.map(([x, y]) => `<div><dt>${esc(x)}</dt><dd>${esc(y)}</dd></div>`).join('')}</dl>` : ''}
         </div>
-        <div class="fab" data-reveal>
+        <div class="fab">
           <div class="fab-media" data-cursor="Scrub" aria-hidden="true">
-            ${p.stages.map(([f, label], j) => media({ src: `images/fabrication/${f}.jpg`, alt: `${p.title}, ${label.toLowerCase()}`, label, ar: [4, 3] }, j === p.stages.length - 1 ? 'is-active' : '')).join('')}
+            ${p.stages.map(([f, label], j) => media({ src: `images/fabrication/${f}.jpg`, alt: `${p.title}, ${label.toLowerCase()}`, label, ar: [4, 3], lazy: false }, j === p.stages.length - 1 ? 'is-active' : '')).join('')}
           </div>
-          <div class="fab-progress" aria-hidden="true"><span></span></div>
-          <ol class="fab-steps" style="--n:${p.stages.length}" aria-label="${esc(p.title)} build stages">
+          <div class="fab-progress case-fade" aria-hidden="true"><span></span></div>
+          <ol class="fab-steps case-fade" style="--n:${p.stages.length}" aria-label="${esc(p.title)} build stages">
             ${p.stages.map(([, label], j) => `<li><button type="button" aria-pressed="${j === p.stages.length - 1}">${j + 1}. ${esc(label)}</button></li>`).join('')}
           </ol>
         </div>
       </div>
-      ${p.interviews ? `<section class="fab-block" aria-label="Research interviews">
-        <h3 class="fab-h3" data-reveal>Research interviews</h3>
+      ${p.interviews ? `<section class="fab-block case-fade" aria-label="Research interviews">
+        <h3 class="fab-h3">Research interviews</h3>
         <div class="interviews">${p.interviews.map((v) => `
-          <div class="interview" data-reveal>
+          <div class="interview">
             <h4>${esc(v.name)}</h4>
             <p class="interview-meta">${v.meta.map(esc).join('<br>')}</p>
             ${v.notes.map(([h, items]) => `<h5>${esc(h)}</h5><ul>${items.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`).join('')}
           </div>`).join('')}</div>
       </section>` : ''}
-      <section class="fab-block" aria-label="Process photos">
-        <h3 class="fab-h3" data-reveal>Process</h3>
-        ${p.groups.map((g) => `<div class="fab-group" data-reveal><h5 class="fab-group-title">${esc(g.title)}</h5>
+      <section class="fab-block case-fade" aria-label="Process photos">
+        <h3 class="fab-h3">Process</h3>
+        ${p.groups.map((g) => `<div class="fab-group"><h5 class="fab-group-title">${esc(g.title)}</h5>
           <div class="jrow jrow-renders" data-phone-per="2" data-in-order="1">${g.images.map((im) => tile(im, `${p.title}: ${g.title.toLowerCase()}`)).join('')}</div></div>`).join('')}
       </section>
-    </article>`).join('');
+    </article>`;
+  };
 
   // drag across the photo to step through the build
-  $$('.fab').forEach((fab) => {
-    const stages = $$('.ph', fab);
-    const btns = $$('.fab-steps button', fab);
-    const bar = $('.fab-progress span', fab);
-    const mediaBox = $('.fab-media', fab);
+  const initScrub = (fab) => {
+    const stages = $$('.ph', fab), btns = $$('.fab-steps button', fab);
+    const bar = $('.fab-progress span', fab), mediaBox = $('.fab-media', fab);
     const n = stages.length;
-    let idx = n - 1;
+    let idx = stages.findIndex((s) => s.classList.contains('is-active'));
     const set = (i) => {
       if (i === idx) return;
       idx = i;
@@ -1325,12 +1335,114 @@ if (page === 'fabrication') {
       set(clamp(Math.floor(((e.clientX - r.left) / r.width) * n), 0, n - 1));
     });
     btns.forEach((b, j) => b.addEventListener('click', () => set(j)));
-  });
+  };
 
+  // project cards, like the home page
+  $('#fab-projects').innerHTML = `<ul class="projects fab-cards">${FAB_PROJECTS.map((p) => `
+    <li class="card" data-slug="${p.slug}" data-reveal>
+      <a class="card-link" href="#fab/${p.slug}" data-cursor="View project" tabindex="-1" aria-hidden="true">
+        ${media({ src: `images/fabrication/${p.key}.jpg`, alt: p.title, label: `${p.title} key photo`, ar: [4, 3] }, 'card-media')}
+      </a>
+      <div class="fab fab-mini">
+        <div class="fab-media" data-cursor="Scrub" aria-hidden="true">
+          ${p.stages.map(([f, label], j) => media({ src: `images/fabrication/${f}-wide.jpg`, alt: `${p.title}, ${label.toLowerCase()}`, label, ar: [16, 9] }, j === 0 ? 'is-active' : '')).join('')}
+        </div>
+        <div class="fab-progress" aria-hidden="true"><span style="transform:scaleX(${(1 / p.stages.length).toFixed(3)})"></span></div>
+        <ol class="fab-steps" style="--n:${p.stages.length}" aria-label="${esc(p.title)} process">
+          ${p.stages.map(([, label], j) => `<li><button type="button" aria-pressed="${j === 0}">${j + 1}. ${esc(label)}</button></li>`).join('')}
+        </ol>
+      </div>
+      <a class="card-link" href="#fab/${p.slug}" data-cursor="View project">
+        <div class="card-row"><h3 class="card-title">${esc(p.title)}</h3></div>
+        <p class="card-summary">${esc(p.summary || '')}</p>
+        ${p.tags && p.tags.length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+      </a>
+    </li>`).join('')}</ul>`;
+  $$('.fab-mini').forEach(initScrub);   // hover (or swipe) across the graphic to see the process
+
+  // the opened view reuses the case study overlay
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="case-title" hidden>
+      <div class="case-bg"></div>
+      <div class="case-scroll">
+        <div class="case-top">
+          <span class="case-crumb">Fabrication / <b id="case-crumb-title"></b></span>
+          <button class="btn btn-ghost btn-sm case-close" type="button">${X_ICON} Close</button>
+        </div>
+        <div class="case-inner fab-case" id="case-body"></div>
+      </div>
+    </div>`);
+  caseEl = $('#case');
+  const body = $('#case-body'), scroller = $('.case-scroll', caseEl), baseTitle = document.title;
+  let pushed = false, hidden = null, returnFocus = null;
+  const coverOf = (slug) => $(`.card[data-slug="${slug}"] .card-media`);
+  const flipFrom = (a, b) => ({ x: a.left - b.left, y: a.top - b.top, scaleX: a.width / b.width, scaleY: a.height / b.height, transformOrigin: '0 0' });
+
+  const open = (slug, fromCard) => {
+    const pi = FAB_PROJECTS.findIndex((x) => x.slug === slug);
+    if (pi < 0 || caseOpen === slug) return;
+    const p = FAB_PROJECTS[pi];
+    caseOpen = slug;
+    body.innerHTML = projectHTML(p, pi);
+    $('#case-crumb-title').textContent = p.title;
+    document.title = `${p.title} | Eliana King`;
+    returnFocus = $(`.card[data-slug="${slug}"] .card-link`);
+    caseEl.hidden = false; scroller.scrollTop = 0; lockScroll();
+    // photos already downloaded (like the cover) show instantly instead of fading in
+    $$('img', body).forEach((im) => { if (im.complete && im.naturalWidth) { im.style.transition = 'none'; im.classList.add('is-loaded'); } });
+    initScrub($('.fab', body)); fitRows();
+    const cover = coverOf(slug), target = $('.fab-media', body);
+    if (motionOK) {
+      const card = fromCard && cover ? cover.getBoundingClientRect() : null;
+      gsap.set('.case-fade', { opacity: 0, y: 30 });
+      gsap.fromTo('.case-bg', { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power2.out' });
+      gsap.fromTo('.case-top > *', { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, delay: 0.4 });
+      if (card) {
+        hidden = cover; cover.style.visibility = 'hidden';
+        gsap.fromTo(target, flipFrom(card, target.getBoundingClientRect()), { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.85, ease: 'expo.inOut', clearProps: 'transform' });
+      } else gsap.fromTo(target, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
+      gsap.to('.case-fade', { opacity: 1, y: 0, stagger: 0.07, duration: 0.9, ease: 'expo.out', delay: card ? 0.5 : 0.2 });
+    }
+    $('.case-close', caseEl).focus({ preventScroll: true });
+  };
+  const close = () => {
+    if (!caseOpen) return;
+    const slug = caseOpen; caseOpen = null;
+    const cover = coverOf(slug), target = $('.fab-media', body);
+    const done = () => {
+      caseEl.hidden = true; body.innerHTML = '';
+      if (hasGSAP) gsap.set(caseEl.children, { clearProps: 'opacity' });
+      if (hidden) { hidden.style.visibility = ''; hidden = null; }
+      unlockScroll(); document.title = baseTitle;
+      if (returnFocus) returnFocus.focus({ preventScroll: true });
+    };
+    if (motionOK) gsap.to(caseEl.children, { opacity: 0, duration: 0.35, onComplete: done });
+    else done();
+  };
+  requestCloseCase = () => {
+    if (pushed) { pushed = false; history.back(); }
+    else { history.replaceState(null, '', location.pathname + location.search); close(); }
+  };
   $('#fab-projects').addEventListener('click', (e) => {
+    const link = e.target.closest('.card-link');
+    if (!link || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    const slug = link.closest('.card').dataset.slug;
+    history.pushState({ fab: slug }, '', `#fab/${slug}`); pushed = true;
+    open(slug, false);
+  });
+  $('.case-close', caseEl).addEventListener('click', () => requestCloseCase());
+  caseEl.addEventListener('click', (e) => {
     const b = e.target.closest('.jitem');
     if (b) openLightbox('fabrication', +b.dataset.index, b);
   });
+  window.addEventListener('popstate', () => {
+    const m = location.hash.match(/^#fab\/([\w-]+)/);
+    if (m && caseOpen !== m[1]) open(m[1], false);
+    else if (!m && caseOpen) { pushed = false; close(); }
+  });
+  const deep = location.hash.match(/^#fab\/([\w-]+)/);   // link straight to a build, e.g. fabrication.html#fab/ramen
+  if (deep) open(deep[1], false);
   watchRows();
 }
 
