@@ -244,21 +244,26 @@ const FABRICATION = [
     stages: ['Pattern', 'Cut', 'Sewn', 'Finished'] },
 ];
 
-/* Renderings page. "span" is how wide the tile is on desktop (out of 12 columns). */
-const RENDERINGS = [
-  { title: 'Boot, floating colorways', src: 'images/renders/boot-floating.jpg', ar: [2000, 1545], span: 7 },
-  { title: 'Boot in bright colors', src: 'images/renders/boot-colors.jpg', ar: [1500, 1159], span: 5 },
-  { title: 'Boot in neutrals', src: 'images/renders/boot-neutrals.jpg', ar: [1500, 1159], span: 6 },
-  { title: 'Boot in warm tones', src: 'images/renders/boot-warm.jpg', ar: [1500, 1159], span: 6 },
-  { title: 'Pause on a study desk', src: 'images/renders/pause-desk.jpg', ar: [16, 10], span: 7 },
-  { title: 'Pause, exploded view', src: 'images/renders/pause-exploded.jpg', ar: [4, 5], span: 5 },
-  { title: 'Grip set in the kitchen', src: 'images/renders/grip-kitchen.jpg', ar: [1, 1], span: 4 },
-  { title: 'Grip handle detail', src: 'images/renders/grip-detail.jpg', ar: [1, 1], span: 4 },
-  { title: 'Concrete lamp at dusk', src: 'images/renders/lamp-dusk.jpg', ar: [1, 1], span: 4 },
-  { title: 'Haul on the handlebar', src: 'images/renders/haul-bike.jpg', ar: [4, 3], span: 6 },
-  { title: 'Haul color options', src: 'images/renders/haul-colors.jpg', ar: [4, 3], span: 6 },
-  { title: 'Drift kiosk in the quad', src: 'images/renders/drift-kiosk.jpg', ar: [21, 9], span: 12 },
+/* Renderings page: one section per project. Renders show large; sketches show small underneath.
+   Images live in images/renders/. Each item: [file name, [width, height]]. */
+const RENDER_SETS = [
+  { title: 'Boot “cups with sole”', rows: 2,   // optional: force how many rows the renders use
+    renders: [['boot-floating', [1600, 1200]], ['boot-colors', [1600, 1200]], ['boot-neutrals', [1600, 1200]], ['boot-warm', [1600, 1200]]] },
+  { title: 'Car Header',
+    renders: [['car-header-1', [760, 440]], ['car-header-2', [685, 445]], ['car-header-3', [675, 440]]] },
+  { title: 'Salt and Pepper Shakers',
+    renders: [['shakers-1', [1692, 952]], ['shakers-2', [1151, 952]], ['shakers-3', [975, 952]], ['shakers-4', [1052, 866]], ['shakers-5', [829, 952]], ['shakers-6', [773, 917]]],
+    sketches: [['shakers-sketch-1', [1415, 2200]], ['shakers-sketch-2', [1260, 1800]]] },
+  { title: 'Flatware',
+    renders: [['flatware-1', [1572, 952]], ['flatware-2', [1310, 952]]],
+    sketches: [['flatware-sketch-1', [952, 616]], ['flatware-sketch-2', [1020, 568]], ['flatware-sketch-3', [1004, 579]], ['flatware-sketch-4', [399, 1600]], ['flatware-sketch-5', [288, 1600]], ['flatware-sketch-6', [341, 1522]]] },
 ];
+// Flattened list for the enlarged view: every render and sketch, in page order
+const RENDERINGS = [];
+RENDER_SETS.forEach((set) => {
+  (set.renders || []).forEach(([f, ar]) => RENDERINGS.push({ title: set.title, src: `images/renders/${f}.jpg`, ar, kind: 'render' }));
+  (set.sketches || []).forEach(([f, ar]) => RENDERINGS.push({ title: `${set.title}, sketch`, src: `images/renders/${f}.jpg`, ar, kind: 'sketch' }));
+});
 
 /* Sketches page: one sketchbook table per set. Images live in images/sketches/.
    Each item: [file name, description (used for alt text and the enlarged view), [width, height]].
@@ -1220,17 +1225,51 @@ if (page === 'fabrication') {
    I. RENDERINGS PAGE
    ===================================================================== */
 if (page === 'renderings') {
-  $('#render-grid').innerHTML = RENDERINGS.map((r, i) => `
-    <li style="--span:${r.span}" data-reveal>
-      <button class="render-item" type="button" data-index="${i}" data-cursor="Open">
-        ${media({ src: r.src, alt: r.title, label: r.title, ar: r.ar })}
-        <span class="render-cap">${esc(r.title)}</span>
-      </button>
-    </li>`).join('');
-  $('#render-grid').addEventListener('click', (e) => {
-    const b = e.target.closest('.render-item');
+  let k = 0;
+  const tile = (it, cls) => {
+    const i = k++;
+    return `<button class="jitem ${cls}" type="button" data-index="${i}" data-cursor="Open" style="--arn:${(it.ar[0] / it.ar[1]).toFixed(3)}" aria-label="Enlarge: ${esc(it.title)}">
+      ${media({ src: it.src, alt: it.title, label: it.title, ar: it.ar })}</button>`;
+  };
+  $('#render-sets').innerHTML = RENDER_SETS.map((set) => {
+    const items = RENDERINGS.slice(k, k + (set.renders || []).length + (set.sketches || []).length);
+    const renders = items.filter((x) => x.kind === 'render'), sketches = items.filter((x) => x.kind === 'sketch');
+    return `<section class="render-set" data-reveal>
+      <h2 class="set-title">${esc(set.title)}</h2>
+      <div class="jrow jrow-renders"${set.rows ? ` data-rows="${set.rows}"` : ''}>${renders.map((it) => tile(it, '')).join('')}</div>
+      ${sketches.length ? `<div class="jrow jrow-sketches" aria-label="${esc(set.title)} sketches">${sketches.map((it) => tile(it, 'is-sketch')).join('')}</div>` : ''}
+    </section>`;
+  }).join('');
+  $('#render-sets').addEventListener('click', (e) => {
+    const b = e.target.closest('.jitem');
     if (b) openLightbox('renderings', +b.dataset.index, b);
   });
+
+  // Size each project's renders into balanced rows that fill the full width
+  const fitRows = () => {
+    $$('.jrow-renders').forEach((row) => {
+      const items = $$('.jitem', row), W = row.clientWidth, gap = W < 600 ? 10 : 16;
+      const ars = items.map((el) => parseFloat(el.style.getPropertyValue('--arn')));
+      const target = W < 600 ? W : clamp(W * 0.28, 220, 360);          // ideal row height
+      const total = ars.reduce((t, a) => t + a, 0);
+      const n = W < 600 ? items.length : Math.max(1, Math.min(items.length, +row.dataset.rows || Math.round(total * target / W)));
+      const rows = Array.from({ length: n }, () => ({ sum: 0, idx: [] }));
+      ars.map((a, i) => [a, i]).sort((x, y) => y[0] - x[0]).forEach(([a, i]) => {   // widest first, into the lightest row
+        const r = rows.reduce((m, x) => (x.sum < m.sum ? x : m)); r.sum += a; r.idx.push(i);
+      });
+      rows.sort((x, y) => Math.min(...x.idx) - Math.min(...y.idx));
+      const order = [];
+      rows.forEach((r) => {
+        r.idx.sort((x, y) => x - y);
+        const h = (W - gap * (r.idx.length - 1)) / r.sum;
+        r.idx.forEach((i) => { items[i].style.width = (ars[i] * h) + 'px'; items[i].style.height = h + 'px'; order.push(items[i]); });
+      });
+      order.forEach((el) => row.appendChild(el));   // keep rows together in reading order
+    });
+  };
+  fitRows();
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fitRows, 120); });
 }
 
 /* =====================================================================

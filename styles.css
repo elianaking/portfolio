@@ -522,6 +522,25 @@ html.nav-scrolled .nav-bg { opacity: 1; }
   .render-grid li { flex: 0 0 84%; scroll-snap-align: center; height: 110vw; max-height: 520px; }
 }
 
+/* Renderings: each project's renders fill rows at an even height; sketches sit small underneath */
+.render-set + .render-set { margin-top: clamp(56px, 7vw, 96px); }
+.jrow { display: flex; flex-wrap: wrap; gap: 16px; --h: clamp(200px, 26vw, 360px); }
+.jrow::after { content: ""; flex-grow: 1000; }   /* keeps a short last row from stretching */
+.jrow-renders { gap: 16px; }
+.jrow-renders::after { display: none; }
+.jrow-renders .jitem { flex: none; }   /* sizes set by main.js so each row fills the width */
+.jrow-renders .jitem .ph { height: 100%; aspect-ratio: auto; }
+.jitem { flex-grow: var(--arn); flex-shrink: 1; flex-basis: calc(var(--arn) * var(--h)); min-width: 0; padding: 0; border: 0; background: none; cursor: pointer; border-radius: var(--radius-m); overflow: hidden; }
+.jitem .ph { aspect-ratio: var(--ar); }
+.jitem .ph-label { display: none; }
+.jitem:hover img { transform: scale(1.03); }
+.jrow-sketches { --h: clamp(80px, 9vw, 120px); gap: 10px; margin-top: 16px; }
+.jrow-sketches::after { flex-grow: 100000; }
+.jitem.is-sketch { flex-grow: 0; border-radius: var(--radius-s); box-shadow: 0 0 0 1px var(--line); background: var(--paper); }
+.jitem.is-sketch .ph { background: var(--paper); border-radius: var(--radius-s); }
+.jitem.is-sketch .ph::after { display: none; }
+@media (max-width: 600px) { .jrow { --h: 150px; gap: 10px; } .jrow-renders { gap: 10px; } .jrow-sketches { --h: 72px; gap: 8px; } }
+
 .lb { position: fixed; inset: 0; z-index: 600; display: grid; place-items: center; }
 .lb-bg { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.97); }
 .lb-frame { position: relative; z-index: 1; width: min(88vw, calc(72vh * var(--arn, 1.333)), 1400px); touch-action: pan-y; }
