@@ -352,6 +352,7 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .gfig { margin: 0; }
 .gfig-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--radius-m); }
 .gfig .ph-label { display: none; }
+.gallery.is-wide { grid-template-columns: 1fr; }   /* one big image, e.g. a mood board */
 .gfig-btn:hover img, .gfig-btn:hover .ph-art { transform: scale(1.04); }
 .gfig figcaption { margin-top: 8px; font-size: 0.85rem; line-height: 1.35; color: var(--ink-soft); }
 @media (max-width: 560px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }

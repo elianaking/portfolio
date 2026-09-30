@@ -126,22 +126,50 @@ const PROJECTS = [
     tools: ['SolidWorks', '3D printing', 'Vacuum forming', 'Heat sealing', 'Hot stamping', 'Die cutting'],
   },
   {
-    slug: 'pause', featured: true,
-    title: 'Pause',
-    summary: 'A desk timer you twist instead of tap, so study breaks actually happen.',
-    tags: ['Interaction', 'Product', 'Arduino'],
-    context: 'Interaction Design Studio',
-    role: 'Research, form, electronics, app flows', timeline: '10 weeks', team: 'Solo',
-    cover: 'images/pause/cover.jpg', coverAlt: 'Pause, an aluminum dial timer, on a wooden study desk',
-    problem: 'Students I interviewed kept skipping breaks. Phone timers are easy to dismiss, and picking up the phone to start one usually turned into twenty minutes of scrolling.',
+    // REAL PROJECT. Add a timeline, team, or tools if you like (blank fields are hidden).
+    slug: 'rover', featured: true,
+    title: 'Chatter Rover Redesign',
+    summary: 'A Fisher-Price Chatter Phone reimagined as a rugged pull-along rover for outdoor play.',
+    tags: ['Toy design', 'Product', 'CMF'],
+    context: 'Fisher-Price redesign, IND 337',
+    role: 'Research, sketching, rendering, CMF', timeline: '', team: 'Solo',
+    cover: 'images/rover/cover.jpg', coverAlt: 'Chatter Rover, a green toy rover with an orange lift-top cab and a friendly face, sitting in a sandbox',
+    overview: "The Fisher-Price Chatter Phone has been rolling along behind kids since 1962. I redesigned it as Chatter Rover: it keeps the pull string and friendly face, but trades the rotary dial for a rugged off-road body built for the sandbox, with a snap-in shovel, a bin for collected treasures, and a lift-top cab that hides extra storage.",
+    problemTitle: 'The brief',   // optional: renames the "Problem" section
+    problem: "Redesign an iconic toy. The Chatter Phone has barely changed since 1962, so I started by asking what to keep and what to rethink. Adults feel a strong nostalgia for it, while reviews of today's version point to a 4-inch cord that's too short, plastic that feels cheap, and play that doesn't hold kids' attention for long.",
+    market: {
+      labels: { base: 'Ages', note: 'Features' },   // column names for this table
+      fit: 'Chatter Rover',
+      rows: [
+        { product: 'Fisher-Price Chatter Telephone', base: '12+ months', price: '$11.87', note: 'Pull-along phone with ringing sounds and eyes that move up and down.' },
+        { product: 'Winfun Talk N Pull Phone', base: '12+ months', price: '$21.99', note: 'Pull string, lights, and buttons.' },
+        { product: 'Le Toy Fan Vintage Wooden Phone', base: '12+ months', price: '$21.99', note: 'Wooden phone with a ringing bell and spinning dial.' },
+        { product: 'John Deere Johnny Tractor Flashlight', base: 'Preschool', price: '$13.95', note: 'Tractor with an interactive flashlight.' },
+        { product: 'Little Tikes Dirt Diggers 2-in-1', base: '2+ years', price: '$17.99', note: 'Digger with a removable scoop.' },
+      ],
+      takeaway: 'Phone-style pull toys focus on sounds and lights, while vehicle toys bring outdoor play but lose the pull-along charm. Chatter Rover combines the two: a friendly pull toy built to dig, haul, and explore.',
+    },
+    // img: [file name in images/rover, caption, optional [width, height]]. "wide: true" shows a group full width.
     process: [
-      { title: 'Listen', text: 'Interviewed 14 students and ran a week-long diary study on how they actually take breaks.' },
-      { title: 'Sketch', text: 'Explored more than sixty forms and landed on a dial, because turning something feels like a commitment.' },
-      { title: 'Prototype', text: 'Built working models with an Arduino, a rotary encoder, and a vibration motor, then tuned the feel in foam and 3D prints.' },
-      { title: 'Test', text: 'Left three prototypes on real desks for a week and adjusted the detents until turning the dial felt right.' },
+      { title: 'Studying the original', text: 'The Chatter Phone has changed more than most people remember: from a wooden toy with star decals and metal bells, to all plastic with a shorter pull string, to a rounder body, to today\u2019s brighter version with animated eyes. Each update made it safer while keeping its nostalgic charm.',
+        groups: [{ images: [['history-747', '#747, 1962 to 1989: wood, star decals, metal bells'], ['history-2063', '#2063, 1992 to 1993: all plastic, shorter string'], ['history-2251', '#2251, 1994 to 1999: rounder \u201cbubbled\u201d body'], ['history-7816', '#7816, 2000 to today: brighter colors, animated eyes']] }] },
+      { title: 'Visual brand language', text: 'I set the direction as Off-Road Exploration: rugged, playful, and natural. The board pulls from tractors, jeeps, and sand play, with a palette of army green, olive, sand beige, dark gray, and yellow, and details like chunky forms, laser-etched textures, soft rubber treads, and a removable scoop.',
+        groups: [{ wide: true, images: [['vbl-board', 'Off-Road Exploration mood board', [1800, 1165]]] }] },
+      { title: 'Sketches', text: 'Sketches explored chunky, jeep-like bodies, storage compartments, and a friendly face that carries the Chatter Phone\u2019s personality into the new form.',
+        groups: [{ images: [['sketch-1', 'Off-road body with storage bins'], ['sketch-2', 'Face and compartment studies'], ['sketch-3', 'Rounded body with a roof rack'], ['sketch-4', 'Big-wheel front view'], ['sketch-5', 'Side view with storage crates'], ['sketch-6', 'Friendly face with roof storage']] }] },
+      { title: 'Render progression', text: 'I refined the design over eight rounds, moving between renders and quick sketch overlays. The shovel moved up to the roof, side compartments were added for rocks and treasures, the character face appeared, the top turned traffic-cone orange, and the cab became a lift-up lid with a joint the shovel clicks into.',
+        groups: [{ images: [['round-1', 'Round 1: camo off-road start'], ['round-2', 'Round 2: sketch study'], ['round-3', 'Round 3: shovel on the roof, side compartments, and a face'], ['round-4', 'Round 4: traffic-cone orange top'], ['round-5', 'Round 5: sketch study'], ['round-6', 'Round 6: lift-up cab and click-in shovel'], ['round-7', 'Round 7: sketch study'], ['round-8', 'Round 8: sketch study']] }] },
+      { title: 'Final design', text: 'The final rover pairs a snap-fit shovel and a wide storage bin with a lift-top shell, oversized wheels, and a 7-inch tow rope.',
+        groups: [{ images: [['final-main', 'Snap-fit shovel, storage bin, and tow rope'], ['final-lift', 'Lift-top shell with storage underneath']] }] },
+      { title: 'Tech pack', text: 'The tech pack documents the rover for production: injection-molded HDPE plastic, an 8-inch body about 5 inches tall, a green, black, and orange colorway, and a 7-inch cord kept intentionally short to meet safety regulations that prevent entanglement.',
+        groups: [{ wide: true, images: [['tech-pack', 'Tech pack: dimensions, colors, material, and cord length', [1800, 1035]]] }] },
     ],
-    outcome: "A palm-sized aluminum dial with a light ring that dims as focus time runs down, plus a companion app that stays out of the way. Testers took breaks they'd normally skip, and nobody reached for a phone to start a session.",
-    tools: ['SolidWorks', 'KeyShot', 'Figma', 'Arduino', 'Foam modeling', '3D printing'],
+    details: { title: 'Design details', lists: {
+      Features: ['Snap-fit joint keeps the shovel secure during play', 'Wide bin holds collected treasures and encourages open-ended play', 'Lift-top shell reveals extra storage underneath', 'Oversized wheels stay stable on uneven outdoor terrain'],
+      Specs: ['Injection-molded HDPE plastic', 'About 8" long and 5" tall', '7" tow rope, short by design to prevent entanglement', 'Green, black, and orange colorway'],
+    } },
+    outcome: "Chatter Rover keeps what people love about the Chatter Phone, a friendly face and a pull string, and gives kids more reasons to keep playing: a shovel to dig with, a bin to fill, a hidden compartment to discover, and wheels built for sand. Its 7-inch tow rope is long enough to pull and short enough to meet child safety standards.",
+    tools: [],
   },
   {
     slug: 'grip', featured: true,
@@ -855,7 +883,8 @@ if (isHome) {
 
   const caseHTML = (p) => {
     GALLERIES.case = [];
-    const next = PROJECTS[(PROJECTS.indexOf(p) + 1) % PROJECTS.length];
+    const order = PROJECTS.filter((x) => x.featured).length > 1 && p.featured ? PROJECTS.filter((x) => x.featured) : PROJECTS;
+    const next = order[(order.indexOf(p) + 1) % order.length];   // "Next project" skips hidden ones
     const img = (name, alt, label, ar = [4, 3]) => media({ src: `images/${p.slug}/${name}.jpg`, alt, label, ar });
     return `
       <div class="case-hero">${media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10], lazy: false }, 'case-media')}</div>
@@ -876,7 +905,7 @@ if (isHome) {
           <div class="case-sec"><h3 id="h-overview">Overview</h3><div><p>${esc(p.overview)}</p></div></div>
         </section>` : ''}
         ${p.problem ? `<section class="case-block case-fade" aria-labelledby="h-problem">
-          <div class="case-sec"><h3 id="h-problem">Problem</h3><div><p>${esc(p.problem)}</p></div></div>
+          <div class="case-sec"><h3 id="h-problem">${esc(p.problemTitle || 'Problem')}</h3><div><p>${esc(p.problem)}</p></div></div>
         </section>` : ''}
         ${p.requirements ? `<section class="case-block case-fade" aria-labelledby="h-req">
           <div class="case-sec"><h3 id="h-req">Requirements</h3><div>
@@ -891,17 +920,17 @@ if (isHome) {
         ${p.market ? `<section class="case-block case-fade" aria-labelledby="h-market">
           <div class="case-sec"><h3 id="h-market">Market</h3><div>
             <table class="market">
-              <thead><tr><th scope="col">Product</th><th scope="col">Base</th><th scope="col">Price</th><th scope="col">What it does</th></tr></thead>
+              <thead><tr><th scope="col">Product</th><th scope="col">${esc((p.market.labels || {}).base || 'Base')}</th><th scope="col">Price</th><th scope="col">${esc((p.market.labels || {}).note || 'What it does')}</th></tr></thead>
               <tbody>${p.market.rows.map((r) => `
                 <tr>
                   <th scope="row">${esc(r.product)}</th>
-                  <td data-label="Base">${esc(r.base)}</td>
+                  <td data-label="${esc((p.market.labels || {}).base || 'Base')}">${esc(r.base)}</td>
                   <td data-label="Price" class="market-price">${esc(r.price)}</td>
-                  <td data-label="What it does">${esc(r.note)}</td>
+                  <td data-label="${esc((p.market.labels || {}).note || 'What it does')}">${esc(r.note)}</td>
                 </tr>`).join('')}
               </tbody>
             </table>
-            ${p.market.takeaway ? `<p class="market-takeaway"><b>Where ${esc(p.title.split(' ')[0])} fits:</b> ${esc(p.market.takeaway)}</p>` : ''}
+            ${p.market.takeaway ? `<p class="market-takeaway"><b>Where ${esc(p.market.fit || p.title.split(' ')[0])} fits:</b> ${esc(p.market.takeaway)}</p>` : ''}
           </div></div>
         </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-process">
@@ -911,9 +940,9 @@ if (isHome) {
               <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
               <p>${esc(s.text)}</p>
               ${s.groups.map((g) => `<div class="step-group">${g.title ? `<h5>${esc(g.title)}</h5>` : ''}
-                <div class="gallery">${g.images.map(([file, cap]) => {
-                  const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar: [4, 3] }) - 1;
-                  return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar: [4, 3] })}</button><figcaption>${esc(cap)}</figcaption></figure>`;
+                <div class="gallery${g.wide ? ' is-wide' : ''}">${g.images.map(([file, cap, ar = [4, 3]]) => {
+                  const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar }) - 1;
+                  return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar })}</button><figcaption>${esc(cap)}</figcaption></figure>`;
                 }).join('')}</div></div>`).join('')}
             </li>` : `
             <li class="step">
@@ -930,6 +959,11 @@ if (isHome) {
         ${p.materials ? `<section class="case-block case-fade" aria-labelledby="h-mat">
           <div class="case-sec"><h3 id="h-mat">Materials</h3><div class="next-cols">
             ${Object.entries(p.materials).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
+          </div></div>
+        </section>` : ''}
+        ${p.details ? `<section class="case-block case-fade" aria-labelledby="h-details">
+          <div class="case-sec"><h3 id="h-details">${esc(p.details.title)}</h3><div class="next-cols">
+            ${Object.entries(p.details.lists).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
           </div></div>
         </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-outcome">
