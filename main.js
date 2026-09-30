@@ -1256,7 +1256,7 @@ if (page === 'sketches') {
   $$('.sketchbook', wrap).forEach((book) => {
     const cards = $$('.sketch', book);
     const idx = cards.map((c) => +c.dataset.index);
-    const state = idx.map((k) => ({ fx: SKETCHES[k].x, fy: SKETCHES[k].y, r: SKETCHES[k].r, x: 0, y: 0 }));
+    const state = idx.map(() => ({ r: 0, x: 0, y: 0 }));
     let cardW = 200;
 
     const place = (el, s, animate, i = 0) => {
@@ -1266,33 +1266,30 @@ if (page === 'sketches') {
       } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
     };
     const layout = (animate = false) => {
-      const W = book.clientWidth, gap = mobile() ? 14 : 28;
-      const grid = tidy || mobile();
-      const cols = mobile() ? 2 : W > 1050 ? 4 : 3;
-      cardW = grid ? Math.floor((W - gap * (cols + 1)) / cols) : clamp(W * 0.21, 150, 270);
+      const W = book.clientWidth, gap = mobile() ? 14 : 24;
+      const n = cards.length;
+      // fewer, bigger columns for small sets so detailed sheets stay readable
+      const cols = mobile() ? 2 : n <= 8 ? (W > 760 ? 3 : 2) : (W > 1050 ? 4 : 3);
+      const cw = (W - gap * (cols + 1)) / cols;                       // column width
+      const loose = !tidy && !mobile();                                 // playful: slight tilt and wobble
+      cardW = Math.floor(loose ? cw * 0.92 : cw);
       cards.forEach((c) => { c.style.width = cardW + 'px'; });
       const heights = cards.map((c) => c.offsetHeight);
       book.classList.toggle('can-drag', !mobile() && finePointer);
-      if (grid) {
-        // masonry: drop each page into the shortest column
-        const colH = Array(cols).fill(gap + 8);
-        state.forEach((s, i) => {
-          const c = colH.indexOf(Math.min(...colH));
-          s.x = gap + c * (cardW + gap);
-          s.y = colH[c];
-          s.r = mobile() ? SKETCHES[idx[i]].r * 0.3 : 0;
-          colH[c] += heights[i] + gap + 6;
-        });
-        book.style.height = Math.max(...colH) + 'px';
-      } else {
-        const rows = Math.ceil(cards.length / 4);
-        const H = Math.max(560, rows * Math.max(...heights) * 0.95 + 90);
-        book.style.height = H + 'px';
-        state.forEach((s, i) => {
-          s.x = s.fx * (W - cardW - 20) + 10;
-          s.y = s.fy * (H - heights[i] - 30) + 20;
-        });
-      }
+      const colH = Array(cols).fill(gap);
+      state.forEach((s, i) => {
+        const k = idx[i], col = colH.indexOf(Math.min(...colH));
+        const r = loose ? SKETCHES[k].r * 0.3 : mobile() ? SKETCHES[k].r * 0.15 : 0;   // tilt in degrees (small)
+        const rad = Math.abs(r) * Math.PI / 180;
+        const growX = Math.ceil(heights[i] * Math.sin(rad) / 2), growY = Math.ceil(cardW * Math.sin(rad) / 2);   // room a tilted page needs
+        const slack = Math.max(0, cw - cardW - growX * 2);
+        const dx = loose ? SKETCHES[k].x * slack : 0, dy = loose ? SKETCHES[k].y * 10 : 0;
+        s.r = r;
+        s.x = gap + col * (cw + gap) + growX + dx;
+        s.y = colH[col] + growY + dy;
+        colH[col] = s.y + heights[i] + growY + gap;                     // next page in this column starts below, never overlapping
+      });
+      book.style.height = Math.ceil(Math.max(...colH)) + 'px';
       cards.forEach((c, i) => place(c, state[i], animate, i));
     };
 
@@ -1339,16 +1336,7 @@ if (page === 'sketches') {
         if (!moved) return;
         el.classList.remove('is-grabbed');
         el._dragged = true;
-        const s = state[i], W = book.clientWidth, H = book.clientHeight;
-        s.r = clamp(s.r + rand(-3, 3), -10, 10);
-        s.fx = clamp((s.x - 10) / (W - cardW - 20), -0.2, 1.2);
-        s.fy = clamp((s.y - 20) / (H - el.offsetHeight - 30), -0.1, 1.1);
         if (hasGSAP) gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.6 : 0, ease: 'back.out(2.2)', overwrite: 'auto' });
-        cards.forEach((c, j) => {   // remember where every other page on this table sits
-          if (j === i) return;
-          state[j].fx = (state[j].x - 10) / (W - cardW - 20);
-          state[j].fy = (state[j].y - 20) / (H - c.offsetHeight - 30);
-        });
       };
       el.addEventListener('pointerup', end);
       el.addEventListener('pointercancel', end);
@@ -1358,7 +1346,7 @@ if (page === 'sketches') {
       });
     });
 
-    const scatter = () => state.forEach((s, i) => { const k = idx[i]; s.fx = SKETCHES[k].x; s.fy = SKETCHES[k].y; s.r = SKETCHES[k].r + rand(-2, 2); });
+    const scatter = () => {};   // positions come from layout(); pages you dragged return to the table
     books.push({ book, cards, layout, scatter });
 
     // Pages drop onto the table when you scroll to them
