@@ -171,22 +171,14 @@ const PROJECTS = [
     tools: [],
   },
   {
-    slug: 'grip', featured: true,
-    title: 'Grip',
-    summary: 'Kitchen tools shaped for hands with arthritis, designed to stay out on the counter.',
-    tags: ['Inclusive design', 'Ergonomics', 'CMF'],
-    context: 'Industrial Design Studio',
-    role: 'Research, ergonomics, form, CMF', timeline: '8 weeks', team: 'Solo',
-    cover: 'images/grip/cover.jpg', coverAlt: 'Four Grip kitchen utensils with soft sage handles on a counter',
-    problem: 'Most adaptive utensils work, but they look clinical, so people hide them in a drawer or skip them entirely. I wanted tools that help without announcing it.',
-    process: [
-      { title: 'Research', text: 'Cooked alongside five home cooks with arthritis and spent an afternoon with an occupational therapist.' },
-      { title: 'Form', text: 'Carved thirty foam handles and pressed clay grips to map where hands actually apply pressure.' },
-      { title: 'Material', text: 'Tested silicone overmolds at different firmness levels until they felt soft but steady.' },
-      { title: 'Refine', text: 'Unified four tools under one grip language and tuned proportions so they read as a set.' },
-    ],
-    outcome: 'A four-piece set with wide, soft-touch handles and a thumb rest that guides the hand into a relaxed hold. Every tester chose to keep theirs on the counter.',
-    tools: ['Rhino', 'KeyShot', 'Foam carving', 'Clay', 'Silicone casting'],
+    // COMING SOON: shows a "Coming soon" panel instead of a cover image, and a short note when opened
+    slug: 'capstone', featured: true, comingSoon: true,
+    title: 'Senior Capstone',
+    summary: 'Coming soon.',
+    tags: [],
+    cursor: 'Take a peek',
+    question: 'How might we make daily medication routines feel less like a burden and more like a moment of care?',
+    note: "I'm just getting started on my senior capstone. If you have any thoughts, experiences, or ideas about medication routines, I'd love to hear them. Feel free to reach out at",
   },
   {
     slug: 'drift', featured: false,
@@ -340,6 +332,15 @@ function media({ src, alt = '', label = '', ar = [4, 3], lazy = true }, cls = ''
     <img src="${esc(src)}" alt="${esc(alt)}" ${lazy ? 'loading="lazy"' : ''} decoding="async" onload="this.classList.add('is-loaded')">
   </div>`;
 }
+
+/* "Coming soon" panel, used for a project card and its opened view */
+const soonPanel = (cls) => `<div class="ph soon-panel ${cls}" style="--ar:16/10">
+    <div class="soon-inner" aria-hidden="true">
+      <span class="soon-tag"><i></i>In progress</span>
+      <span class="soon-title">Coming soon</span>
+      <span class="soon-sub">Senior capstone</span>
+    </div>
+  </div>`;
 
 /* The four studio objects (also used as section markers). viewBox 0 0 100 100 */
 const SVG = {
@@ -646,11 +647,11 @@ if (isHome) {
   $('#work-count').textContent = `(${featured.length})`;
   $('#project-grid').innerHTML = featured.map((p) => `
     <li class="card" data-slug="${p.slug}" data-reveal>
-      <a class="card-link" href="#case/${p.slug}" data-cursor="View project">
-        ${media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10] }, 'card-media')}
+      <a class="card-link" href="#case/${p.slug}" data-cursor="${esc(p.cursor || 'View project')}">
+        ${p.comingSoon ? soonPanel('card-media') : media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10] }, 'card-media')}
         <div class="card-row"><h3 class="card-title">${esc(p.title)}</h3></div>
         <p class="card-summary">${esc(p.summary)}</p>
-        <ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+        ${p.tags.length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
       </a>
     </li>`).join('');
 
@@ -917,6 +918,17 @@ if (isHome) {
 
   const caseHTML = (p) => {
     GALLERIES.case = [];
+    if (p.comingSoon) {
+      return `
+      <div class="case-hero case-soon-hero">${soonPanel('case-media')}</div>
+      <div class="case-inner case-soon">
+        <header class="case-fade">
+          <p class="case-kicker">Senior capstone, in progress</p>
+          <h2 class="case-question" id="case-title" tabindex="-1">${esc(p.question)}</h2>
+          <p class="case-note">${esc(p.note)} <a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a>.</p>
+        </header>
+      </div>`;
+    }
     const order = PROJECTS.filter((x) => x.featured).length > 1 && p.featured ? PROJECTS.filter((x) => x.featured) : PROJECTS;
     const next = order[(order.indexOf(p) + 1) % order.length];   // "Next project" skips hidden ones
     const img = (name, alt, label, ar = [4, 3]) => media({ src: `images/${p.slug}/${name}.jpg`, alt, label, ar });

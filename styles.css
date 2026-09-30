@@ -312,6 +312,27 @@ html.nav-scrolled .nav-bg { opacity: 1; }
   .card-badge { display: none; }
 }
 
+/* "Coming soon" panel (home card and its opened view) */
+.soon-panel {
+  container-type: inline-size; display: grid; place-items: center;
+  background-color: var(--surface);
+  background-image: radial-gradient(circle, rgba(22, 22, 26, 0.12) 1px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+.soon-inner { display: flex; flex-direction: column; align-items: center; gap: 2.2cqw; text-align: center; }
+.soon-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--paper); box-shadow: 0 0 0 1px var(--line); font-family: var(--font-mono); font-size: clamp(0.7rem, 2cqw, 0.9rem); color: var(--ink); }
+.soon-tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); animation: soon-pulse 1.8s ease-in-out infinite; }
+@keyframes soon-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.55); opacity: 0.5; } }
+.soon-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 11cqw, 7.5rem); letter-spacing: -0.045em; line-height: 0.9; color: var(--ink); }
+.soon-sub { font-family: var(--font-mono); font-size: clamp(0.7rem, 1.8cqw, 0.95rem); color: var(--ink-soft); }
+.case-hero.case-soon-hero { max-width: clamp(calc(300px + var(--gutter) * 2), calc((100svh - 560px) * 1.6 + var(--gutter) * 2), calc(640px + var(--gutter) * 2)); }   /* sized so the whole message fits on screen */
+.case-inner.case-soon { max-width: calc(820px + var(--gutter) * 2); text-align: center; }
+.case-soon .case-question, .case-soon .case-note { margin-inline: auto; }
+.case-soon { padding-top: 28px; padding-bottom: 120px; }
+.case-question { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3.1rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; max-width: 22ch; }
+.case-note { font-size: var(--fs-lead); line-height: 1.55; color: var(--ink-soft); max-width: 52ch; margin: 28px 0 0; }
+.case-note a { color: var(--blue); font-weight: 500; }
+
 /* =====================================================================
    11. CASE STUDY OVERLAY (opens from a project card)
    ===================================================================== */
