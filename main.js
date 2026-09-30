@@ -260,18 +260,48 @@ const RENDERINGS = [
   { title: 'Drift kiosk in the quad', src: 'images/renders/drift-kiosk.jpg', ar: [21, 9], span: 12 },
 ];
 
-/* Sketches page. x / y place each page when scattered (0 to 1); r is its tilt in degrees. */
-const SKETCHES = [
-  { title: 'Boot, base profile explorations', src: 'images/sketches/boot-profiles.jpg', ar: [1600, 1236], x: 0.02, y: 0.03, r: -6 },
-  { title: 'Boot, concept 1: spiral ring', src: 'images/sketches/boot-spiral.jpg', ar: [1500, 1159], x: 0.33, y: 0.00, r: 4 },
-  { title: 'Boot, concept 2: boot form', src: 'images/sketches/boot-form.jpg', ar: [1500, 1159], x: 0.64, y: 0.06, r: -3 },
-  { title: 'Boot, concept 3: structured ring', src: 'images/sketches/boot-structured.jpg', ar: [1500, 1159], x: 0.97, y: 0.02, r: 7 },
-  { title: 'Drift kiosk layouts', src: 'images/sketches/drift.jpg', ar: [4, 3], x: 0.12, y: 0.55, r: 5 },
-  { title: 'Hand studies', src: 'images/sketches/hands.jpg', ar: [4, 5], x: 0.42, y: 0.48, r: -8 },
-  { title: 'Chair studies', src: 'images/sketches/chairs.jpg', ar: [1, 1], x: 0.72, y: 0.58, r: 3 },
-  { title: 'Grip ergonomics notes', src: 'images/sketches/grip-notes.jpg', ar: [3, 4], x: 0.95, y: 0.92, r: -5 },
-  { title: 'Pause light ring', src: 'images/sketches/pause-ring.jpg', ar: [4, 3], x: 0.3, y: 1.0, r: 6 },
+/* Sketches page: one sketchbook table per set. Images live in images/sketches/.
+   Each item: [file name, description (used for alt text and the enlarged view), [width, height]].
+   Pages scatter across the table automatically. */
+const SKETCH_SETS = [
+  { title: 'IND 132', items: [
+    ['ind132-boxes', 'Perspective study: stacked and nested boxes', [955, 587]],
+    ['ind132-form-1', 'Perspective study: rounded form in sections', [924, 602]],
+    ['ind132-form-2', 'Perspective study: rounded form with construction', [1291, 1090]],
+    ['ind132-arches-1', 'Arch curve studies', [757, 732]],
+    ['ind132-arches-2', 'Arches in a perspective box', [581, 526]],
+    ['ind132-arches-3', 'Curved surface studies', [834, 728]],
+    ['ind132-arches-4', 'Arched forms in perspective', [812, 740]],
+    ['ind132-wave', 'Wave form in a perspective grid', [1489, 1251]],
+    ['ind132-hands', 'Hand and spray bottle sequence', [1068, 864]],
+    ['ind132-cubes', 'Cube section studies', [992, 770]],
+    ['ind132-cylinders', 'Rounded cylinder studies', [967, 728]],
+  ] },
+  { title: 'IND 271', items: [
+    ['ind271-sheet-1', 'Water bottle ideation sketches', [1600, 1056]],
+    ['ind271-sheet-2', 'Exploded view and parts list', [1600, 1073]],
+    ['ind271-sheet-3', 'Section views of the lid and body', [1600, 1119]],
+    ['ind271-sheet-4', 'Form variations and lid details', [1600, 1064]],
+    ['ind271-sheet-5', 'Marker rendering with materials', [1600, 1052]],
+    ['ind271-materials', 'Materials breakdown', [1600, 1035]],
+    ['ind271-moodboard', 'Mood board', [1600, 1035]],
+  ] },
 ];
+// Flattened list (used by the enlarged view), with a scattered starting spot and tilt for each page
+const SKETCHES = [];
+SKETCH_SETS.forEach((set, si) => {
+  const n = set.items.length, cols = Math.min(4, n), rows = Math.ceil(n / cols);
+  set.items.forEach(([file, title, ar], i) => {
+    const wob = (k) => Math.sin((si + 1) * 12.9898 + i * 78.233 + k) * 0.5;   // steady "random" per page
+    const col = i % cols, row = Math.floor(i / cols);
+    SKETCHES.push({
+      title, ar, set: si, src: `images/sketches/${file}.jpg`,
+      x: Math.min(1, Math.max(0, (cols > 1 ? col / (cols - 1) : 0.5) + wob(1) * 0.08)),
+      y: Math.min(1, Math.max(0, (rows > 1 ? row / (rows - 1) : 0.5) + wob(2) * 0.1)),
+      r: Math.round(wob(3) * 14),
+    });
+  });
+});
 
 /* =====================================================================
    B. SETUP + HELPERS
@@ -1207,146 +1237,155 @@ if (page === 'renderings') {
    J. SKETCHES PAGE: scattered pages you can drag, or tidy into a grid
    ===================================================================== */
 if (page === 'sketches') {
-  const book = $('#sketchbook');
-  book.innerHTML = SKETCHES.map((s, i) => `
-    <button class="sketch" type="button" data-index="${i}" data-cursor="Drag or click" aria-label="Open sketch: ${esc(s.title)}">
-      ${media({ src: s.src, alt: s.title, label: s.title, ar: s.ar })}
-      <span class="sketch-cap" aria-hidden="true">${esc(s.title)}</span>
-    </button>`).join('');
-  const cards = $$('.sketch', book);
+  const wrap = $('#sketch-sets');
+  wrap.innerHTML = SKETCH_SETS.map((set, si) => `
+    <section class="sketch-set" aria-labelledby="set-${si}">
+      <h2 class="set-title" id="set-${si}">${esc(set.title)}</h2>
+      <div class="sketchbook" data-set="${si}">
+        ${SKETCHES.map((s, i) => s.set !== si ? '' : `
+          <button class="sketch" type="button" data-index="${i}" data-cursor="Drag or click" aria-label="Enlarge: ${esc(s.title)}">
+            ${media({ src: s.src, alt: s.title, label: s.title, ar: s.ar })}
+          </button>`).join('')}
+      </div>
+    </section>`).join('');
   const tidyBtn = $('#tidy-btn');
-  const state = SKETCHES.map((s) => ({ fx: s.x, fy: s.y, r: s.r, x: 0, y: 0 }));
-  let tidy = false, z = 10, cardW = 200;
   const mobile = () => window.innerWidth < 720;
+  let tidy = false, z = 10;
+  const books = [];
 
-  const place = (el, s, animate, i = 0) => {
-    if (hasGSAP) {
-      if (animate && motionOK) gsap.to(el, { x: s.x, y: s.y, rotation: s.r, scale: 1, duration: 0.9, ease: 'expo.inOut', delay: i * 0.03 });
-      else gsap.set(el, { x: s.x, y: s.y, rotation: s.r, scale: 1 });
-    } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
-  };
-  const layout = (animate = false) => {
-    const W = book.clientWidth, gap = mobile() ? 14 : 28;
-    const grid = tidy || mobile();
-    const cols = mobile() ? 2 : W > 1050 ? 4 : 3;
-    cardW = grid ? Math.floor((W - gap * (cols + 1)) / cols) : clamp(W * 0.2, 150, 250);
-    cards.forEach((c) => { c.style.width = cardW + 'px'; });
-    const heights = cards.map((c) => c.offsetHeight);
-    book.classList.toggle('can-drag', !mobile() && finePointer);
-    if (grid) {
-      // masonry: drop each page into the shortest column
-      const colH = Array(cols).fill(gap + 8);
-      state.forEach((s, i) => {
-        const c = colH.indexOf(Math.min(...colH));
-        s.x = gap + c * (cardW + gap);
-        s.y = colH[c];
-        s.r = mobile() ? SKETCHES[i].r * 0.3 : 0;
-        colH[c] += heights[i] + gap + 6;
+  $$('.sketchbook', wrap).forEach((book) => {
+    const cards = $$('.sketch', book);
+    const idx = cards.map((c) => +c.dataset.index);
+    const state = idx.map((k) => ({ fx: SKETCHES[k].x, fy: SKETCHES[k].y, r: SKETCHES[k].r, x: 0, y: 0 }));
+    let cardW = 200;
+
+    const place = (el, s, animate, i = 0) => {
+      if (hasGSAP) {
+        if (animate && motionOK) gsap.to(el, { x: s.x, y: s.y, rotation: s.r, scale: 1, duration: 0.9, ease: 'expo.inOut', delay: i * 0.03 });
+        else gsap.set(el, { x: s.x, y: s.y, rotation: s.r, scale: 1 });
+      } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
+    };
+    const layout = (animate = false) => {
+      const W = book.clientWidth, gap = mobile() ? 14 : 28;
+      const grid = tidy || mobile();
+      const cols = mobile() ? 2 : W > 1050 ? 4 : 3;
+      cardW = grid ? Math.floor((W - gap * (cols + 1)) / cols) : clamp(W * 0.21, 150, 270);
+      cards.forEach((c) => { c.style.width = cardW + 'px'; });
+      const heights = cards.map((c) => c.offsetHeight);
+      book.classList.toggle('can-drag', !mobile() && finePointer);
+      if (grid) {
+        // masonry: drop each page into the shortest column
+        const colH = Array(cols).fill(gap + 8);
+        state.forEach((s, i) => {
+          const c = colH.indexOf(Math.min(...colH));
+          s.x = gap + c * (cardW + gap);
+          s.y = colH[c];
+          s.r = mobile() ? SKETCHES[idx[i]].r * 0.3 : 0;
+          colH[c] += heights[i] + gap + 6;
+        });
+        book.style.height = Math.max(...colH) + 'px';
+      } else {
+        const rows = Math.ceil(cards.length / 4);
+        const H = Math.max(560, rows * Math.max(...heights) * 0.95 + 90);
+        book.style.height = H + 'px';
+        state.forEach((s, i) => {
+          s.x = s.fx * (W - cardW - 20) + 10;
+          s.y = s.fy * (H - heights[i] - 30) + 20;
+        });
+      }
+      cards.forEach((c, i) => place(c, state[i], animate, i));
+    };
+
+    // Drag (desktop). A click without movement enlarges the page; hovering straightens it.
+    cards.forEach((el, i) => {
+      let sx, sy, ox, oy, moved = false, down = false, lastX = 0;
+      el.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
+        gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.5 : 0, ease: 'back.out(2)', overwrite: 'auto' });
       });
-      book.style.height = Math.max(...colH) + 'px';
-    } else {
-      const H = clamp(W * 0.7, 760, 920);
-      book.style.height = H + 'px';
-      state.forEach((s, i) => {
-        s.x = s.fx * (W - cardW - 20) + 10;
-        s.y = s.fy * (H - heights[i] - 30) + 20;
+      el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
+        gsap.to(el, { rotation: state[i].r, scale: 1, duration: motionOK ? 0.6 : 0, ease: 'back.out(2)', overwrite: 'auto' });
+      });
+      el.addEventListener('pointerdown', (e) => {
+        if (mobile() || e.pointerType !== 'mouse' || e.button !== 0) return;
+        down = true; moved = false;
+        sx = e.clientX; sy = e.clientY; ox = state[i].x; oy = state[i].y; lastX = e.clientX;
+        el.setPointerCapture(e.pointerId);
+      });
+      el.addEventListener('pointermove', (e) => {
+        if (!down) return;
+        const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (!moved && Math.hypot(dx, dy) < 6) return;
+        if (!moved) {
+          moved = true;
+          el.classList.add('is-grabbed');
+          el.style.zIndex = ++z;
+          if (tidy) { tidy = false; tidyBtn.textContent = 'Tidy up'; tidyBtn.setAttribute('aria-pressed', 'false'); }
+        }
+        const W = book.clientWidth, H = book.clientHeight, s = state[i];
+        s.x = clamp(ox + dx, -cardW * 0.3, W - cardW * 0.7);
+        s.y = clamp(oy + dy, -20, H - el.offsetHeight * 0.4);
+        const tilt = clamp((e.clientX - lastX) * 0.6, -12, 12);   // lean into the motion
+        lastX = e.clientX;
+        if (hasGSAP) {
+          gsap.set(el, { x: s.x, y: s.y });
+          gsap.to(el, { rotation: tilt, scale: 1.05, duration: motionOK ? 0.3 : 0, overwrite: 'auto' });
+        } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
+      });
+      const end = () => {
+        if (!down) return;
+        down = false;
+        if (!moved) return;
+        el.classList.remove('is-grabbed');
+        el._dragged = true;
+        const s = state[i], W = book.clientWidth, H = book.clientHeight;
+        s.r = clamp(s.r + rand(-3, 3), -10, 10);
+        s.fx = clamp((s.x - 10) / (W - cardW - 20), -0.2, 1.2);
+        s.fy = clamp((s.y - 20) / (H - el.offsetHeight - 30), -0.1, 1.1);
+        if (hasGSAP) gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.6 : 0, ease: 'back.out(2.2)', overwrite: 'auto' });
+        cards.forEach((c, j) => {   // remember where every other page on this table sits
+          if (j === i) return;
+          state[j].fx = (state[j].x - 10) / (W - cardW - 20);
+          state[j].fy = (state[j].y - 20) / (H - c.offsetHeight - 30);
+        });
+      };
+      el.addEventListener('pointerup', end);
+      el.addEventListener('pointercancel', end);
+      el.addEventListener('click', (e) => {
+        if (el._dragged) { el._dragged = false; e.preventDefault(); return; }
+        openLightbox('sketches', idx[i], el);
+      });
+    });
+
+    const scatter = () => state.forEach((s, i) => { const k = idx[i]; s.fx = SKETCHES[k].x; s.fy = SKETCHES[k].y; s.r = SKETCHES[k].r + rand(-2, 2); });
+    books.push({ book, cards, layout, scatter });
+
+    // Pages drop onto the table when you scroll to them
+    if (motionOK && hasST) {
+      gsap.set(cards, { opacity: 0 });
+      ScrollTrigger.create({
+        trigger: book, start: 'top 85%', once: true,
+        onEnter: () => cards.forEach((c, i) => {
+          gsap.fromTo(c, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.4)', delay: i * 0.06 });
+        }),
       });
     }
-    cards.forEach((c, i) => place(c, state[i], animate, i));
-  };
-
-  // Drag (desktop). A click without movement opens the page; hovering straightens it.
-  cards.forEach((el, i) => {
-    let sx, sy, ox, oy, moved = false, down = false, lastX = 0;
-    el.addEventListener('pointerenter', (e) => {
-      if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
-      gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.5 : 0, ease: 'back.out(2)', overwrite: 'auto' });
-    });
-    el.addEventListener('pointerleave', (e) => {
-      if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
-      gsap.to(el, { rotation: state[i].r, scale: 1, duration: motionOK ? 0.6 : 0, ease: 'back.out(2)', overwrite: 'auto' });
-    });
-    el.addEventListener('pointerdown', (e) => {
-      if (mobile() || e.pointerType !== 'mouse' || e.button !== 0) return;
-      down = true; moved = false;
-      sx = e.clientX; sy = e.clientY; ox = state[i].x; oy = state[i].y; lastX = e.clientX;
-      el.setPointerCapture(e.pointerId);
-    });
-    el.addEventListener('pointermove', (e) => {
-      if (!down) return;
-      const dx = e.clientX - sx, dy = e.clientY - sy;
-      if (!moved && Math.hypot(dx, dy) < 6) return;
-      if (!moved) {
-        moved = true;
-        el.classList.add('is-grabbed');
-        el.style.zIndex = ++z;
-        if (tidy) { // start from the grid, but stop being tidy
-          tidy = false;
-          tidyBtn.textContent = 'Tidy up';
-          tidyBtn.setAttribute('aria-pressed', 'false');
-        }
-      }
-      const W = book.clientWidth, H = book.clientHeight;
-      const s = state[i];
-      s.x = clamp(ox + dx, -cardW * 0.3, W - cardW * 0.7);
-      s.y = clamp(oy + dy, -20, H - el.offsetHeight * 0.4);
-      const tilt = clamp((e.clientX - lastX) * 0.6, -12, 12);   // lean into the motion
-      lastX = e.clientX;
-      if (hasGSAP) {
-        gsap.set(el, { x: s.x, y: s.y });
-        gsap.to(el, { rotation: tilt, scale: 1.05, duration: motionOK ? 0.3 : 0, overwrite: 'auto' });
-      } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
-    });
-    const end = () => {
-      if (!down) return;
-      down = false;
-      if (!moved) return;
-      el.classList.remove('is-grabbed');
-      el._dragged = true;
-      const s = state[i], W = book.clientWidth, H = book.clientHeight;
-      s.r = clamp(s.r + rand(-3, 3), -10, 10);
-      s.fx = clamp((s.x - 10) / (W - cardW - 20), -0.2, 1.2);
-      s.fy = clamp((s.y - 20) / (H - el.offsetHeight - 30), -0.1, 1.1);
-      if (hasGSAP) gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.6 : 0, ease: 'back.out(2.2)', overwrite: 'auto' });
-      // remember where every other page sits too
-      cards.forEach((c, j) => {
-        if (j === i) return;
-        state[j].fx = (state[j].x - 10) / (W - cardW - 20);
-        state[j].fy = (state[j].y - 20) / (H - c.offsetHeight - 30);
-      });
-    };
-    el.addEventListener('pointerup', end);
-    el.addEventListener('pointercancel', end);
-    el.addEventListener('click', (e) => {
-      if (el._dragged) { el._dragged = false; e.preventDefault(); return; }
-      openLightbox('sketches', i, el);
-    });
   });
 
   tidyBtn.addEventListener('click', () => {
     tidy = !tidy;
-    if (!tidy) state.forEach((s, i) => { s.fx = SKETCHES[i].x; s.fy = SKETCHES[i].y; s.r = SKETCHES[i].r + rand(-2, 2); });
-    else cards.forEach((c) => { c.style.zIndex = ''; });
+    books.forEach((b) => { if (!tidy) b.scatter(); else b.cards.forEach((c) => { c.style.zIndex = ''; }); });
     tidyBtn.textContent = tidy ? 'Scatter again' : 'Tidy up';
     tidyBtn.setAttribute('aria-pressed', String(tidy));
-    layout(true);
+    books.forEach((b) => b.layout(true));
+    if (hasST) ScrollTrigger.refresh();
   });
-
+  const relayout = () => { books.forEach((b) => b.layout(false)); if (hasST) ScrollTrigger.refresh(); };
   let rt;
-  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => layout(false), 150); });
-  if (document.fonts) document.fonts.ready.then(() => layout(false));
-  layout(false);
-
-  // Pages drop onto the table when you scroll to them
-  if (motionOK && hasST) {
-    gsap.set(cards, { opacity: 0 });
-    ScrollTrigger.create({
-      trigger: book, start: 'top 85%', once: true,
-      onEnter: () => cards.forEach((c, i) => {
-        gsap.fromTo(c, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.4)', delay: i * 0.07 });
-      }),
-    });
-  }
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayout, 150); });
+  if (document.fonts) document.fonts.ready.then(relayout);
+  relayout();
 }
 
 /* =====================================================================
