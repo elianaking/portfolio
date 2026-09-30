@@ -524,6 +524,30 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .fab-text p:last-child { color: var(--ink-soft); max-width: 48ch; margin: 0; }
 @media (max-width: 760px) { .fab { grid-column: 1 / -1; } }
 
+/* One build per section: intro and scrub photo, research interviews, process photos */
+.fab-project + .fab-project { margin-top: var(--section-pad); }
+.fab-intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 32px; align-items: start; }
+.fab-copy { grid-column: 1 / span 5; }
+.fab-intro .fab { grid-column: 7 / span 6; }
+.fab-title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; margin-bottom: 18px; }
+.fab-text { color: var(--ink-soft); line-height: 1.6; }
+.fab-materials { margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.fab-materials div { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; }
+.fab-materials dt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); padding-top: 2px; }
+.fab-materials dd { margin: 0; font-weight: 500; }
+.fab-block { margin-top: var(--block-gap); }
+.fab-h3 { font-size: var(--fs-h3); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; }
+.interviews { columns: 3 280px; column-gap: var(--gap); }
+.interview { break-inside: avoid; margin-bottom: var(--gap); padding: 20px 22px; border-radius: var(--radius-m); background: var(--surface); font-size: 0.9rem; line-height: 1.45; }
+.interview h4 { font-size: 1.25rem; margin: 0 0 4px; }
+.interview-meta { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5; }
+.interview h5 { margin: 12px 0 4px; font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; color: var(--green); }
+.interview ul { margin: 0; padding-left: 1.1em; color: var(--ink); }
+.interview li + li { margin-top: 3px; }
+.fab-group + .fab-group { margin-top: 28px; }
+.fab-group-title { margin: 0 0 10px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; color: var(--ink-soft); }
+@media (max-width: 860px) { .fab-copy, .fab-intro .fab { grid-column: 1 / -1; } }
+
 /* =====================================================================
    15. RENDERINGS PAGE (gallery + lightbox)
    ===================================================================== */

@@ -218,23 +218,57 @@ const PROJECTS = [
   },
 ];
 
-/* Fabrication page: standalone builds that show your making skills (featured projects
-   live in PROJECTS instead). Each "stage" is one step of the build. "note" is optional.
-   Images: images/fabrication/<slug>-1.jpg, -2.jpg … one per stage. */
-const FABRICATION = [
-  { title: 'Walnut side table', materials: 'Black walnut, brass inlay', slug: 'table',
-    note: 'My first piece with hand-cut dovetails. Three test joints came before this one.',
-    stages: ['Rough stock', 'Milled', 'Joinery', 'Finished'] },
-  { title: 'Concrete pendant lamp', materials: 'Cast concrete, white oak, linen cord', slug: 'lamp',
-    note: 'Cast in a 3D-printed mold I designed to release cleanly on the second pour.',
-    stages: ['Printed mold', 'Pour', 'Demold', 'Finished'] },
-  { title: 'Pause dial models', materials: 'Foam, PLA, machined aluminum', slug: 'dial',
-    note: 'The dial went from blue foam to a machined part with a precise, even click.',
-    stages: ['Foam', 'Printed', 'Machined', 'Finished'] },
-  { title: 'Haul prototype bag', materials: 'Waxed canvas, seatbelt webbing', slug: 'bag',
-    note: 'Three muslin mock-ups settled the proportions before I cut the final canvas.',
-    stages: ['Pattern', 'Cut', 'Sewn', 'Finished'] },
+/* Fabrication page: one section per build. Images live in images/fabrication/.
+   stages: photos for the drag-to-scrub view (raw stock to finished), [file, label].
+   interviews: optional research notes, shown as text cards (no photos of people).
+   groups: process photos, [file, [width, height]]; click any to enlarge. */
+const FAB_PROJECTS = [
+  {
+    title: 'Ramen Bowl and Chopsticks',
+    kicker: 'Kitchen tool project',
+    text: "Many people overlook the rich, delicate flavors of authentic ramen by reaching for quick options like microwaveable cup noodles, which are often eaten in a rush without appreciating the dish’s complexity and cultural roots. A handmade wooden ramen bowl and custom chopsticks can transform the experience, enhancing the meal’s presentation and encouraging a slower, more mindful way of eating. The natural texture and feel of these tools add depth to enjoying the dish, making it easier to appreciate the care and tradition behind authentic ramen.",
+    materials: [['Ramen bowl', 'Cherry'], ['Chopsticks', 'Cherry, black walnut, maple'], ['Chopstick holders', 'Cherry, black walnut, maple']],
+    stages: [['ramen-stage-1', 'Cherry board'], ['ramen-stage-2', 'Segmented rings'], ['ramen-stage-3', 'Glue-up'], ['ramen-stage-4', 'Turning'], ['ramen-stage-5', 'Finished']],
+    interviews: [
+      { name: 'Taegan', meta: ['Age 19', 'Student', 'Cooks every day'], notes: [
+        ['Favorite tools', ['Microplane for zesting lemons: small and efficient']],
+        ['Pain points', ['Hard to clean; zest gets stuck', 'Whisk or pizza cutter gets stuck or is hard to store', "Can opener doesn’t work and can’t be cleaned easily"]],
+        ['Wishes', ['Better pizza cutter: a multitool with a serrated edge that’s easier to clean']],
+        ['Insights', ['Young cooks prioritize aesthetic simplicity and compact design', 'Storage and cleaning convenience are critical', 'Opportunity for space-efficient multifunctional tools for small kitchens']] ] },
+      { name: 'Laura', meta: ['Age 49', 'Client, community and employee engagement', 'Cooks every day'], notes: [
+        ['Favorite tool', ['Rubber scraper spatula: flexible but not too soft, with an ideal length and rectangular shape', 'Appreciates its versatility for mixing and scraping']],
+        ['Pain points', ['Garlic press is hard to clean']],
+        ['Wishes', ['A spatula that grips food better for flipping, like eggs', 'A tongs and spatula hybrid for better control']],
+        ['Insights', ['Mid-aged home cooks value multifunctionality and efficiency', 'Redesigns should focus on cleanability and grip']] ] },
+      { name: 'Adam', meta: ['Age 48', 'Global marketing communications', 'Cooks every day'], notes: [
+        ['Favorite tools', ['Can opener', 'Slotted stirring spoon: picks up small amounts of food without liquid']],
+        ['Pain points', ['Garlic press and can opener are hard to clean']],
+        ['Wishes', ['A can opener that separates into parts for easy cleaning', 'A spatula designed for round pans; straight edges struggle to flip omelets']],
+        ['Insights', ['Needs highlight cleanability and ergonomic performance', 'Tools should suit pan curvature and specific tasks like flipping omelets']] ] },
+      { name: 'Jean Ellen', meta: ['Age 70s', 'Retired teacher', 'Cooks weekly, during meal prep'], notes: [
+        ['Favorite tools', ['Knife, for general use', 'Vegetable peeler, though not good at peeling']],
+        ['Pain points', ['Food gets caught in the peeler', 'Appliance cords clutter and tangle']],
+        ['Wishes', ['A cord organizer for countertop tools that keeps cords neat during and after use']],
+        ['Insights', ['Opportunities in cord management and space-saving storage', 'Tools for seniors should reduce physical strain and visual clutter']] ] },
+      { name: 'Neil and Meryl', meta: ['Age 70s', 'Retired optometrist and retired pediatric speech-language pathologist', 'Cook together every day'], notes: [
+        ['Favorite tools', ['Neil: knife, reliable, sharp, and versatile', 'Meryl: meat pounder, jar opener, and Dycem, for stability and grip']],
+        ['What they value', ['Tools that feel solid, safe, and familiar', 'Low-maintenance designs that are easy to clean and fit comfortably in the hand', 'Tools that extend independence and reduce effort']],
+        ['Pain points', ["Lemon squeezer doesn’t work well on different-sized lemons", 'Grater cuts hands and wastes food as pieces get smaller', 'Poorly scaled or slippery tools are hard to handle']],
+        ['Wishes', ['A converter that lets a small pot work on a large burner or induction stove', 'Adaptive, safety-focused tools that support dexterity limits with age']],
+        ['Insights', ['Aging users value grip, safety, and independence over aesthetics', 'Kitchen tools should fit varying sizes and strengths, be safe to handle, and simplify cleaning and storage', 'Opportunity in assistive kitchen ergonomics: grip-aiding surfaces and adaptive tool heads']] ] },
+    ],
+    groups: [
+      { title: 'Ideation', images: [['ramen-14', [1179, 866]], ['ramen-15', [1044, 701]], ['ramen-16', [1080, 725]], ['ramen-17', [1072, 704]]] },
+      { title: 'Mockup', images: [['ramen-01', [1338, 1400]], ['ramen-02', [1186, 1400]], ['ramen-03', [1329, 1400]]] },
+      { title: 'Chopsticks and holders', images: [['ramen-09', [1050, 1400]], ['ramen-10', [1050, 1400]], ['ramen-11', [1050, 1400]], ['ramen-12', [1050, 1400]], ['ramen-18', [1050, 1400]], ['ramen-27', [1050, 1400]], ['ramen-28', [1050, 1400]]] },
+      { title: 'Turning the bowl', images: [['ramen-04', [1050, 1400]], ['ramen-06', [788, 1400]], ['ramen-07', [1050, 1400]], ['ramen-08', [1050, 1400]], ['ramen-13', [1050, 1400]], ['ramen-19', [1400, 1050]], ['ramen-24', [1050, 1400]], ['ramen-20', [1050, 1400]], ['ramen-21', [788, 1400]], ['ramen-22', [1050, 1400]], ['ramen-23', [788, 1400]], ['ramen-25', [788, 1400]], ['ramen-26', [1400, 1050]]] },
+      { title: 'Finished', images: [['ramen-36', [1050, 1400]], ['ramen-38', [1050, 1400]], ['ramen-39', [1050, 1400]], ['ramen-40', [1400, 1050]], ['ramen-41', [1050, 1400]], ['ramen-37', [1050, 1400]], ['ramen-30', [1050, 1400]], ['ramen-33', [1050, 1400]]] },
+    ],
+  },
 ];
+// Flattened list of process photos for the enlarged view
+const FAB_IMAGES = [];
+FAB_PROJECTS.forEach((p) => p.groups.forEach((g) => g.images.forEach(([f, ar]) => FAB_IMAGES.push({ title: `${p.title}: ${g.title.toLowerCase()}`, src: `images/fabrication/${f}.jpg`, ar }))));
 
 /* Renderings page: one section per project. Renders show large; sketches show small underneath.
    Images live in images/renders/. Each item: [file name, [width, height]]. */
@@ -565,9 +599,9 @@ sheetLinks.forEach((a) => a.addEventListener('click', (e) => {
 /* =====================================================================
    F. LIGHTBOX (renderings + sketches pages): arrows, swipe, Esc
    ===================================================================== */
-const GALLERIES = { renderings: RENDERINGS, sketches: SKETCHES, case: [] };   // "case" fills in when a case study opens
+const GALLERIES = { renderings: RENDERINGS, sketches: SKETCHES, fabrication: FAB_IMAGES, case: [] };   // "case" fills in when a case study opens
 let lb = null, lbFrame = null, lbGallery = null, lbIndex = 0, lbReturn = null;
-if (page === 'renderings' || page === 'sketches' || isHome) {
+if (page === 'renderings' || page === 'sketches' || page === 'fabrication' || isHome) {
   document.body.insertAdjacentHTML('beforeend', `
     <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
       <div class="lb-bg"></div>
@@ -1187,30 +1221,91 @@ if (isHome) {
   if (deep) openCase(deep[1], false);
 }
 
+/* Balanced photo rows (Renderings and Fabrication): each row fills the full width at an even height */
+const fitRows = () => {
+  $$('.jrow-renders').forEach((row) => {
+    const items = $$('.jitem', row), W = row.clientWidth, gap = W < 600 ? 10 : 16;
+    const ars = items.map((el) => parseFloat(el.style.getPropertyValue('--arn')));
+    const target = W < 600 ? W : clamp(W * 0.28, 220, 360);          // ideal row height
+    const total = ars.reduce((t, a) => t + a, 0);
+    const perPhoneRow = +row.dataset.phonePer || 1;   // photos per row on phones
+    const n = W < 600 ? Math.ceil(items.length / perPhoneRow) : Math.max(1, Math.min(items.length, +row.dataset.rows || Math.round(total * target / W)));
+    const rows = Array.from({ length: n }, () => ({ sum: 0, idx: [] }));
+    if (row.dataset.inOrder) {
+      // keep photos in sequence: fill each row in turn until it holds its share of the width
+      let r = 0, acc = 0;
+      ars.forEach((a, i) => {
+        if (r < n - 1 && rows[r].idx.length && acc + a / 2 > (total * (r + 1)) / n) r++;
+        rows[r].sum += a; rows[r].idx.push(i); acc += a;
+      });
+    } else {
+      ars.map((a, i) => [a, i]).sort((x, y) => y[0] - x[0]).forEach(([a, i]) => {   // widest first, into the lightest row
+        const r = rows.reduce((m, x) => (x.sum < m.sum ? x : m)); r.sum += a; r.idx.push(i);
+      });
+    }
+    rows.sort((x, y) => Math.min(...x.idx) - Math.min(...y.idx));
+    const order = [];
+    rows.forEach((r) => {
+      r.idx.sort((x, y) => x - y);
+      const h = (W - gap * (r.idx.length - 1)) / r.sum;
+      r.idx.forEach((i) => { items[i].style.width = (ars[i] * h) + 'px'; items[i].style.height = h + 'px'; order.push(items[i]); });
+    });
+    order.forEach((el) => row.appendChild(el));   // keep rows together in reading order
+  });
+};
+
+const watchRows = () => {
+  fitRows();
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fitRows, 120); });
+};
+
 /* =====================================================================
    H. FABRICATION PAGE: move across a photo to step through the build
    ===================================================================== */
 if (page === 'fabrication') {
-  $('#fab-grid').innerHTML = FABRICATION.map((f) => `
-    <li class="fab" data-reveal>
-      <div class="fab-media" data-cursor="Scrub" aria-hidden="true">
-        ${f.stages.map((s, j) => media({
-          src: `images/fabrication/${f.slug}-${j + 1}.jpg`,
-          alt: `${f.title}, ${s.toLowerCase()} stage`,
-          label: `${f.title}: ${s}`, ar: [4, 3],
-        }, j === f.stages.length - 1 ? 'is-active' : '')).join('')}
+  let k = 0;
+  const tile = ([f, ar], title) => {
+    const i = k++;
+    return `<button class="jitem" type="button" data-index="${i}" data-cursor="Open" style="--arn:${(ar[0] / ar[1]).toFixed(3)}" aria-label="Enlarge: ${esc(title)}">
+      ${media({ src: `images/fabrication/${f}.jpg`, alt: title, label: title, ar })}</button>`;
+  };
+  $('#fab-projects').innerHTML = FAB_PROJECTS.map((p) => `
+    <article class="fab-project">
+      <div class="fab-intro">
+        <div class="fab-copy" data-reveal>
+          ${p.kicker ? `<p class="case-kicker">${esc(p.kicker)}</p>` : ''}
+          <h2 class="fab-title">${esc(p.title)}</h2>
+          <p class="fab-text">${esc(p.text)}</p>
+          ${p.materials ? `<dl class="fab-materials">${p.materials.map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>` : ''}
+        </div>
+        <div class="fab" data-reveal>
+          <div class="fab-media" data-cursor="Scrub" aria-hidden="true">
+            ${p.stages.map(([f, label], j) => media({ src: `images/fabrication/${f}.jpg`, alt: `${p.title}, ${label.toLowerCase()}`, label, ar: [4, 3] }, j === p.stages.length - 1 ? 'is-active' : '')).join('')}
+          </div>
+          <div class="fab-progress" aria-hidden="true"><span></span></div>
+          <ol class="fab-steps" style="--n:${p.stages.length}" aria-label="${esc(p.title)} build stages">
+            ${p.stages.map(([, label], j) => `<li><button type="button" aria-pressed="${j === p.stages.length - 1}">${j + 1}. ${esc(label)}</button></li>`).join('')}
+          </ol>
+        </div>
       </div>
-      <div class="fab-progress" aria-hidden="true"><span></span></div>
-      <ol class="fab-steps" style="--n:${f.stages.length}" aria-label="${esc(f.title)} build stages">
-        ${f.stages.map((s, j) => `<li><button type="button" aria-pressed="${j === f.stages.length - 1}">${j + 1}. ${esc(s)}</button></li>`).join('')}
-      </ol>
-      <div class="fab-text">
-        <h3>${esc(f.title)}</h3>
-        <p class="fab-mat">${esc(f.materials)}</p>
-        ${f.note ? `<p>${esc(f.note)}</p>` : ''}
-      </div>
-    </li>`).join('');
+      ${p.interviews ? `<section class="fab-block" aria-label="Research interviews">
+        <h3 class="fab-h3" data-reveal>Research interviews</h3>
+        <div class="interviews">${p.interviews.map((v) => `
+          <div class="interview" data-reveal>
+            <h4>${esc(v.name)}</h4>
+            <p class="interview-meta">${v.meta.map(esc).join('<br>')}</p>
+            ${v.notes.map(([h, items]) => `<h5>${esc(h)}</h5><ul>${items.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`).join('')}
+          </div>`).join('')}</div>
+      </section>` : ''}
+      <section class="fab-block" aria-label="Process photos">
+        <h3 class="fab-h3" data-reveal>Process</h3>
+        ${p.groups.map((g) => `<div class="fab-group" data-reveal><h5 class="fab-group-title">${esc(g.title)}</h5>
+          <div class="jrow jrow-renders" data-phone-per="2" data-in-order="1">${g.images.map((im) => tile(im, `${p.title}: ${g.title.toLowerCase()}`)).join('')}</div></div>`).join('')}
+      </section>
+    </article>`).join('');
 
+  // drag across the photo to step through the build
   $$('.fab').forEach((fab) => {
     const stages = $$('.ph', fab);
     const btns = $$('.fab-steps button', fab);
@@ -1231,6 +1326,12 @@ if (page === 'fabrication') {
     });
     btns.forEach((b, j) => b.addEventListener('click', () => set(j)));
   });
+
+  $('#fab-projects').addEventListener('click', (e) => {
+    const b = e.target.closest('.jitem');
+    if (b) openLightbox('fabrication', +b.dataset.index, b);
+  });
+  watchRows();
 }
 
 /* =====================================================================
@@ -1257,31 +1358,7 @@ if (page === 'renderings') {
     if (b) openLightbox('renderings', +b.dataset.index, b);
   });
 
-  // Size each project's renders into balanced rows that fill the full width
-  const fitRows = () => {
-    $$('.jrow-renders').forEach((row) => {
-      const items = $$('.jitem', row), W = row.clientWidth, gap = W < 600 ? 10 : 16;
-      const ars = items.map((el) => parseFloat(el.style.getPropertyValue('--arn')));
-      const target = W < 600 ? W : clamp(W * 0.28, 220, 360);          // ideal row height
-      const total = ars.reduce((t, a) => t + a, 0);
-      const n = W < 600 ? items.length : Math.max(1, Math.min(items.length, +row.dataset.rows || Math.round(total * target / W)));
-      const rows = Array.from({ length: n }, () => ({ sum: 0, idx: [] }));
-      ars.map((a, i) => [a, i]).sort((x, y) => y[0] - x[0]).forEach(([a, i]) => {   // widest first, into the lightest row
-        const r = rows.reduce((m, x) => (x.sum < m.sum ? x : m)); r.sum += a; r.idx.push(i);
-      });
-      rows.sort((x, y) => Math.min(...x.idx) - Math.min(...y.idx));
-      const order = [];
-      rows.forEach((r) => {
-        r.idx.sort((x, y) => x - y);
-        const h = (W - gap * (r.idx.length - 1)) / r.sum;
-        r.idx.forEach((i) => { items[i].style.width = (ars[i] * h) + 'px'; items[i].style.height = h + 'px'; order.push(items[i]); });
-      });
-      order.forEach((el) => row.appendChild(el));   // keep rows together in reading order
-    });
-  };
-  fitRows();
-  let rt;
-  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fitRows, 120); });
+  watchRows();
 }
 
 /* =====================================================================
