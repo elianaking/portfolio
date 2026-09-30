@@ -134,9 +134,7 @@ const PROJECTS = [
     context: 'Fisher-Price redesign, IND 337',
     role: 'Research, sketching, rendering, CMF', timeline: '', team: 'Solo',
     cover: 'images/rover/cover.jpg', coverAlt: 'Chatter Rover, a green toy rover with an orange lift-top cab and a friendly face, sitting in a sandbox',
-    overview: "The Fisher-Price Chatter Phone has been rolling along behind kids since 1962. I redesigned it as Chatter Rover: it keeps the pull string and friendly face, but trades the rotary dial for a rugged off-road body built for the sandbox, with a snap-in shovel, a bin for collected treasures, and a lift-top cab that hides extra storage.",
-    problemTitle: 'The brief',   // optional: renames the "Problem" section
-    problem: "Redesign an iconic toy. The Chatter Phone has barely changed since 1962, so I started by asking what to keep and what to rethink. Adults feel a strong nostalgia for it, while reviews of today's version point to a 4-inch cord that's too short, plastic that feels cheap, and play that doesn't hold kids' attention for long.",
+    overview: "The brief was to redesign an iconic toy: the Fisher-Price Chatter Phone, which has barely changed since 1962. Research showed what to keep and what to rethink. Adults feel a strong nostalgia for it, while reviews of today's version point to a 4-inch cord that's too short, plastic that feels cheap, and play that doesn't hold kids' attention for long. Chatter Rover keeps the pull string and friendly face, but trades the rotary dial for a rugged off-road body built for the sandbox, with a snap-in shovel, a bin for collected treasures, and a lift-top cab that hides extra storage.",
     market: {
       labels: { base: 'Ages', note: 'Features' },   // column names for this table
       fit: 'Chatter Rover',
@@ -152,23 +150,24 @@ const PROJECTS = [
     // img: [file name in images/rover, caption, optional [width, height]]. "wide: true" shows a group full width.
     process: [
       { title: 'Studying the original', text: 'The Chatter Phone has changed more than most people remember: from a wooden toy with star decals and metal bells, to all plastic with a shorter pull string, to a rounder body, to today\u2019s brighter version with animated eyes. Each update made it safer while keeping its nostalgic charm.',
-        groups: [{ images: [['history-747', '#747, 1962 to 1989: wood, star decals, metal bells'], ['history-2063', '#2063, 1992 to 1993: all plastic, shorter string'], ['history-2251', '#2251, 1994 to 1999: rounder \u201cbubbled\u201d body'], ['history-7816', '#7816, 2000 to today: brighter colors, animated eyes']] }] },
+        groups: [{ wide: true, images: [['history-evolution', 'Chatter Phone evolution, 1962 to today', [2000, 1083]]] }] },
       { title: 'Visual brand language', text: 'I set the direction as Off-Road Exploration: rugged, playful, and natural. The board pulls from tractors, jeeps, and sand play, with a palette of army green, olive, sand beige, dark gray, and yellow, and details like chunky forms, laser-etched textures, soft rubber treads, and a removable scoop.',
         groups: [{ wide: true, images: [['vbl-board', 'Off-Road Exploration mood board', [1800, 1165]]] }] },
       { title: 'Sketches', text: 'Sketches explored chunky, jeep-like bodies, storage compartments, and a friendly face that carries the Chatter Phone\u2019s personality into the new form.',
-        groups: [{ images: [['sketch-1', 'Off-road body with storage bins'], ['sketch-2', 'Face and compartment studies'], ['sketch-3', 'Rounded body with a roof rack'], ['sketch-4', 'Big-wheel front view'], ['sketch-5', 'Side view with storage crates'], ['sketch-6', 'Friendly face with roof storage']] }] },
+        groups: [{ wide: true, images: [['sketches-sheet', 'Concept sketches', [2000, 1116]]] }] },
       { title: 'Render progression', text: 'I refined the design over eight rounds, moving between renders and quick sketch overlays. The shovel moved up to the roof, side compartments were added for rocks and treasures, the character face appeared, the top turned traffic-cone orange, and the cab became a lift-up lid with a joint the shovel clicks into.',
         groups: [{ images: [['round-1', 'Round 1: camo off-road start'], ['round-2', 'Round 2: sketch study'], ['round-3', 'Round 3: shovel on the roof, side compartments, and a face'], ['round-4', 'Round 4: traffic-cone orange top'], ['round-5', 'Round 5: sketch study'], ['round-6', 'Round 6: lift-up cab and click-in shovel'], ['round-7', 'Round 7: sketch study'], ['round-8', 'Round 8: sketch study']] }] },
       { title: 'Final design', text: 'The final rover pairs a snap-fit shovel and a wide storage bin with a lift-top shell, oversized wheels, and a 7-inch tow rope.',
-        groups: [{ images: [['final-main', 'Snap-fit shovel, storage bin, and tow rope'], ['final-lift', 'Lift-top shell with storage underneath']] }] },
+        groups: [{ cols: 2, images: [['final-main', 'Snap-fit shovel, storage bin, and tow rope'], ['final-lift', 'Lift-top shell with storage underneath']] }] },
       { title: 'Tech pack', text: 'The tech pack documents the rover for production: injection-molded HDPE plastic, an 8-inch body about 5 inches tall, a green, black, and orange colorway, and a 7-inch cord kept intentionally short to meet safety regulations that prevent entanglement.',
-        groups: [{ wide: true, images: [['tech-pack', 'Tech pack: dimensions, colors, material, and cord length', [1800, 1035]]] }] },
+        groups: [{ wide: true, images: [['tech-pack', 'Tech pack: dimensions, colors, material, and cord length', [2000, 1246]]] }] },
     ],
     details: { title: 'Design details', lists: {
       Features: ['Snap-fit joint keeps the shovel secure during play', 'Wide bin holds collected treasures and encourages open-ended play', 'Lift-top shell reveals extra storage underneath', 'Oversized wheels stay stable on uneven outdoor terrain'],
       Specs: ['Injection-molded HDPE plastic', 'About 8" long and 5" tall', '7" tow rope, short by design to prevent entanglement', 'Green, black, and orange colorway'],
     } },
     outcome: "Chatter Rover keeps what people love about the Chatter Phone, a friendly face and a pull string, and gives kids more reasons to keep playing: a shovel to dig with, a bin to fill, a hidden compartment to discover, and wheels built for sand. Its 7-inch tow rope is long enough to pull and short enough to meet child safety standards.",
+    outcomeImages: 1,   // optional: how many outcome photos to show (up to 3)
     tools: [],
   },
   {
@@ -940,7 +939,7 @@ if (isHome) {
               <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
               <p>${esc(s.text)}</p>
               ${s.groups.map((g) => `<div class="step-group">${g.title ? `<h5>${esc(g.title)}</h5>` : ''}
-                <div class="gallery${g.wide ? ' is-wide' : ''}">${g.images.map(([file, cap, ar = [4, 3]]) => {
+                <div class="gallery${g.wide ? ' is-wide' : ''}${g.cols ? ` cols-${g.cols}` : ''}">${g.images.map(([file, cap, ar = [4, 3]]) => {
                   const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar }) - 1;
                   return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar })}</button><figcaption>${esc(cap)}</figcaption></figure>`;
                 }).join('')}</div></div>`).join('')}
@@ -969,9 +968,9 @@ if (isHome) {
         <section class="case-block case-fade" aria-labelledby="h-outcome">
           <div class="case-sec"><h3 id="h-outcome">Outcome</h3><div><p>${esc(p.outcome)}</p></div></div>
           <div class="outcome-grid">
-            ${img('outcome-1', `${p.title}, final design`, `${p.title}, outcome 1`, [16, 9])}
-            ${img('outcome-2', `${p.title}, detail view`, `${p.title}, outcome 2`)}
-            ${img('outcome-3', `${p.title}, in use`, `${p.title}, outcome 3`)}
+            ${[img('outcome-1', `${p.title}, final design`, `${p.title}, outcome 1`, [16, 9]),
+               img('outcome-2', `${p.title}, detail view`, `${p.title}, outcome 2`),
+               img('outcome-3', `${p.title}, in use`, `${p.title}, outcome 3`)].slice(0, p.outcomeImages || 3).join('')}
           </div>
         </section>
         ${p.nextTime ? `<section class="case-block case-fade" aria-labelledby="h-next">
