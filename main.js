@@ -227,14 +227,14 @@ const FAB_PROJECTS = [
     slug: 'ramen',
     title: 'Ramen Bowl and Chopsticks',
     kicker: 'Kitchen tool project',
-    // Card on the Fabrication page: a 4:3 key photo, with the process graphic under it
+    // Card on the Fabrication page: a 4:3 hero photo (make it the same image as the last stage, so it grows into place when opened)
     summary: 'A handmade cherry ramen bowl and chopsticks that invite a slower, more mindful meal.',
     tags: ['Woodworking', 'Lathe turning', 'Cherry'],
-    key: 'ramen-key',
+    key: 'ramen-p5',
     text: "Many people overlook the rich, delicate flavors of authentic ramen by reaching for quick options like microwaveable cup noodles, which are often eaten in a rush without appreciating the dish’s complexity and cultural roots. A handmade wooden ramen bowl and custom chopsticks can transform the experience, enhancing the meal’s presentation and encouraging a slower, more mindful way of eating. The natural texture and feel of these tools add depth to enjoying the dish, making it easier to appreciate the care and tradition behind authentic ramen.",
     materials: [['Ramen bowl', 'Cherry'], ['Chopsticks', 'Cherry, black walnut, maple'], ['Chopstick holders', 'Cherry, black walnut, maple']],
-    // Process stages, [file, label]. Each needs a 4:3 file (opened view) and a 16:9 "-wide" file (card).
-    stages: [['ramen-step-1', 'Research'], ['ramen-step-2', 'Sketch'], ['ramen-step-3', 'Wood'], ['ramen-step-4', 'Mid-process'], ['ramen-step-5', 'Done']],
+    // Process stages for the opened view (drag across the photo), [file, label], 4:3 photos
+    stages: [['ramen-p1', 'Sketch'], ['ramen-p2', 'Model'], ['ramen-p3', 'Wood'], ['ramen-p4', 'Mid-process'], ['ramen-p5', 'Final']],
     interviews: [
       { name: 'Taegan', meta: ['Age 19', 'Student', 'Cooks every day'], notes: [
         ['Favorite tools', ['Microplane for zesting lemons: small and efficient']],
@@ -1340,25 +1340,13 @@ if (page === 'fabrication') {
   // project cards, like the home page
   $('#fab-projects').innerHTML = `<ul class="projects fab-cards">${FAB_PROJECTS.map((p) => `
     <li class="card" data-slug="${p.slug}" data-reveal>
-      <a class="card-link" href="#fab/${p.slug}" data-cursor="View project" tabindex="-1" aria-hidden="true">
-        ${media({ src: `images/fabrication/${p.key}.jpg`, alt: p.title, label: `${p.title} key photo`, ar: [4, 3] }, 'card-media')}
-      </a>
-      <div class="fab fab-mini">
-        <div class="fab-media" data-cursor="Scrub" aria-hidden="true">
-          ${p.stages.map(([f, label], j) => media({ src: `images/fabrication/${f}-wide.jpg`, alt: `${p.title}, ${label.toLowerCase()}`, label, ar: [16, 9] }, j === 0 ? 'is-active' : '')).join('')}
-        </div>
-        <div class="fab-progress" aria-hidden="true"><span style="transform:scaleX(${(1 / p.stages.length).toFixed(3)})"></span></div>
-        <ol class="fab-steps" style="--n:${p.stages.length}" aria-label="${esc(p.title)} process">
-          ${p.stages.map(([, label], j) => `<li><button type="button" aria-pressed="${j === 0}">${j + 1}. ${esc(label)}</button></li>`).join('')}
-        </ol>
-      </div>
       <a class="card-link" href="#fab/${p.slug}" data-cursor="View project">
+        ${media({ src: `images/fabrication/${p.key}.jpg`, alt: p.title, label: `${p.title} hero photo`, ar: [4, 3] }, 'card-media')}
         <div class="card-row"><h3 class="card-title">${esc(p.title)}</h3></div>
         <p class="card-summary">${esc(p.summary || '')}</p>
         ${p.tags && p.tags.length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
       </a>
     </li>`).join('')}</ul>`;
-  $$('.fab-mini').forEach(initScrub);   // hover (or swipe) across the graphic to see the process
 
   // the opened view reuses the case study overlay
   document.body.insertAdjacentHTML('beforeend', `
@@ -1416,7 +1404,15 @@ if (page === 'fabrication') {
       unlockScroll(); document.title = baseTitle;
       if (returnFocus) returnFocus.focus({ preventScroll: true });
     };
-    if (motionOK) gsap.to(caseEl.children, { opacity: 0, duration: 0.35, onComplete: done });
+    if (motionOK && cover && target) {
+      const cr = cover.getBoundingClientRect();
+      if (cr.bottom < 0 || cr.top > window.innerHeight) window.scrollTo({ top: window.scrollY + cr.top - (window.innerHeight - cr.height) / 2, behavior: 'instant' });
+      $$('.fab-media .ph', body).forEach((x, j, all) => x.classList.toggle('is-active', j === all.length - 1));   // end on the hero photo
+      hidden = cover; cover.style.visibility = 'hidden';
+      gsap.to('.case-fade, .case-top > *', { opacity: 0, duration: 0.25 });
+      gsap.to('.case-bg', { opacity: 0, duration: 0.45, delay: 0.3 });
+      gsap.to(target, { ...flipFrom(cover.getBoundingClientRect(), target.getBoundingClientRect()), duration: 0.75, ease: 'expo.inOut', onComplete: done });
+    } else if (motionOK) gsap.to(caseEl.children, { opacity: 0, duration: 0.35, onComplete: done });
     else done();
   };
   requestCloseCase = () => {
@@ -1429,7 +1425,7 @@ if (page === 'fabrication') {
     e.preventDefault();
     const slug = link.closest('.card').dataset.slug;
     history.pushState({ fab: slug }, '', `#fab/${slug}`); pushed = true;
-    open(slug, false);
+    open(slug, true);
   });
   $('.case-close', caseEl).addEventListener('click', () => requestCloseCase());
   caseEl.addEventListener('click', (e) => {
