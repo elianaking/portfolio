@@ -285,7 +285,13 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 
 /* Showreel band: full width, same color as the video's background so its edges disappear */
 .reel { background: var(--reel-bg); display: grid; place-items: center; overflow: hidden; }
-.reel-video { display: block; width: min(760px, 100vw, 82svh); aspect-ratio: 1 / 1; height: auto; background: var(--reel-bg); }
+.reel-video {
+  display: block; width: min(780px, 100vw, 95svh); aspect-ratio: 1080 / 828; height: auto; background: var(--reel-bg);
+  clip-path: inset(3px);   /* trims the outer pixels (all white) so browsers can't draw a hairline at the video's edge */
+}
+/* Keep the ring close to the intro above and Projects below */
+.hero:has(+ .reel) { min-height: auto; padding-bottom: clamp(16px, 3vh, 32px); }
+.reel + .section { padding-top: clamp(28px, 4vw, 56px); }
 
 /* =====================================================================
    10. HOME: FEATURED PROJECTS
