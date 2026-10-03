@@ -708,6 +708,18 @@ if (isHome) {
     else fail();
   });
 
+  /* ---- Showreel: still frame for reduced motion; pause while off screen to save battery ---- */
+  const reel = $('.reel-video');
+  if (reel) {
+    if (reduce) { reel.removeAttribute('autoplay'); reel.pause(); }
+    else {
+      new IntersectionObserver(([en]) => {
+        if (en.isIntersecting) { const p = reel.play(); if (p && p.catch) p.catch(() => {}); }
+        else reel.pause();
+      }, { threshold: 0.1 }).observe(reel);
+    }
+  }
+
   /* ---- G2. Hero name: letters pop and change color when touched ---- */
   $$('.name-line').forEach((line) => {
     line.innerHTML = [...line.textContent.trim()].map((c) => `<span class="ch">${c}</span>`).join('');
