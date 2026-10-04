@@ -289,6 +289,25 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['chair-31', [1400, 933]], ['chair-32', [1400, 933]], ['chair-33', [1400, 933]], ['chair-34', [1400, 933]], ['chair-35', [1400, 933]], ['chair-36', [1400, 933]]] },
     ],
   },
+  {
+    slug: 'lamp',
+    title: 'Bent Veneer Lamp',
+    kicker: 'Lighting',
+    summary: 'A poplar veneer lamp whose grain glows when it’s switched on.',
+    tags: ['Woodworking', 'Lighting', '3D printing'],
+    key: 'lamp-p5',
+    text: "A table lamp made from 1/16″ poplar veneer bent into an 8″ circle. The veneer is thin enough for light to pass through, so the grain glows when the lamp is on. A white acrylic top softens the light, and a custom 3D-printed base lets you remove the bottom to change the bulb.",
+    materials: [['Shade', '1/16″ poplar veneer, bent into an 8″ circle'], ['Top', 'White acrylic'], ['Base', 'Custom 3D print, removable for bulb changes']],
+    stages: [['lamp-p1', 'Veneer'], ['lamp-p2', 'Bending'], ['lamp-p3', 'Base'], ['lamp-p4', 'Light off'], ['lamp-p5', 'Light on']],
+    groups: [
+      { title: 'Bending the veneer', images: [['lamp-01', [1050, 1400]], ['lamp-02', [1050, 1400]], ['lamp-03', [1050, 1400]], ['lamp-04', [1050, 1400]], ['lamp-05', [1050, 1400]], ['lamp-06', [1050, 1400]]] },
+      { title: 'Shade', images: [['lamp-07', [1050, 1400]], ['lamp-08', [1050, 1400]], ['lamp-09', [1050, 1400]], ['lamp-10', [1050, 1400]], ['lamp-11', [1050, 1400]], ['lamp-12', [1050, 1400]], ['lamp-13', [1050, 1400]], ['lamp-14', [1050, 1400]]] },
+      { title: 'Acrylic top', images: [['lamp-15', [1050, 1400]], ['lamp-16', [1050, 1400]]] },
+      { title: '3D-printed base', images: [['lamp-17', [1050, 1400]], ['lamp-18', [1050, 1400]], ['lamp-19', [1050, 1400]], ['lamp-20', [1050, 1400]], ['lamp-21', [1050, 1400]], ['lamp-22', [1050, 1400]]] },
+      { title: 'Wiring and bulb', images: [['lamp-23', [1050, 1400]], ['lamp-24', [1050, 1400]], ['lamp-25', [1050, 1400]]] },
+      { title: 'Finished', images: [['lamp-26', [1400, 1020]], ['lamp-27', [1400, 963]], ['lamp-28', [1400, 933]], ['lamp-29', [1400, 933]], ['lamp-30', [1400, 933]], ['lamp-31', [1400, 933]], ['lamp-32', [1400, 933]], ['lamp-33', [1400, 997]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
