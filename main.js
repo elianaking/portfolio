@@ -308,6 +308,23 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['lamp-26', [1400, 1020]], ['lamp-27', [1400, 963]], ['lamp-28', [1400, 933]], ['lamp-29', [1400, 933]], ['lamp-30', [1400, 933]], ['lamp-31', [1400, 933]], ['lamp-32', [1400, 933]], ['lamp-33', [1400, 997]]] },
     ],
   },
+  {
+    slug: 'padauk',
+    title: 'Padauk Lamp',
+    kicker: 'Lighting',
+    summary: 'A lathe-turned padauk base for a colorful LED bulb.',
+    tags: ['Lathe turning', 'Lighting', 'Padauk'],
+    key: 'padauk-p5',
+    text: 'Lathe-turned padauk base designed to support a colorful LED lightbulb, combining the warmth of natural wood with vibrant modern lighting.',
+    materials: [['Base', 'Padauk, lathe-turned'], ['Light', 'Colorful LED bulb']],
+    stages: [['padauk-p1', 'Wood'], ['padauk-p2', 'Turning'], ['padauk-p3', 'Base'], ['padauk-p4', 'Wiring'], ['padauk-p5', 'Final']],
+    groups: [
+      { title: 'Planning and stock', images: [['padauk-01', [1050, 1400]], ['padauk-02', [1050, 1400]], ['padauk-03', [1050, 1400]], ['padauk-04', [1050, 1400]]] },
+      { title: 'Turning the base', images: [['padauk-05', [1050, 1400]], ['padauk-06', [1050, 1400]], ['padauk-07', [1050, 1400]], ['padauk-08', [1050, 1400]], ['padauk-09', [1050, 1400]], ['padauk-10', [1050, 1400]], ['padauk-11', [1050, 1400]], ['padauk-12', [1050, 1400]]] },
+      { title: 'Wiring', images: [['padauk-13', [1050, 1400]], ['padauk-14', [1050, 1400]], ['padauk-15', [1050, 1400]], ['padauk-16', [1050, 1400]], ['padauk-17', [1050, 1400]]] },
+      { title: 'Finished', images: [['padauk-18', [960, 1280]], ['padauk-19', [788, 1400]], ['padauk-20', [1050, 1400]], ['padauk-21', [1050, 1400]], ['padauk-22', [1050, 1400]], ['padauk-23', [1050, 1400]], ['padauk-24', [1050, 1400]], ['padauk-25', [1050, 1400]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
