@@ -271,6 +271,24 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['ramen-36', [1050, 1400]], ['ramen-38', [1050, 1400]], ['ramen-39', [1050, 1400]], ['ramen-40', [1400, 1050]], ['ramen-41', [1050, 1400]], ['ramen-37', [1050, 1400]], ['ramen-30', [1050, 1400]], ['ramen-33', [1050, 1400]]] },
     ],
   },
+  {
+    slug: 'chair',
+    title: 'Cherry Chair',
+    kicker: 'One-board chair challenge',
+    summary: 'A chair designed and built from a single 2″ × 8″ × 10′ board of cherry.',
+    tags: ['Woodworking', 'Furniture', 'Cherry'],
+    key: 'chair-p5',
+    text: "The prompt: design and build a chair using only one 2″ × 8″ × 10′ piece of cherry. With a single board to work from, every part of the chair, from the legs and rails to the seat and backrest, had to be planned around what that board could give, so the cut list mattered as much as the sketch.",
+    materials: [['Material', 'Cherry'], ['Constraint', 'One 2″ × 8″ × 10′ board']],
+    stages: [['chair-p1', 'Sketch'], ['chair-p2', 'Drawing'], ['chair-p3', 'Wood'], ['chair-p4', 'Mid-process'], ['chair-p5', 'Final']],
+    groups: [
+      { title: 'Sketches and drawings', images: [['chair-01', [1400, 973]], ['chair-02', [973, 1400]], ['chair-03', [1400, 906]], ['chair-04', [1400, 906]], ['chair-05', [1400, 906]]] },
+      { title: 'Breaking down the board', images: [['chair-06', [1050, 1400]], ['chair-07', [1050, 1400]], ['chair-08', [1050, 1400]], ['chair-09', [1050, 1400]], ['chair-10', [1050, 1400]], ['chair-11', [1050, 1400]], ['chair-12', [1050, 1400]], ['chair-13', [1050, 1400]]] },
+      { title: 'Glue-ups', images: [['chair-14', [1050, 1400]], ['chair-15', [1050, 1400]], ['chair-16', [1050, 1400]], ['chair-17', [1050, 1400]], ['chair-18', [1050, 1400]], ['chair-19', [1050, 1400]]] },
+      { title: 'Joinery and assembly', images: [['chair-20', [1050, 1400]], ['chair-21', [1050, 1400]], ['chair-22', [1050, 1400]], ['chair-23', [1050, 1400]], ['chair-24', [1050, 1400]], ['chair-25', [1050, 1400]], ['chair-26', [1050, 1400]], ['chair-27', [1050, 1400]], ['chair-28', [1050, 1400]], ['chair-29', [1050, 1400]], ['chair-30', [1050, 1400]]] },
+      { title: 'Finished', images: [['chair-31', [1400, 933]], ['chair-32', [1400, 933]], ['chair-33', [1400, 933]], ['chair-34', [1400, 933]], ['chair-35', [1400, 933]], ['chair-36', [1400, 933]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
@@ -1287,7 +1305,7 @@ if (page === 'fabrication') {
   FAB_PROJECTS.forEach((p) => { starts.push(acc); p.groups.forEach((g) => { acc += g.images.length; }); });
 
   const projectHTML = (p, pi) => {
-    let k = starts[pi];
+    let k = 0;   // photo numbers restart for each project
     const tile = ([f, ar], title) => {
       const i = k++;
       return `<button class="jitem" type="button" data-index="${i}" data-cursor="Open" style="--arn:${(ar[0] / ar[1]).toFixed(3)}" aria-label="Enlarge: ${esc(title)}">
@@ -1383,6 +1401,7 @@ if (page === 'fabrication') {
     if (pi < 0 || caseOpen === slug) return;
     const p = FAB_PROJECTS[pi];
     caseOpen = slug;
+    GALLERIES.fabrication = FAB_IMAGES.slice(starts[pi], pi + 1 < starts.length ? starts[pi + 1] : FAB_IMAGES.length);   // enlarged view stays within this project
     body.innerHTML = projectHTML(p, pi);
     $('#case-crumb-title').textContent = p.title;
     document.title = `${p.title} | Eliana King`;
