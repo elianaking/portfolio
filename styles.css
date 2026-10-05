@@ -386,6 +386,11 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .gfig .ph-label { display: none; }
 .gallery.is-wide { grid-template-columns: 1fr; }   /* one big image, e.g. a mood board */
 .gallery.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gallery.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 720px) { .gallery.cols-3 { grid-template-columns: 1fr; } }
+.text-sec p { max-width: 64ch; line-height: 1.65; color: var(--ink-soft); }
+.text-sec p + p { margin-top: 14px; }
+.text-sec b { color: var(--ink); font-weight: 600; }
 @media (max-width: 560px) { .gallery.cols-2 { grid-template-columns: 1fr; } }
 /* Galleries in case studies run a little wider than the text, up to the full page width */
 .case .step-group { position: relative; left: 50%; transform: translateX(-50%); width: max(100%, min(calc(1240px - 2 * var(--gutter)), calc(100vw - 2 * var(--gutter) - 24px))); }

@@ -171,6 +171,58 @@ const PROJECTS = [
     tools: [],
   },
   {
+    slug: 'trace', featured: true,
+    title: 'Trace',
+    summary: 'A smart catch tray that chimes if you\u2019re about to leave home without your everyday essentials.',
+    tags: ['Product', 'Interaction', 'Research'],
+    context: 'IND 339',
+    role: 'Research, concepts, storyboards, CMF', timeline: '', team: '',
+    cover: 'images/trace/cover.jpg', coverAlt: 'Trace, a dark wood catch tray with two small speaker grilles, on a black backdrop',
+    overview: "A smart catch tray that learns your routines and uses gentle chimes to remind you if you\u2019re leaving home without your everyday essentials. It brings calm and confidence to the moment of leaving home.",
+    market: {
+      labels: { base: 'Material', note: 'Size' },
+      fit: 'Trace',
+      rows: [
+        { product: 'Edie Parker Spotted Catchall', base: 'Acrylic', price: '$195', note: '12.5\u2033 \u00d7 8.5\u2033 \u00d7 1.5\u2033' },
+        { product: 'Anya Brown Swirled Resin Catchall Dish', base: 'Resin, high-gloss finish', price: '$39.95', note: '6.5\u2033 \u00d7 6.25\u2033 \u00d7 2.5\u2033' },
+        { product: 'Schoolhouse Sonia Round Lacquer Tray', base: 'Lacquered MDF', price: '$79', note: '11\u2033 diameter, 1.75\u2033 tall' },
+      ],
+      takeaway: 'Existing catchalls are purely decorative. Trace keeps the familiar entryway tray but adds a quiet layer of awareness.',
+    },
+    process: [
+      { title: 'Form sketches', text: 'I started with tray forms: smooth, sloped shapes that hold keys and a wallet without rigid organization.',
+        groups: [{ cols: 2, images: [['trace-page-04', 'Tray form sketches', [1800, 1165]], ['trace-page-05', 'Tray form sketches', [1800, 1165]], ['trace-page-06', '\u201cConversation Pit\u201d form study', [1800, 1165]], ['trace-page-07', 'Shaded form studies', [1800, 1165]]] }] },
+      { title: 'Concept 1: Light', text: 'A tray that uses gentle lighting to remind you if you\u2019re leaving without your essentials. A soft glow around the rim signals forgotten items.',
+        groups: [{ cols: 3, images: [['trace-page-08', 'Concept', [1800, 1165]], ['trace-page-09', 'Story panel', [1800, 1165]], ['trace-page-10', 'Experience storyboard', [1800, 1165]]] }] },
+      { title: 'Concept 2: Sound', text: 'A tray that plays a gentle tune when it senses you leaving with your essentials still inside. This became the final direction.',
+        groups: [{ cols: 3, images: [['trace-page-11', 'Concept', [1800, 1165]], ['trace-page-12', 'Story panel', [1800, 1165]], ['trace-page-13', 'Experience storyboard', [1800, 1165]]] }] },
+      { title: 'Concept 3: Phone ping', text: 'A shared family tray that pings a phone with a simple key icon when someone leaves their things behind.',
+        groups: [{ cols: 3, images: [['trace-page-14', 'Concept', [1800, 1165]], ['trace-page-15', 'Story panel', [1800, 1165]], ['trace-page-16', 'Experience storyboard', [1800, 1165]]] }] },
+      { title: 'CMF exploration', text: 'Finishes explored: stainless steel, white \u201cSound Waves,\u201d wood, and matte black.',
+        groups: [{ cols: 2, images: [['trace-page-17', 'CMF exploration', [1800, 1165]], ['trace-render', 'Final render in wood', [1800, 1012]]] }] },
+    ],
+    details: { title: 'How it works', lists: {
+      'The sound': ['Short musical cues feel more emotional, recognizable, and pleasant than basic tones', 'People already hear musical alerts from washing machines, fridges, and doorbells, so a gentle chime feels natural at home', 'Inspired by familiar sounds like the Mac startup chime and the NBC tritone'],
+      'RFID sensing': ['A small passive RFID tag goes on each item: a keychain, a wallet card, an earbuds case', 'A multi-antenna reader in the tray senses which items are present', 'No scanning, no positioning, and no effort from the user'],
+    } },
+    // Optional on any project: text sections, each a list of paragraphs or [lead, paragraph] pairs
+    sections: [
+      { title: 'Semiotic analysis', paras: ["This tray takes a moment we barely think about, dropping our keys when we get home, and turns it into a small act of awareness. It learns when we usually leave and plays a tune if something we need is still sitting there, so forgetting carries a tiny consequence. The sound reveals the absence we might not notice in the rush out the door. By paying attention for us, it brings a little calm to the chaos, helping us step outside feeling ready instead of realizing too late."] },
+      { title: 'Narrative investor brief', paras: [
+        ['Vision', 'This product brings calm and confidence to the moment of leaving home. It learns our routines and supports us through a gentle sound cue that reminds us when we are about to forget something important.'],
+        ['Opportunity', 'Life moves quickly, and routines are often chaotic. Smart home products are common in many rooms of the house, yet the doorway remains overlooked. People want reassurance without harsh alarms or overwhelming notifications. They want help that feels simple, human, and supportive.'],
+        ['User', 'Anyone who relies on everyday carry items such as keys, a wallet, or earbuds, and wants to feel prepared when stepping out the door.'],
+        ['Scenario', 'Placed by the entryway, the tray becomes part of the person or family\u2019s daily routine. Keys and wallets are dropped into the tray as people return home. When someone is about to leave without their essentials, the tray detects the departure pattern and plays a soft chime that signals the mistake before it becomes a problem.'],
+        ['Interaction strategy', 'A smooth, sloped tray holds personal items without rigid organization. Sensors inside the tray learn common patterns of arrival and departure. When items are left behind, the tray responds with a gentle chime inspired by warm, melodic cues. The interaction remains simple and natural: drop, listen, grab, go.'],
+        ['Semiotic goals', 'The chime communicates care, not warning. It conveys attention, readiness, and support. The sound becomes a familiar part of the home, similar to a doorbell or a morning alarm, but softer and more personal.'],
+        ['Cultural value', 'We often use technology that distracts us. This object does the opposite. It listens quietly and helps at the exact moment support is needed. It shows how sound can create comfort and reduce stress, allowing people to leave home feeling prepared and confident.'],
+      ] },
+    ],
+    outcome: "Trace keeps the familiar entryway catch tray and adds a quiet layer of awareness. Drop your keys when you get home, and if you\u2019re about to leave without them, a soft chime calls you back. Drop, listen, grab, go.",
+    outcomeImages: 1,
+    tools: [],
+  },
+  {
     // COMING SOON: shows a "Coming soon" panel instead of a cover image, and a short note when opened
     slug: 'capstone', featured: true, comingSoon: true,
     title: 'Senior Capstone',
@@ -1167,6 +1219,11 @@ if (isHome) {
             ${Object.entries(p.details.lists).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
           </div></div>
         </section>` : ''}
+        ${(p.sections || []).map((sec, si) => `<section class="case-block case-fade" aria-labelledby="h-sec-${si}">
+          <div class="case-sec"><h3 id="h-sec-${si}">${esc(sec.title)}</h3><div class="text-sec">
+            ${sec.paras.map((x) => Array.isArray(x) ? `<p><b>${esc(x[0])}.</b> ${esc(x[1])}</p>` : `<p>${esc(x)}</p>`).join('')}
+          </div></div>
+        </section>`).join('')}
         <section class="case-block case-fade" aria-labelledby="h-outcome">
           <div class="case-sec"><h3 id="h-outcome">Outcome</h3><div><p>${esc(p.outcome)}</p></div></div>
           <div class="outcome-grid">
