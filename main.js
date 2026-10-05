@@ -359,6 +359,21 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['beadmaze-30', [1024, 1024]], ['beadmaze-29', [1024, 1024]], ['beadmaze-28', [896, 1200]], ['beadmaze-31', [949, 1400]]] },
     ],
   },
+  {
+    slug: 'dovetail-box',
+    title: 'Dovetail Box',
+    kicker: 'Woodworking',
+    summary: 'A cherry box with hand-cut dovetails and a CNC-carved top.',
+    tags: ['Woodworking', 'Joinery', 'CNC'],
+    key: 'box-p5',
+    text: 'A box made of cherry, joined with hand-cut dovetails and finished with a CNC-carved top.',
+    materials: [['Box', 'Cherry, with hand-cut dovetails'], ['Top', 'CNC-carved']],
+    stages: [['box-p1', 'Dovetails'], ['box-p2', 'CNC top'], ['box-p3', 'Fitting'], ['box-p4', 'Open'], ['box-p5', 'Final']],
+    groups: [
+      { title: 'Process', images: [['box-01', [788, 1400]], ['box-02', [788, 1400]], ['box-03', [788, 1400]], ['box-04', [1050, 1400]], ['box-05', [1050, 1400]], ['box-06', [1050, 1400]], ['box-07', [1050, 1400]]] },
+      { title: 'Finished', images: [['box-08', [1050, 1400]], ['box-09', [986, 1400]], ['box-10', [970, 1400]], ['box-11', [1020, 1400]], ['box-12', [1060, 1400]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
