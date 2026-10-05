@@ -340,6 +340,26 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['stool-08', [896, 1200]], ['stool-09', [1050, 1400]]] },
     ],
   },
+  {
+    slug: 'bead-maze',
+    title: 'Wooden Bead Maze Toy',
+    kicker: 'Toy design',
+    summary: 'An ocean-themed bead maze of welded steel tracks, hand-cut shapes, and colorful wooden beads.',
+    tags: ['Welding', 'Woodworking', 'Toy design'],
+    key: 'maze-p5',
+    text: 'This Wooden Bead Maze Toy is made of welded steel rods, a wooden base, and hand-cut animal shapes, including a fish, seashell, and seaweed. The colorful wooden beads slide along the tracks, creating an interactive and durable toy. Each component, from the beads to the base, creates an interactive and visually delightful piece for young children.',
+    materials: [['Tracks', 'Welded steel rods'], ['Base', 'Wood'], ['Shapes', 'Hand-cut wood: fish, seashell, and seaweed'], ['Beads', 'Colorful wooden beads']],
+    stages: [['maze-p1', 'Mockup'], ['maze-p2', 'Bending'], ['maze-p3', 'Welding'], ['maze-p4', 'Painting'], ['maze-p5', 'Final']],
+    groups: [
+      { title: 'Mockup', images: [['maze-01', [1050, 1400]], ['maze-02', [1050, 1400]], ['maze-03', [1050, 1400]]] },
+      { title: 'Bending the rods', images: [['maze-04', [1050, 1400]], ['maze-05', [1050, 1400]], ['maze-06', [1050, 1400]], ['maze-07', [1050, 1400]], ['maze-08', [1050, 1400]], ['maze-09', [1050, 1400]]] },
+      { title: 'Fitting and welding', images: [['maze-10', [1050, 1400]], ['maze-11', [1050, 1400]], ['maze-12', [1050, 1400]], ['maze-13', [1050, 1400]], ['maze-14', [1050, 1400]], ['maze-15', [1050, 1400]], ['maze-16', [1050, 1400]]] },
+      { title: 'Beads and shapes', images: [['maze-17', [1050, 1400]], ['maze-18', [1050, 1400]], ['maze-19', [1050, 1400]], ['maze-20', [1050, 1400]]] },
+      { title: 'Digital model', images: [['maze-21', [997, 569]], ['maze-22', [1000, 732]], ['maze-23', [1010, 919]]] },
+      { title: 'Assembly', images: [['maze-24', [1050, 1400]], ['maze-25', [1050, 1400]], ['maze-26', [1400, 788]], ['maze-27', [1400, 1050]]] },
+      { title: 'Finished', images: [['maze-28', [1362, 1400]], ['maze-29', [1050, 1400]], ['maze-30', [949, 1400]], ['maze-31', [949, 1400]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
