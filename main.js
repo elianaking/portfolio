@@ -325,6 +325,21 @@ const FAB_PROJECTS = [
       { title: 'Finished', images: [['padauk-18', [960, 1280]], ['padauk-19', [788, 1400]], ['padauk-20', [1050, 1400]], ['padauk-21', [1050, 1400]], ['padauk-22', [1050, 1400]], ['padauk-23', [1050, 1400]], ['padauk-24', [1050, 1400]], ['padauk-25', [1050, 1400]]] },
     ],
   },
+  {
+    slug: 'stool',
+    title: 'Stool and Side Table',
+    kicker: 'Furniture',
+    summary: 'A bent and welded steel frame topped with a striped maple and cherry seat.',
+    tags: ['Metalwork', 'Welding', 'Woodworking'],
+    key: 'stool-p5',
+    text: 'A piece that works as both a stool and a side table. Every rod in the frame was bent and welded by hand, then finished in red, and the round top is a glue-up of maple and cherry.',
+    materials: [['Frame', 'Steel rod, bent, welded, and finished in red'], ['Top', 'Maple and cherry']],
+    stages: [['stool-p1', 'Materials'], ['stool-p2', 'Bending'], ['stool-p3', 'Welding'], ['stool-p4', 'Finishing'], ['stool-p5', 'Final']],
+    groups: [
+      { title: 'Process', images: [['stool-01', [1050, 1400]], ['stool-02', [1050, 1400]], ['stool-03', [788, 1400]], ['stool-04', [1050, 1400]], ['stool-05', [1050, 1400]], ['stool-06', [1050, 1400]], ['stool-07', [1050, 1400]]] },
+      { title: 'Finished', images: [['stool-08', [896, 1200]], ['stool-09', [1050, 1400]]] },
+    ],
+  },
 ];
 // Flattened list of process photos for the enlarged view
 const FAB_IMAGES = [];
