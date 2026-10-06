@@ -435,7 +435,7 @@ FAB_PROJECTS.forEach((p) => p.groups.forEach((g) => g.images.forEach(([f, ar]) =
    Images live in images/renders/. Each item: [file name, [width, height]]. */
 const RENDER_SETS = [
   { title: 'Boot “cups with sole”', rows: 2,   // optional: force how many rows the renders use
-    renders: [['boot-floating', [1600, 1200]], ['boot-colors', [1600, 1200]], ['boot-neutrals', [1600, 1200]], ['boot-warm', [1600, 1200]]] },
+    renders: [['boot-floating', [1600, 1200]], ['boot-table', [1440, 1080]], ['boot-separate', [1280, 960]], ['boot-colors', [1600, 1200]], ['boot-neutrals', [1600, 1200]], ['boot-warm', [1600, 1200]]] },
   { title: 'Car Header',
     renders: [['car-header-1', [760, 440]], ['car-header-2', [685, 445]], ['car-header-3', [675, 440]]] },
   { title: 'Salt and Pepper Shakers',
