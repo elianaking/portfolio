@@ -57,6 +57,7 @@ const PROJECTS = [
       { title: '3D printing', ar: [2000, 1305], text: 'Early prints refined fit and proportion: reshaping the toe box, slimming the glass, and separating the boot into its own flexible TPU piece. The final round dialed in the tolerance so the glass slides in and out snugly, printed in yellow TPU with translucent PLA. A cowboy version in brown TPU was printed to fit a real drinking glass.' },
     ],
     outcome: "A glass paired with a snug bio-silicone boot that catches condensation, adds grip, and protects the table. Each boot has its own color and style, so it also tells you whose drink is whose and turns a practical feature into a conversation piece.",
+    outcomeImages: 4,   // one wide image, then three in a row
     tools: ['CAD', '3D printing (TPU, PLA)', 'Rendering', 'Material research'],
   },
   {
@@ -1226,10 +1227,11 @@ if (isHome) {
         </section>`).join('')}
         <section class="case-block case-fade" aria-labelledby="h-outcome">
           <div class="case-sec"><h3 id="h-outcome">Outcome</h3><div><p>${esc(p.outcome)}</p></div></div>
-          <div class="outcome-grid">
+          <div class="outcome-grid has-${p.outcomeImages || 3}">
             ${[img('outcome-1', `${p.title}, final design`, `${p.title}, outcome 1`, [16, 9]),
                img('outcome-2', `${p.title}, detail view`, `${p.title}, outcome 2`),
-               img('outcome-3', `${p.title}, in use`, `${p.title}, outcome 3`)].slice(0, p.outcomeImages || 3).join('')}
+               img('outcome-3', `${p.title}, in use`, `${p.title}, outcome 3`),
+               img('outcome-4', `${p.title}, another view`, `${p.title}, outcome 4`)].slice(0, p.outcomeImages || 3).join('')}
           </div>
         </section>
         ${p.nextTime ? `<section class="case-block case-fade" aria-labelledby="h-next">
