@@ -224,6 +224,86 @@ const PROJECTS = [
     tools: [],
   },
   {
+    // REAL PROJECT. UI/UX case study. Add a context (class), timeline, or tools when you have them.
+    slug: 'shop', featured: true,
+    title: 'Is the Shop Open?',
+    summary: 'A phone-first status view that tells Syracuse students whether a VPA fabrication shop is open, staffed, and usable right now.',
+    tags: ['UX/UI', 'Research', 'Interaction'],
+    context: 'Personal project',
+    role: 'Research, UX/UI, prototyping', timeline: '', team: '',
+    link: { label: 'View in Figma', href: 'https://www.figma.com/design/6OY1FDFtd7i587G3y96B0q/Is-The-Shop-Open--Eliana-King?node-id=1-81' },
+    cover: 'images/shop/cover.jpg', coverAlt: 'Three phone screens: a lock screen alert, the Today view of every shop, and a shop page with a timeline for the space and the technician',
+    overview: 'Before heading to a VPA fabrication shop, students need to know three things: is it open, is a technician there, and is the machine they need working. All of that information exists on the university’s Answers site, but it’s split across pages, written as notes, and hard to reach on a phone. I researched how students find out today, then designed a status view that puts it all in one place, with a posting tool simple enough for the one staff member who keeps it up to date.',
+    problem: 'Shop hours change almost daily, but the hours page hadn’t been updated in over two weeks. Closures, broken machines, and technicians leaving early live in an Announcements box on a different page. So most students ask a friend, or just show up and hope.',
+    process: [
+      { title: 'Research plan', wide: true, text: 'I used three methods in October 2026: an audit of the VPA Shops pages on answers.syr.edu on desktop and phone, interviews with the Director of VPA Fabrication Shops and a Studio Technician, and a two-minute Google Forms survey of design students. I used Claude to help collect and organize the data from all three.' },
+      { title: 'Site audit', text: 'I walked through the pages a student would use to answer “Can I use the shop right now?” and marked every point of friction. Numbers on each screenshot match the notes below it.',
+        groups: [
+          { title: 'Answers home page', cols: 1, nocap: true, images: [['audit-home', 'Answers home page', [1864, 924]]], notes: ['A cookie banner and an anonymous-access notice appear before any content, on every visit.', 'The main entry point is a blank search bar. Nothing tells a student that shop hours live here, or what to search for.', 'The sidebar shows the university’s structure, not student tasks. On a phone, it isn’t visible at all.'] },
+          { title: 'VPA Shops main page', cols: 1, nocap: true, images: [['audit-vpa', 'VPA Shops main page', [1864, 850]]], notes: ['A broken machine is announced here: the Warehouse CNC is down, waiting on parts.', 'An early technician departure for Sunday is also here, but not on the hours page for that shop.', 'This page was updated 6 hours before the audit, while the hours page was last updated September 29.', 'To reach the shop pages, students go through a navigation tree of the whole school, including offices like budget and IT.'] },
+          { title: 'Shop Hours/Calendar', cols: 1, nocap: true, images: [['audit-hours-1', 'Shop Hours/Calendar, part 1', [1864, 865]]], notes: ['Lunch and dinner breaks appear as a note above the hours, and the break times differ by shop.', 'Classes take priority during listed hours, but there’s no way to know in advance when a class is using a shop.', 'Hours vary by day: the Warehouse shop closes at 12:30 on Fridays and is closed Saturdays.', 'Last updated September 29, even though hours change almost daily.'] },
+          { cols: 1, nocap: true, images: [['audit-hours-2', 'Shop Hours/Calendar, part 2', [1864, 949]]], notes: ['For the Warehouse digital fab lab, technician availability depends on how busy the wood and plastic shops are.', 'ComArt’s breaks (12:00 and 5:00) are at different times than the Warehouse’s (1:30 and 5:30).'] },
+          { cols: 1, nocap: true, images: [['audit-hours-3', 'Shop Hours/Calendar, part 3', [1864, 954]]], notes: ['For ComArt Digital Fab, the listed hours mean when a technician is present, not when students can use the space. The same page uses “hours” two different ways.', 'Thursday and Friday just say “Open,” with no times.', 'A note that Shaffer Print Lab hours begin on October 5 was still posted after that date had passed.'] },
+          { title: 'Shop locations', cols: 1, nocap: true, images: [['audit-locations', 'Shop locations', [1864, 953]]], notes: ['The page says there are four fabrication spaces, then lists three buildings.', 'The same shop has different names on different pages: “Wood/Metal Shop, Suite 118” here, “Warehouse Shop (Wood/Metal)” on the hours page.', 'Building access is a separate step, requested by emailing a different contact for each building.'] },
+        ] },
+      { title: 'Staff interviews', wide: true, text: 'I talked with the Director of VPA Fabrication Shops and a Studio Technician, using the same questions with both. These are summaries of my notes, not word-for-word quotes.',
+        table: { head: ['Question', 'What I heard'], rows: [
+          ['How often do hours change?', 'Almost daily, according to the director. The goal is to keep them consistent.'],
+          ['Who updates the pages?', 'Only the director. Each change takes a few minutes.'],
+          ['How do students learn a machine is down?', 'Only from the Announcements box on the main VPA Shops page.'],
+          ['How often do students show up to a closed shop?', 'Not often, both said. The exception is Sundays during machine authorizations.'],
+          ['Would a shop Instagram account help?', 'No. No one has time to run it, and it depends on students following along.'],
+          ['How do students find the site?', 'QR codes posted around the shops. On a phone, the site’s navigation panel doesn’t appear.'],
+          ['What do you wish every student knew?', 'To bring safety glasses (technician), and everything that’s already on the website (director).'],
+        ] } },
+      { title: 'Student survey', wide: true, text: 'A two-minute Google Form shared with design students. Responses so far come from industrial design seniors who use the shops a few times a month, so these results point to patterns worth testing, not final conclusions.',
+        survey: [
+          { q: 'How do you usually find out if a shop is open?', bars: [['Ask a friend or classmate', 'All'], ['Answers website', 'Most'], ['Just show up', 'Half', 'y'], ['Other', 'Some'], ['Ask a professor', 'None'], ['Email the shop', 'None']], note: 'Every student asks a friend. The website is used too, but alongside other people, not instead of them.' },
+          { q: 'Have you ever arrived to find a shop closed, on break, full of a class, or missing a machine you needed?', bars: [['Never', 'Some'], ['Once', 'None'], ['A few times', 'Half', 'r'], ['Often', 'Some', 'r']], note: 'Most have, at least a few times. Staff see this happen rarely, possibly because they only see the students who walk in.' },
+          { q: 'Before this survey, did you know shop hours are posted on Answers?', bars: [['Yes, and I use it', 'Half'], ['Yes, but I don’t use it', 'Half', 'y'], ['No', 'None']], note: 'Everyone knew the hours were there, but half don’t use that page.' },
+          { q: 'How easy is it to find out whether you can use a shop right now?', bars: [['1, very hard', 'None'], ['2', 'Half', 'y'], ['3', 'Half', 'y'], ['4', 'None'], ['5, very easy', 'None']], note: 'Average 2.5 out of 5. No one rated it easier than 3.' },
+        ],
+        quotes: { title: 'If you could check one thing about a shop in five seconds on your phone, what would it be?', items: ['Able to see itinerary of materials, products available at each [shop]', 'If the techs are in, and which one is working/ if they are on a quick break and will be back', 'laser cut template'] } },
+      { title: 'What I found', wide: true, text: 'Six findings from the audit, interviews, and survey. Each one shaped a specific design decision.',
+        findings: [
+          ['The information exists, but it’s split up.', 'The weekly schedule lives on one page. Everything that changes it (closures, broken machines, technicians leaving early) lives in an Announcements box on a different page. Students have to combine the two in their heads.'],
+          ['The schedule changes almost daily, but the hours page doesn’t.', 'The hours page was last updated September 29, while Announcements was updated hours before my audit.'],
+          ['Staff and students see the problem differently.', 'Both staff members said students rarely show up to a closed shop. But most students said they had, at least a few times.'],
+          ['Students rely on each other, not the website.', 'Every student asks a friend to find out if a shop is open, and half just show up. Half of those who know about the hours page don’t use it.'],
+          ['Who’s there matters as much as when it’s open.', 'One student’s top wish was to see whether technicians are in, or on a quick break. Some shops already list technician hours separately from when students can use the space, but the pages don’t explain the difference.'],
+          ['Any solution can’t add work for staff.', 'One person updates every shop page, and there’s no time to run something like an Instagram account.'],
+        ] },
+      { title: 'From findings to design decisions', wide: true, text: 'The concept is a phone-first status view, reached through Blackboard, with a simple posting tool for staff. Every part of it traces back to something I learned.',
+        table: { head: ['What I learned', 'Design response'], rows: [
+          ['Daily changes live on a separate page from the schedule', 'A Today view that combines each shop’s schedule with that day’s changes, so students don’t have to'],
+          ['Hours mean different things: when the space is open vs. when a technician is there', 'Separate indicators for the space and for staffing, including a timeline with one lane for each'],
+          ['A student’s top wish was knowing if techs are in or on break', 'Technician status on every shop card, and alerts when a technician leaves early'],
+          ['Breaks and class priority are buried in notes', 'Breaks drawn directly on each shop’s timeline for the day'],
+          ['One person updates everything, with no time for more', 'A posting flow that takes no longer than typing an announcement does now'],
+          ['Old notices stay up after they’ve passed', 'Every update has an end time and removes itself automatically'],
+          ['Answers’ navigation disappears on phones; students rely on friends', 'A mobile-first design, delivered through Blackboard, which every student already uses'],
+          ['Staff’s top reminder is safety glasses', 'A “Before you go” checklist on each shop'],
+          ['The most common question is about printers', 'Printer outages use the same out-of-service status as machines. Printer setup help is out of scope.'],
+          ['No staff time for an Instagram account', 'Not pursued. The concept uses channels students already check.'],
+          ['A student wants to see available materials and laser cut templates', 'Noted for the future. Out of scope for this project, which focuses on status, not inventory.'],
+        ] } },
+      { title: 'The design', text: 'Students open Today and see every shop at a glance: open or closed, until when, the day’s breaks on a timeline, and anything that changed. Each shop page splits the space from the technician, so “open” never hides “no help after 4.” Staff post an update by tapping a shop and what changed, and it reaches Today, the Updates tab, and Blackboard at once, then removes itself when it ends. I designed the wireframes in Figma with Claude.',
+        groups: [
+          { title: 'Student view', cols: 5, images: [['screen-today', 'Today: every shop, with the day’s changes on top', [804, 2908]], ['screen-shop', 'Shop page: one timeline lane for the space, one for the technician', [804, 2816]], ['screen-shops', 'Shops: every space by building, with one name for each', [804, 1798]], ['screen-updates', 'Updates: only what’s current, removed when it ends', [804, 1748]], ['screen-closed', 'A closed day: what opens next, and when', [804, 1982]]] },
+          { title: 'Alerts, widgets, and the staff posting flow', cols: 4, images: [['screen-notification', 'A Blackboard alert when a technician leaves early', [804, 1748]], ['screen-widgets', 'Home screen widgets for the shops you use', [804, 1748]], ['screen-staff-new', 'Staff: pick a shop, what changed, and when it ends', [804, 1996]], ['screen-staff-live', 'Staff: live updates, with a reminder for open-ended outages', [804, 1748]]] },
+        ] },
+    ],
+    outcome: 'One place that answers “Can I use the shop right now?” in a few seconds, on the phone students already have in their hands. It combines the schedule with the day’s changes, separates the space from the technician, and lets one staff member keep it all current without adding work.',
+    outcomeImages: 1,
+    nextTitle: 'Next steps',
+    nextTime: {
+      'Test': ['Run task tests with 5 to 6 students, comparing the current Answers pages with the prototype on the same tasks'],
+      'Widen': ['Share the survey with other majors and first-year students, who may know the least about the shops'],
+      'Follow up': ['Ask the shops director how class takeovers are communicated, what “Open” means for ComArt Digital Fab, and how authorizations work'],
+    },
+    tools: ['Google Forms', 'In-person interviews', 'Figma', 'Claude'],
+  },
+  {
     // COMING SOON: shows a "Coming soon" panel instead of a cover image, and a short note when opened
     slug: 'capstone', featured: true, comingSoon: true,
     title: 'Senior Capstone',
@@ -1139,6 +1219,16 @@ if (isHome) {
     }
     const order = PROJECTS.filter((x) => x.featured).length > 1 && p.featured ? PROJECTS.filter((x) => x.featured) : PROJECTS;
     const next = order[(order.indexOf(p) + 1) % order.length];   // "Next project" skips hidden ones
+    const SV = { All: 1, Most: 0.75, Half: 0.5, Some: 0.25, None: 0 };
+    const extras = (s) => [
+      s.findings ? `<ol class="findings">${s.findings.map(([t, d]) => `<li><h5>${esc(t)}</h5><p>${esc(d)}</p></li>`).join('')}</ol>` : '',
+      s.table ? `<table class="market dtable"><thead><tr>${s.table.head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead>
+        <tbody>${s.table.rows.map(([a, b]) => `<tr><th scope="row">${esc(a)}</th><td data-label="${esc(s.table.head[1])}">${esc(b)}</td></tr>`).join('')}</tbody></table>` : '',
+      s.survey ? `<div class="survey">${s.survey.map((c) => `<figure class="sv"><figcaption>${esc(c.q)}</figcaption>
+        <ul>${c.bars.map(([l, v, tone]) => `<li><span class="sv-l">${esc(l)}</span><span class="sv-track"><span class="sv-bar${tone ? ` is-${tone}` : ''}" style="--v:${SV[v]}"></span></span><span class="sv-v">${esc(v)}</span></li>`).join('')}</ul>
+        ${c.note ? `<p class="sv-note">${esc(c.note)}</p>` : ''}</figure>`).join('')}</div>` : '',
+      s.quotes ? `<div class="quotes"><h5>${esc(s.quotes.title)}</h5>${s.quotes.items.map((q) => `<blockquote>\u201c${esc(q)}\u201d</blockquote>`).join('')}</div>` : '',
+    ].join('');
     const img = (name, alt, label, ar = [4, 3]) => media({ src: `images/${p.slug}/${name}.jpg`, alt, label, ar });
     return `
       <div class="case-hero">${media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10], lazy: false }, 'case-media')}</div>
@@ -1152,6 +1242,7 @@ if (isHome) {
           ${[['Role', p.role], ['Timeline', p.timeline], ['Team', p.team], ['Tools', p.tools.join(', ')]]
             .filter(([, v]) => v).map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}
         </dl>
+        ${p.link ? `<p class="case-link case-fade"><a class="btn" href="${esc(p.link.href)}" target="_blank" rel="noopener" data-cursor="Open">${esc(p.link.label)} <span aria-hidden="true">\u2197</span></a></p>` : ''}
         ${p.about ? `<section class="case-block case-fade" aria-labelledby="h-about">
           <div class="case-sec"><h3 id="h-about">${esc(p.about.title)}</h3><div><p class="about-note">${esc(p.about.text)}</p></div></div>
         </section>` : ''}
@@ -1189,15 +1280,16 @@ if (isHome) {
         </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-process">
           <div class="case-sec"><h3 id="h-process">Process</h3><div></div></div>
-          <ol class="steps">${p.process.map((s, i) => s.groups ? `
+          <ol class="steps">${p.process.map((s, i) => (s.groups || s.wide) ? `
             <li class="step step-wide">
               <h4><span class="step-n">${i + 1}</span>${esc(s.title)}</h4>
               <p>${esc(s.text)}</p>
-              ${s.groups.map((g) => `<div class="step-group">${g.title ? `<h5>${esc(g.title)}</h5>` : ''}
+              ${extras(s)}
+              ${(s.groups || []).map((g) => `<div class="step-group">${g.title ? `<h5>${esc(g.title)}</h5>` : ''}
                 <div class="gallery${g.wide ? ' is-wide' : ''}${g.cols ? ` cols-${g.cols}` : ''}">${g.images.map(([file, cap, ar = [4, 3]]) => {
                   const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar }) - 1;
-                  return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar })}</button><figcaption>${esc(cap)}</figcaption></figure>`;
-                }).join('')}</div></div>`).join('')}
+                  return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: cap, label: cap, ar })}</button>${g.nocap ? '' : `<figcaption>${esc(cap)}</figcaption>`}</figure>`;
+                }).join('')}</div>${g.notes ? `<ol class="audit-notes">${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ol>` : ''}</div>`).join('')}
             </li>` : `
             <li class="step">
               ${img(`process-${i + 1}`, `${p.title} process: ${s.title}`, `${p.title}, process ${i + 1}`, s.ar)}
@@ -1235,7 +1327,7 @@ if (isHome) {
           </div>
         </section>
         ${p.nextTime ? `<section class="case-block case-fade" aria-labelledby="h-next">
-          <div class="case-sec"><h3 id="h-next">What I'd do next time</h3><div class="next-cols">
+          <div class="case-sec"><h3 id="h-next">${esc(p.nextTitle || "What I'd do next time")}</h3><div class="next-cols">
             ${Object.entries(p.nextTime).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
           </div></div>
         </section>` : ''}
