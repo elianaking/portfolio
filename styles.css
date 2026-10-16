@@ -379,7 +379,7 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .case-kicker { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 16px; }
 .case-title { font-size: clamp(3.2rem, 2rem + 6.5vw, 7.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.88; }
 .case-summary { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem); line-height: 1.35; max-width: 34ch; margin: 22px 0 0; }
-.case-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin: clamp(40px, 5vw, 64px) 0 var(--block-gap); padding: 24px 0; border-block: 1px solid var(--line); }
+.case-meta { display: flex; flex-wrap: wrap; gap: 20px clamp(40px, 6vw, 96px); margin: clamp(40px, 5vw, 64px) 0 var(--block-gap); padding: 24px 0; border-block: 1px solid var(--line); }
 .case-meta dt { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 6px; }
 .case-meta dd { margin: 0; font-weight: 500; line-height: 1.45; }
 .case-sec { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 16px; margin-bottom: clamp(32px, 4vw, 48px); }
@@ -479,7 +479,7 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .next-title { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h2); letter-spacing: -0.04em; line-height: 0.95; transition: transform 0.5s var(--ease-out), color 0.3s; }
 .next-btn:hover .next-title { transform: translateX(14px); color: var(--blue); }
 @media (max-width: 760px) {
-  .case-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-meta { gap: 20px 40px; }
   .case-sec h3, .case-sec > div { grid-column: 1 / -1; }
   .steps, .outcome-grid, .outcome-grid.has-4 { grid-template-columns: 1fr; }
   .case-top { padding: 12px var(--gutter); }
@@ -738,3 +738,9 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .case .group-grid .audit-notes li { padding-left: 32px; }
 .case .group-grid .audit-notes li::before { width: 22px; height: 22px; font-size: 0.7rem; }
 @media (max-width: 760px) { .case .group-grid { grid-template-columns: 1fr; } }
+
+/* No hyphen splits in the project details, and no single words left on their own line */
+.case-meta > div { flex: 0 1 auto; max-width: 48ch; }
+.case-meta dd { hyphens: none; }
+.case-summary, .card-summary, .sec-intro, .hero-intro { text-wrap: balance; }
+p, li, dd, td, th, blockquote { text-wrap: pretty; }

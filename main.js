@@ -302,7 +302,7 @@ const PROJECTS = [
       'Widen': ['Share the survey with other majors and first-year students, who may know the least about the shops'],
       'Follow up': ['Ask the shops director how class takeovers are communicated, what “Open” means for ComArt Digital Fab, and how authorizations work'],
     },
-    tools: ['Google Forms', 'In-person interviews', 'Figma', 'Claude'],
+    tools: ['Google Forms', 'In\u2011person interviews', 'Figma', 'Claude'],
   },
   {
     // COMING SOON: shows a "Coming soon" panel instead of a cover image, and a short note when opened
@@ -594,6 +594,7 @@ const motionOK = hasGSAP && !reduce;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const rand = (a, b) => a + Math.random() * (b - a);
 const cssVar = (n) => getComputedStyle(root).getPropertyValue(n).trim();
+const noWidow = (s) => esc(s).replace(/ (\S+)$/, '&nbsp;$1');   // keeps the last two words together
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const homeLink = (hash) => (isHome ? hash : 'index.html' + hash);
 
@@ -927,7 +928,7 @@ if (isHome) {
       <a class="card-link" href="#case/${p.slug}" data-cursor="${esc(p.cursor || 'View project')}">
         ${p.comingSoon ? soonPanel('card-media') : media({ src: p.cover, alt: p.coverAlt, label: `${p.title} cover`, ar: [16, 10] }, 'card-media')}
         <div class="card-row"><h3 class="card-title">${esc(p.title)}</h3></div>
-        <p class="card-summary">${esc(p.summary)}</p>
+        <p class="card-summary">${noWidow(p.summary)}</p>
         ${p.tags.length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
       </a>
     </li>`).join('');
@@ -1237,7 +1238,7 @@ if (isHome) {
         <header class="case-fade">
           ${p.context ? `<p class="case-kicker">${esc(p.context)}</p>` : ''}
           <h2 class="case-title" id="case-title" tabindex="-1">${esc(p.title)}</h2>
-          <p class="case-summary">${esc(p.summary)}</p>
+          <p class="case-summary">${noWidow(p.summary)}</p>
         </header>
         <dl class="case-meta case-fade">
           ${[['Role', p.role], ['Timeline', p.timeline], ['Team', p.team], ['Tools', p.tools.join(', ')]]
