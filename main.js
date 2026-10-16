@@ -231,7 +231,7 @@ const PROJECTS = [
     tags: ['UX/UI', 'Research', 'Interaction'],
     context: 'Personal project',
     role: 'Research, UX/UI, prototyping', timeline: '', team: '',
-    link: { label: 'View in Figma', href: 'https://www.figma.com/design/6OY1FDFtd7i587G3y96B0q/Is-The-Shop-Open--Eliana-King?node-id=1-81' },
+    link: { label: 'Try the prototype in Figma', href: 'https://www.figma.com/proto/6OY1FDFtd7i587G3y96B0q/Is-The-Shop-Open--Eliana-King?node-id=2007-3131&p=f&viewport=-423%2C190%2C0.28&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2007%3A3131&show-proto-sidebar=1&page-id=1%3A81' },
     cover: 'images/shop/cover.jpg', coverAlt: 'Three phone screens: a lock screen alert, the Today view of every shop, and a shop page with a timeline for the space and the technician',
     overview: 'Before heading to a VPA fabrication shop, students need to know three things: is it open, is a technician there, and is the machine they need working. All of that information exists on the university’s Answers site, but it’s split across pages, written as notes, and hard to reach on a phone. I researched how students find out today, then designed a status view that puts it all in one place, with a posting tool simple enough for the one staff member who keeps it up to date.',
     problem: 'Shop hours change almost daily, but the hours page hadn’t been updated in over two weeks. Closures, broken machines, and technicians leaving early live in an Announcements box on a different page. So most students ask a friend, or just show up and hope.',
@@ -638,13 +638,13 @@ const SVG = {
    ===================================================================== */
 const NAV = [
   { id: 'work', label: 'Projects', href: homeLink('#work') },
-  { id: 'fabrication', label: 'Fabrication', href: 'fabrication.html' },
+  { id: 'fabrication', label: 'More Projects', href: 'fabrication.html' },
   { id: 'renderings', label: 'Renderings', href: 'renderings.html' },
   { id: 'sketches', label: 'Sketches', href: 'sketches.html' },
   { id: 'about', label: 'About', href: homeLink('#about') },
   { id: 'contact', label: 'Contact', href: homeLink('#contact') },
 ];
-const LABELS = { home: 'Home', work: 'Projects', fabrication: 'Fabrication', renderings: 'Renderings', sketches: 'Sketches', about: 'About', contact: 'Contact' };
+const LABELS = { home: 'Home', work: 'Projects', fabrication: 'More Projects', renderings: 'Renderings', sketches: 'Sketches', about: 'About', contact: 'Contact' };
 const X_ICON = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
 document.body.insertAdjacentHTML('afterbegin', `
@@ -1620,7 +1620,7 @@ if (page === 'fabrication') {
       <div class="case-bg"></div>
       <div class="case-scroll">
         <div class="case-top">
-          <span class="case-crumb">Fabrication / <b id="case-crumb-title"></b></span>
+          <span class="case-crumb">More Projects / <b id="case-crumb-title"></b></span>
           <button class="btn btn-ghost btn-sm case-close" type="button">${X_ICON} Close</button>
         </div>
         <div class="case-inner fab-case" id="case-body"></div>
