@@ -730,3 +730,11 @@ html.nav-scrolled .nav-bg { opacity: 1; }
 .case .dtable { display: table; }
 .case .step p, .case .dtable th, .case .dtable td, .findings p, .findings h5, .sv-note, .audit-notes li, .quotes blockquote { text-wrap: pretty; }
 @media (max-width: 720px) { .case .dtable { display: block; } .case .dtable tbody th { width: auto; font-weight: 600; color: var(--ink); } }
+/* Two-column spread of step groups (the site audit) */
+.case .group-grid { position: relative; left: 50%; transform: translateX(-50%); width: max(100%, min(calc(1240px - 2 * var(--gutter)), calc(100vw - 2 * var(--gutter) - 24px)));
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 32px; align-items: start; }
+.case .group-grid .step-group { left: auto; transform: none; width: auto; }
+.case .group-grid .audit-notes { gap: 6px; font-size: 0.9rem; }
+.case .group-grid .audit-notes li { padding-left: 32px; }
+.case .group-grid .audit-notes li::before { width: 22px; height: 22px; font-size: 0.7rem; }
+@media (max-width: 760px) { .case .group-grid { grid-template-columns: 1fr; } }
