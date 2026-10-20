@@ -1280,6 +1280,10 @@ if (isHome) {
             ${p.market.takeaway ? `<p class="market-takeaway"><b>Where ${esc(p.market.fit || p.title.split(' ')[0])} fits:</b> ${esc(p.market.takeaway)}</p>` : ''}
           </div></div>
         </section>` : ''}
+        ${p.operations ? `<section class="case-block case-fade" aria-labelledby="h-ops">
+          <div class="case-sec"><h3 id="h-ops">Order of operations</h3><div></div></div>
+          <ol class="timeline">${p.operations.map(([t, d, pivot]) => `<li${pivot ? ' class="is-pivot"' : ''}><b>${esc(t)}</b>${d ? `<span>${esc(d)}</span>` : ''}</li>`).join('')}</ol>
+        </section>` : ''}
         <section class="case-block case-fade" aria-labelledby="h-process">
           <div class="case-sec"><h3 id="h-process">Process</h3><div></div></div>
           <ol class="steps">${p.process.map((s, i) => (s.groups || s.wide) ? `
@@ -1300,10 +1304,6 @@ if (isHome) {
             </li>`).join('')}
           </ol>
         </section>
-        ${p.operations ? `<section class="case-block case-fade" aria-labelledby="h-ops">
-          <div class="case-sec"><h3 id="h-ops">Order of operations</h3><div></div></div>
-          <ol class="timeline">${p.operations.map(([t, d, pivot]) => `<li${pivot ? ' class="is-pivot"' : ''}><b>${esc(t)}</b>${d ? `<span>${esc(d)}</span>` : ''}</li>`).join('')}</ol>
-        </section>` : ''}
         ${p.materials ? `<section class="case-block case-fade" aria-labelledby="h-mat">
           <div class="case-sec"><h3 id="h-mat">Materials</h3><div class="next-cols">
             ${Object.entries(p.materials).map(([k, items]) => `<div><h4>${esc(k)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
