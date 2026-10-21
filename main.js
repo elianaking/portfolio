@@ -31,36 +31,6 @@ const SITE = {
    images/<slug>/outcome-1.jpg, outcome-2.jpg, outcome-3.jpg. */
 const PROJECTS = [
   {
-    // REAL PROJECT. Add a timeline if you like (blank fields are hidden on the site).
-    slug: 'boot', featured: true,
-    title: 'Boot “cups with sole”',
-    summary: 'A cup shaped like a boot that works as its own coaster.',
-    overview: 'This project explores how everyday objects can communicate meaning beyond their practical use. Shaped like a boot yet functioning as a coaster, the redesigned cup turns a routine object into something playful and expressive, inviting humor and lightness into daily use. Designed for a design-conscious audience that values play, care, and simplicity, it integrates function and emotion, turning a small daily habit into a moment of joy.',
-    tags: ['Product', 'CMF', '3D printing'],
-    context: 'Semiotics class',
-    role: 'Research, concepting, CAD, 3D printing, rendering', timeline: '', team: 'Solo',
-    cover: 'images/boot/cover.jpg', coverAlt: 'A glass standing in a purple silicone boot, with red, brown, gray, and tan boots floating around it',
-    problem: 'Condensation seems minor, but it causes real everyday frustration: wet tables, slippery cups, and water rings. Boot builds the coaster into the cup itself. Its snug, reusable silicone base catches condensation and adds grip and protection, while the playful boot form lets you tell your drink apart by color and style.',
-    // Optional on any project: a comparison table shown between Problem and Process
-    market: {
-      rows: [
-        { product: 'Corkcicle Classic Coffee Mug', base: 'Silicone “stay put” bottom', price: '$34.95', note: 'Keeps an insulated mug from sliding. Rated 4.9 across 1,396 reviews.' },
-        { product: 'Bacardi Cork Base Mug', base: 'Built-in cork coaster', price: '$16', note: 'Protects surfaces, but the cork is fused to an opaque ceramic mug.' },
-        { product: 'Circo Labs Rolocoasters', base: 'Merino wool felt sleeve', price: '$60 for a set of 4', note: 'Catches condensation, but the sleeve is a separate piece that sells with the glasses.' },
-      ],
-      takeaway: 'Existing options either fuse the base to an opaque mug or sell it as a separate accessory. Boot keeps the glass clear and makes the base a removable, expressive part of the cup, with a personality none of them have.',
-    },
-    // "ar" is each process image's shape (width, height), so nothing gets cropped
-    process: [
-      { title: 'Initial exploration', ar: [2000, 1299], text: 'Explored base profiles and ways to build a coaster into the cup, keeping a clean visual connection between glass and base. The goal was to merge protection and personality in one seamless gesture.' },
-      { title: 'Boot form concepts', ar: [2000, 1378], text: "Sketched variations that pair a coaster's function with the iconic silhouette of a boot. The form bridges practicality and expression, and each variation brings its own personality, turning the cup into a conversation piece." },
-      { title: '3D printing', ar: [2000, 1305], text: 'Early prints refined fit and proportion: reshaping the toe box, slimming the glass, and separating the boot into its own flexible TPU piece. The final round dialed in the tolerance so the glass slides in and out snugly, printed in yellow TPU with translucent PLA. A cowboy version in brown TPU was printed to fit a real drinking glass.' },
-    ],
-    outcome: "A glass paired with a snug bio-silicone boot that catches condensation, adds grip, and protects the table. Each boot has its own color and style, so it also tells you whose drink is whose and turns a practical feature into a conversation piece.",
-    outcomeImages: 4,   // one wide image, then three in a row
-    tools: ['CAD', '3D printing (TPU, PLA)', 'Rendering', 'Material research'],
-  },
-  {
     // REAL PROJECT
     slug: 'ufp', featured: true,
     title: 'UFP Tradeshow Showpiece',
@@ -125,6 +95,81 @@ const PROJECTS = [
       Process: ['Align the tube seal more accurately, since it affects every step after it', 'Find a better way to stuff foam into the body, or a different filler'],
     },
     tools: ['SolidWorks', '3D printing', 'Vacuum forming', 'Heat sealing', 'Hot stamping', 'Die cutting'],
+  },
+  {
+    // REAL PROJECT. Add a timeline if you like (blank fields are hidden on the site).
+    slug: 'boot', featured: true,
+    title: 'Boot “cups with sole”',
+    summary: 'A cup shaped like a boot that works as its own coaster.',
+    overview: 'This project explores how everyday objects can communicate meaning beyond their practical use. Shaped like a boot yet functioning as a coaster, the redesigned cup turns a routine object into something playful and expressive, inviting humor and lightness into daily use. Designed for a design-conscious audience that values play, care, and simplicity, it integrates function and emotion, turning a small daily habit into a moment of joy.',
+    tags: ['Product', 'CMF', '3D printing'],
+    context: 'Semiotics class',
+    role: 'Research, concepting, CAD, 3D printing, rendering', timeline: '', team: 'Solo',
+    cover: 'images/boot/cover.jpg', coverAlt: 'A glass standing in a purple silicone boot, with red, brown, gray, and tan boots floating around it',
+    problem: 'Condensation seems minor, but it causes real everyday frustration: wet tables, slippery cups, and water rings. Boot builds the coaster into the cup itself. Its snug, reusable silicone base catches condensation and adds grip and protection, while the playful boot form lets you tell your drink apart by color and style.',
+    // Optional on any project: a comparison table shown between Problem and Process
+    market: {
+      rows: [
+        { product: 'Corkcicle Classic Coffee Mug', base: 'Silicone “stay put” bottom', price: '$34.95', note: 'Keeps an insulated mug from sliding. Rated 4.9 across 1,396 reviews.' },
+        { product: 'Bacardi Cork Base Mug', base: 'Built-in cork coaster', price: '$16', note: 'Protects surfaces, but the cork is fused to an opaque ceramic mug.' },
+        { product: 'Circo Labs Rolocoasters', base: 'Merino wool felt sleeve', price: '$60 for a set of 4', note: 'Catches condensation, but the sleeve is a separate piece that sells with the glasses.' },
+      ],
+      takeaway: 'Existing options either fuse the base to an opaque mug or sell it as a separate accessory. Boot keeps the glass clear and makes the base a removable, expressive part of the cup, with a personality none of them have.',
+    },
+    // "ar" is each process image's shape (width, height), so nothing gets cropped
+    process: [
+      { title: 'Initial exploration', ar: [2000, 1299], text: 'Explored base profiles and ways to build a coaster into the cup, keeping a clean visual connection between glass and base. The goal was to merge protection and personality in one seamless gesture.' },
+      { title: 'Boot form concepts', ar: [2000, 1378], text: "Sketched variations that pair a coaster's function with the iconic silhouette of a boot. The form bridges practicality and expression, and each variation brings its own personality, turning the cup into a conversation piece." },
+      { title: '3D printing', ar: [2000, 1305], text: 'Early prints refined fit and proportion: reshaping the toe box, slimming the glass, and separating the boot into its own flexible TPU piece. The final round dialed in the tolerance so the glass slides in and out snugly, printed in yellow TPU with translucent PLA. A cowboy version in brown TPU was printed to fit a real drinking glass.' },
+    ],
+    outcome: "A glass paired with a snug bio-silicone boot that catches condensation, adds grip, and protects the table. Each boot has its own color and style, so it also tells you whose drink is whose and turns a practical feature into a conversation piece.",
+    outcomeImages: 4,   // one wide image, then three in a row
+    tools: ['CAD', '3D printing (TPU, PLA)', 'Rendering', 'Material research'],
+  },
+  {
+    // REAL PROJECT. IND 447 Bluetooth speaker. Final photos show in the Outcome gallery (finalShots).
+    slug: 'speaker', featured: true,
+    title: 'Bluetooth Speaker',
+    summary: 'A battery-powered Bluetooth speaker held in one continuous ribbon of matte black loops.',
+    tags: ['CAD', '3D printing', 'Electronics'],
+    context: 'IND 447',
+    role: 'Sketching, CAD, prototyping, electronics, finishing', timeline: '', team: '',
+    cover: 'images/speaker/cover.jpg', coverAlt: 'A blue speaker housing held inside a matte black frame that loops back and forth, with a stainless button and a small knob between the loops',
+    overview: 'IND 447 explores the relationship between digital and physical, with a focus on advanced CAD and rapid prototyping, exercising the classic process “from art to part.” The project: design and build a working Bluetooth speaker. My design wraps a blue housing in a single ribbon that loops back and forth, so the frame is both the stand and the face of the speaker.',
+    requirements: [
+      'Fully functional as a battery-powered Bluetooth speaker. If it doesn’t work, it isn’t complete.',
+      'Every internal component solidly installed, with no dangling wires or rattling. It has to survive a strong shake.',
+      'All parts primarily machine-made, such as 3D printed or CNC machined, with only minor sanding or filing by hand.',
+    ],
+    process: [
+      { title: 'Sketching', text: 'I started loose, testing dozens of simple forms before letting a band wrap, fold, and finally loop around the box. The refined sheet worked out the housing, its grille and controls, and the three-loop frame in perspective.',
+        groups: [
+          { title: 'Thumbnails and refined sketches', cols: 2, images: [['sketch-thumbnails', 'Form thumbnails, from boxes to wraps to loops', [1800, 1124]], ['sketch-refined', 'Refined sketches: housing, grille, controls, and the looped frame', [1800, 1193]]] },
+          { title: 'Early ideas', cols: 4, images: [['sketch-1', 'Bell and cone forms', [1, 1]], ['sketch-2', 'Layered vase form', [1, 1]], ['sketch-3', 'Spool form', [1, 1]], ['sketch-4', 'Rounded forms with circle cutouts', [1, 1]], ['sketch-5', 'Paired rings', [1, 1]], ['sketch-6', 'Loops and stacked cylinders', [1, 1]], ['sketch-7', 'Three-loop frame studies', [1, 1]], ['sketch-8', 'Textured loop study', [1, 1]]] },
+        ] },
+      { title: 'CAD', text: 'In SolidWorks, I modeled the looped frame and explored housing forms and colors, then detailed the inside: mounts for every component, a hexagonal grille, and cutouts sized for the button and volume knob.',
+        groups: [
+          { title: 'Frame studies', cols: 3, images: [['cad-frame-1', 'The looped frame around the housing', [1800, 1350]], ['cad-frame-2', 'Three-quarter view', [1800, 1350]], ['cad-frame-side', 'Side view, showing how the loops layer', [1800, 1350]]] },
+          { title: 'Housing and color studies', cols: 4, images: [['cad-concept-1', 'Housing study in gray and blue', [1800, 1350]], ['cad-concept-2', 'Housing study in green', [1800, 1350]], ['cad-concept-3', 'Frame and housing together', [1800, 1350]], ['cad-concept-4', 'Front view of the frame', [1800, 1350]]] },
+          { title: 'Detailing the internals', cols: 3, images: [['cad-internals-1', 'Fitting the components inside', [1800, 1350]], ['cad-internals-2', 'Placing the speaker driver', [1800, 1350]], ['cad-dims', 'Sizing the cutouts for the controls', [1800, 1350]], ['cad-housing', 'Housing shell with the hexagonal grille and internal mounts', [1350, 1800]], ['cad-mount', 'Adding snaps', [1350, 1800]], ['cad-internals-3', 'Front view with the driver opening', [1350, 1800]]] },
+        ] },
+      { title: '50% scale model', text: 'Before printing full size, I printed a model at half scale to check the proportions and how the parts come apart: two frame halves, the housing, the grille, and the base plate.',
+        groups: [{ cols: 4, images: [['scale-1', 'The scale model, taken apart', [1, 1]], ['scale-2', 'Frame halves around the assembled housing', [1, 1]], ['scale-3', 'Assembled, in hand', [1, 1]], ['scale-4', 'Assembled, three-quarter view', [1, 1]]] }] },
+      { title: 'Electronics', text: 'I planned the circuit on paper, laying out each board and drawing the connections, then wired and tested it on the bench before anything went into the housing: a speaker driver, an amplifier with a volume knob, a Bluetooth receiver, a charging board, a rechargeable battery, and a stainless power button.',
+        groups: [
+          { title: 'Planning the layout', cols: 3, images: [['wiring-plan-1', 'Mapping the boards and connections', [1350, 1800]], ['wiring-plan-2', 'Amplifier, receiver, and driver connections', [1350, 1800]], ['wiring-plan-3', 'Power and charging', [1350, 1800]]] },
+          { title: 'Testing on the bench', cols: 2, images: [['wiring-1', 'The full circuit, wired', [1070, 976]], ['wiring-2', 'Powered on and playing', [1070, 976]]] },
+        ] },
+      { title: 'Printing and finishing', text: 'The full-size parts were 3D printed, sanded smooth, primed, and spray painted: blue for the housing and grille, matte black for the frame. Mounts printed into the housing hold every component in place.',
+        groups: [
+          { title: 'Sanding and primer', cols: 4, images: [['print-raw', 'Raw prints of the frame halves', [1800, 1350]], ['print-sanded', 'Sanded housing, grille, and base', [1800, 1350]], ['print-primer-2', 'Every part primed', [1800, 1350]], ['print-dryfit', 'Dry fit in primer', [1350, 1800]]] },
+          { title: 'Inside the housing', cols: 3, images: [['print-inside-1', 'Mounts and shelves for each component', [1350, 1800]], ['print-inside-2', 'Holes for the button and volume knob', [1350, 1800]], ['print-inside-3', 'Inside view', [1350, 1800]]] },
+          { title: 'Color', cols: 3, images: [['print-blue', 'Housing and grille in blue', [1350, 1800]], ['print-black', 'Frame halves in matte black', [1350, 1800]]] },
+        ] },
+    ],
+    outcome: 'A working Bluetooth speaker where one continuous matte black ribbon loops around a blue housing, holding it up and framing it. The stainless power button and volume knob sit between the loops, and everything inside is mounted solidly enough to survive a shake.',
+    finalShots: [['final-1', 'Front', [1344, 1800]], ['final-2', 'Three-quarter view', [1344, 1800]], ['final-3', 'Charging port side', [1344, 1800]], ['final-4', 'Studio view', [1350, 1800]]],
+    tools: ['SolidWorks', '3D printing', 'Spray paint'],
   },
   {
     // REAL PROJECT. Add a timeline, team, or tools if you like (blank fields are hidden).
@@ -303,51 +348,6 @@ const PROJECTS = [
       'Follow up': ['Ask the shops director how class takeovers are communicated, what “Open” means for ComArt Digital Fab, and how authorizations work'],
     },
     tools: ['Google Forms', 'In\u2011person interviews', 'Figma', 'Claude'],
-  },
-  {
-    // REAL PROJECT. IND 447 Bluetooth speaker. Final photos show in the Outcome gallery (finalShots).
-    slug: 'speaker', featured: true,
-    title: 'Bluetooth Speaker',
-    summary: 'A battery-powered Bluetooth speaker held in one continuous ribbon of matte black loops.',
-    tags: ['CAD', '3D printing', 'Electronics'],
-    context: 'IND 447',
-    role: 'Sketching, CAD, prototyping, electronics, finishing', timeline: '', team: '',
-    cover: 'images/speaker/cover.jpg', coverAlt: 'A blue speaker housing held inside a matte black frame that loops back and forth, with a stainless button and a small knob between the loops',
-    overview: 'IND 447 explores the relationship between digital and physical, with a focus on advanced CAD and rapid prototyping, exercising the classic process “from art to part.” The project: design and build a working Bluetooth speaker. My design wraps a blue housing in a single ribbon that loops back and forth, so the frame is both the stand and the face of the speaker.',
-    requirements: [
-      'Fully functional as a battery-powered Bluetooth speaker. If it doesn’t work, it isn’t complete.',
-      'Every internal component solidly installed, with no dangling wires or rattling. It has to survive a strong shake.',
-      'All parts primarily machine-made, such as 3D printed or CNC machined, with only minor sanding or filing by hand.',
-    ],
-    process: [
-      { title: 'Sketching', text: 'I started loose, testing dozens of simple forms before letting a band wrap, fold, and finally loop around the box. The refined sheet worked out the housing, its grille and controls, and the three-loop frame in perspective.',
-        groups: [
-          { title: 'Thumbnails and refined sketches', cols: 2, images: [['sketch-thumbnails', 'Form thumbnails, from boxes to wraps to loops', [1800, 1124]], ['sketch-refined', 'Refined sketches: housing, grille, controls, and the looped frame', [1800, 1193]]] },
-          { title: 'Early ideas', cols: 4, images: [['sketch-1', 'Bell and cone forms', [1350, 1800]], ['sketch-2', 'Layered vase form', [1350, 1800]], ['sketch-3', 'Spool form', [1350, 1800]], ['sketch-4', 'Rounded forms with circle cutouts', [1350, 1800]], ['sketch-5', 'Paired rings', [1350, 1800]], ['sketch-6', 'Loops and stacked cylinders', [1350, 1800]], ['sketch-7', 'Three-loop frame studies', [1350, 1800]], ['sketch-8', 'Textured loop study', [1350, 1800]]] },
-        ] },
-      { title: 'CAD', text: 'In SolidWorks, I modeled the looped frame and explored housing forms and colors, then detailed the inside: mounts for every component, a hexagonal grille, and cutouts sized for the button and volume knob.',
-        groups: [
-          { title: 'Frame studies', cols: 3, images: [['cad-frame-1', 'The looped frame around the housing', [1800, 1350]], ['cad-frame-2', 'Three-quarter view', [1800, 1350]], ['cad-frame-side', 'Side view, showing how the loops layer', [1800, 1350]]] },
-          { title: 'Housing and color studies', cols: 4, images: [['cad-concept-1', 'Housing study in gray and blue', [1800, 1350]], ['cad-concept-2', 'Housing study in green', [1800, 1350]], ['cad-concept-3', 'Frame and housing together', [1800, 1350]], ['cad-concept-4', 'Front view of the frame', [1800, 1350]]] },
-          { title: 'Detailing the internals', cols: 3, images: [['cad-internals-1', 'Fitting the components inside', [1800, 1350]], ['cad-internals-2', 'Placing the speaker driver', [1800, 1350]], ['cad-dims', 'Sizing the cutouts for the controls', [1800, 1350]], ['cad-housing', 'Housing shell with the hexagonal grille and internal mounts', [1350, 1800]], ['cad-mount', 'Positioning a mount', [1350, 1800]], ['cad-internals-3', 'Front view with the driver opening', [1350, 1800]]] },
-        ] },
-      { title: '50% scale model', text: 'Before printing full size, I printed a model at half scale to check the proportions and how the parts come apart: two frame halves, the housing, the grille, and the base plate.',
-        groups: [{ cols: 4, images: [['scale-1', 'The scale model, taken apart', [1800, 1350]], ['scale-2', 'Frame halves around the assembled housing', [1350, 1800]], ['scale-3', 'Assembled, in hand', [1350, 1800]], ['scale-4', 'Assembled, three-quarter view', [1350, 1800]]] }] },
-      { title: 'Electronics', text: 'I planned the circuit on paper, laying out each board and drawing the connections, then wired and tested it on the bench before anything went into the housing: a speaker driver, an amplifier with a volume knob, a Bluetooth receiver, a charging board, a rechargeable battery, and a stainless power button.',
-        groups: [
-          { title: 'Planning the layout', cols: 3, images: [['wiring-plan-1', 'Mapping the boards and connections', [1350, 1800]], ['wiring-plan-2', 'Amplifier, receiver, and driver connections', [1350, 1800]], ['wiring-plan-3', 'Power and charging', [1350, 1800]]] },
-          { title: 'Testing on the bench', cols: 2, images: [['wiring-1', 'The full circuit, wired', [1070, 976]], ['wiring-2', 'Powered on and playing', [1206, 1008]]] },
-        ] },
-      { title: 'Printing and finishing', text: 'The full-size parts were 3D printed, sanded smooth, primed, and spray painted: blue for the housing and grille, matte black for the frame. Mounts printed into the housing hold every component in place.',
-        groups: [
-          { title: 'Sanding and primer', cols: 4, images: [['print-raw', 'Raw prints of the frame halves', [1800, 1350]], ['print-sanded', 'Sanded housing, grille, and base', [1800, 1350]], ['print-primer-2', 'Every part primed', [1800, 1350]], ['print-dryfit', 'Dry fit in primer', [1350, 1800]]] },
-          { title: 'Inside the housing', cols: 3, images: [['print-inside-1', 'Mounts and shelves for each component', [1350, 1800]], ['print-inside-2', 'Holes for the button and volume knob', [1350, 1800]], ['print-inside-3', 'Inside view', [1350, 1800]]] },
-          { title: 'Color', cols: 4, images: [['print-blue', 'Housing and grille in blue', [1350, 1800]], ['print-black', 'Frame halves in matte black', [1350, 1800]], ['print-black-2', 'The frame’s outline left on the paper', [1483, 1800]], ['print-paint', 'Both colors drying', [1800, 1350]]] },
-        ] },
-    ],
-    outcome: 'A working Bluetooth speaker where one continuous matte black ribbon loops around a blue housing, holding it up and framing it. The stainless power button and volume knob sit between the loops, and everything inside is mounted solidly enough to survive a shake.',
-    finalShots: [['final-1', 'Front', [1344, 1800]], ['final-2', 'Three-quarter view', [1344, 1800]], ['final-3', 'Charging port side', [1344, 1800]], ['final-4', 'Studio view', [1350, 1800]]],
-    tools: ['SolidWorks', '3D printing', 'Spray paint'],
   },
   {
     // COMING SOON: shows a "Coming soon" panel instead of a cover image, and a short note when opened
@@ -1366,7 +1366,7 @@ if (isHome) {
         </section>`).join('')}
         <section class="case-block case-fade" aria-labelledby="h-outcome">
           <div class="case-sec"><h3 id="h-outcome">Outcome</h3><div><p>${esc(p.outcome)}</p></div></div>
-          ${p.finalShots ? `<div class="gallery cols-4 final-shots">${p.finalShots.map(([file, cap, ar]) => {
+          ${p.finalShots ? `<div class="gallery cols-2 final-shots">${p.finalShots.map(([file, cap, ar]) => {
             const k = GALLERIES.case.push({ title: cap, src: `images/${p.slug}/${file}.jpg`, ar }) - 1;
             return `<figure class="gfig"><button type="button" class="gfig-btn" data-lb="${k}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(cap)}">${media({ src: `images/${p.slug}/${file}.jpg`, alt: `${p.title}, ${cap.toLowerCase()}`, label: cap, ar })}</button></figure>`;
           }).join('')}</div>` : `
