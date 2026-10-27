@@ -583,6 +583,15 @@ RENDER_SETS.forEach((set) => {
    Each item: [file name, description (used for alt text and the enlarged view), [width, height]].
    Pages scatter across the table automatically. */
 const SKETCH_SETS = [
+  { title: 'Angle Grinder Exploration', items: [
+    ['grinder-1', 'Colored marker study: faceted body and handle', [1600, 770]],
+    ['grinder-2', 'Rounded guard and handle study', [1600, 997]],
+    ['grinder-3', 'Construction sketch from above', [1600, 983]],
+    ['grinder-4', 'Handle form studies', [1600, 1212]],
+    ['grinder-5', 'Body and grip form studies', [1600, 1173]],
+    ['grinder-6', 'Curved body with side handle', [1600, 843]],
+    ['grinder-7', 'Side and front views', [1600, 969]],
+  ] },
   { title: 'IND 132', items: [
     ['ind132-boxes', 'Perspective study: stacked and nested boxes', [955, 587]],
     ['ind132-form-1', 'Perspective study: rounded form in sections', [924, 602]],
@@ -921,7 +930,7 @@ function lbRender() {
   const item = list[lbIndex];
   lbFrame.style.setProperty('--arn', item.ar[0] / item.ar[1]);
   $('.lb-media', lb).innerHTML = media({ src: item.src, alt: item.title, label: item.title, ar: item.ar, lazy: false });
-  $('.lb-cap', lb).textContent = item.title;
+  $('.lb-cap', lb).textContent = lbGallery === 'sketches' ? '' : item.title;   // sketches show without captions
   $('.lb-count', lb).textContent = `${lbIndex + 1} of ${list.length}`;
 }
 function openLightbox(gallery, index, from) {
@@ -1788,7 +1797,7 @@ if (page === 'renderings') {
 }
 
 /* =====================================================================
-   J. SKETCHES PAGE: scattered pages you can drag, or tidy into a grid
+   J. SKETCHES PAGE: scattered pages you can click to enlarge, or tidy into a grid
    ===================================================================== */
 if (page === 'sketches') {
   const wrap = $('#sketch-sets');
@@ -1797,7 +1806,7 @@ if (page === 'sketches') {
       <h2 class="set-title" id="set-${si}">${esc(set.title)}</h2>
       <div class="sketchbook" data-set="${si}">
         ${SKETCHES.map((s, i) => s.set !== si ? '' : `
-          <button class="sketch" type="button" data-index="${i}" data-cursor="Drag or click" aria-label="Enlarge: ${esc(s.title)}">
+          <button class="sketch" type="button" data-index="${i}" data-cursor="Enlarge" aria-label="Enlarge: ${esc(s.title)}">
             ${media({ src: s.src, alt: s.title, label: s.title, ar: s.ar })}
           </button>`).join('')}
       </div>
@@ -1829,7 +1838,6 @@ if (page === 'sketches') {
       cardW = Math.floor(loose ? cw * 0.92 : cw);
       cards.forEach((c) => { c.style.width = cardW + 'px'; });
       const heights = cards.map((c) => c.offsetHeight);
-      book.classList.toggle('can-drag', !mobile() && finePointer);
       const colH = Array(cols).fill(gap);
       state.forEach((s, i) => {
         const k = idx[i], col = colH.indexOf(Math.min(...colH));
@@ -1847,9 +1855,9 @@ if (page === 'sketches') {
       cards.forEach((c, i) => place(c, state[i], animate, i));
     };
 
-    // Drag (desktop). A click without movement enlarges the page; hovering straightens it.
+    // Click a page to enlarge it; hovering straightens it.
     cards.forEach((el, i) => {
-      let sx, sy, ox, oy, moved = false, down = false, lastX = 0;
+      const down = false;
       el.addEventListener('pointerenter', (e) => {
         if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
         gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.5 : 0, ease: 'back.out(2)', overwrite: 'auto' });
@@ -1858,44 +1866,7 @@ if (page === 'sketches') {
         if (e.pointerType !== 'mouse' || down || mobile() || !hasGSAP) return;
         gsap.to(el, { rotation: state[i].r, scale: 1, duration: motionOK ? 0.6 : 0, ease: 'back.out(2)', overwrite: 'auto' });
       });
-      el.addEventListener('pointerdown', (e) => {
-        if (mobile() || e.pointerType !== 'mouse' || e.button !== 0) return;
-        down = true; moved = false;
-        sx = e.clientX; sy = e.clientY; ox = state[i].x; oy = state[i].y; lastX = e.clientX;
-        el.setPointerCapture(e.pointerId);
-      });
-      el.addEventListener('pointermove', (e) => {
-        if (!down) return;
-        const dx = e.clientX - sx, dy = e.clientY - sy;
-        if (!moved && Math.hypot(dx, dy) < 6) return;
-        if (!moved) {
-          moved = true;
-          el.classList.add('is-grabbed');
-          el.style.zIndex = ++z;
-          if (tidy) { tidy = false; tidyBtn.textContent = 'Tidy up'; tidyBtn.setAttribute('aria-pressed', 'false'); }
-        }
-        const W = book.clientWidth, H = book.clientHeight, s = state[i];
-        s.x = clamp(ox + dx, -cardW * 0.3, W - cardW * 0.7);
-        s.y = clamp(oy + dy, -20, H - el.offsetHeight * 0.4);
-        const tilt = clamp((e.clientX - lastX) * 0.6, -12, 12);   // lean into the motion
-        lastX = e.clientX;
-        if (hasGSAP) {
-          gsap.set(el, { x: s.x, y: s.y });
-          gsap.to(el, { rotation: tilt, scale: 1.05, duration: motionOK ? 0.3 : 0, overwrite: 'auto' });
-        } else el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.r}deg)`;
-      });
-      const end = () => {
-        if (!down) return;
-        down = false;
-        if (!moved) return;
-        el.classList.remove('is-grabbed');
-        el._dragged = true;
-        if (hasGSAP) gsap.to(el, { rotation: 0, scale: 1.02, duration: motionOK ? 0.6 : 0, ease: 'back.out(2.2)', overwrite: 'auto' });
-      };
-      el.addEventListener('pointerup', end);
-      el.addEventListener('pointercancel', end);
-      el.addEventListener('click', (e) => {
-        if (el._dragged) { el._dragged = false; e.preventDefault(); return; }
+      el.addEventListener('click', () => {
         openLightbox('sketches', idx[i], el);
       });
     });
